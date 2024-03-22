@@ -112,6 +112,7 @@
     <Compile Include="Models\ALSRCAL_BOARD.cs" />
     <Compile Include="Models\ALSRCAL_CODE.cs" />
     <Compile Include="Models\ALSRCAL_PORT.cs" />
+    <Compile Include="Models\BRDINFOTYPE.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

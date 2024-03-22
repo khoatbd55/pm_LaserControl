@@ -20,7 +20,20 @@ namespace LaserControl
         IntPtr _hBox = IntPtr.Zero;
         public Form1()
         {
+            this.Load += Form1_Load;
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cboBoardInfoType.Items.Clear();
+            cboBoardInfoType.Items.Add(BRDINFOTYPE.BRDINFOTYPE_CARDINFO.ToString());
+            cboBoardInfoType.Items.Add(BRDINFOTYPE.BRDINFOTYPE_SENSOR1INFO.ToString());
+            cboBoardInfoType.Items.Add(BRDINFOTYPE.BRDINFOTYPE_SENSOR2INFO.ToString());
+            cboBoardInfoType.Items.Add(BRDINFOTYPE.BRDINFOTYPE_SENSOR3INFO.ToString());
+            cboBoardInfoType.Items.Add(BRDINFOTYPE.BRDINFOTYPE_SENSOR4INFO.ToString());
+            cboBoardInfoType.Items.Add(BRDINFOTYPE.BRDINFOTYPE_SENSORSTYPE.ToString());
+            cboBoardInfoType.SelectedIndex = 0;
         }
 
         private void btnFind2_Click(object sender, EventArgs e)
@@ -38,7 +51,7 @@ namespace LaserControl
                 {
                     _slot = ALSRCAL_PORT.ALSRCAL_PORT_A;
                     _hBox = hBoxs;
-                    panelControl.Enabled = true;
+                    panelControl.Enabled = true;    
                     WriteLog($"slot A select {slotAtype} slot B: {slotBtype} box: {boxes} hBox:{_hBox.ToString()}");
                 }
                 else if (slotBtype == (int)ALSRCAL_BOARD.ALSRCAL_PCAL_BOARD)
@@ -52,46 +65,6 @@ namespace LaserControl
                 {
                     panelControl.Enabled = false;
                     WriteLog("can not find slot type.slotA:" + slotAtype + " slotB:" + slotBtype +" box:"+boxes);
-                }
-            }
-            catch (Exception ex)
-            {
-                WriteLog("exception :" + ex.Message);
-            }
-        }
-
-        private void btnFind_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                IntPtr[] hBoxs = new IntPtr[1];
-                ushort boxes = 1;
-                ushort[] slotAtype=new ushort[boxes];
-                ushort[] slotBtype=new ushort[boxes];
-                
-                ALSRCAL_CODE code =(ALSRCAL_CODE) LaserApi.aLsrCalFind(ref hBoxs, ref slotAtype,ref slotBtype, ref boxes);
-                WriteLog("call find response code:"+code.ToString());
-                if (hBoxs.Length > 0)
-                {
-                    _hBox = hBoxs[0];
-                    if (slotAtype[0] == (int)ALSRCAL_BOARD.ALSRCAL_PCAL_BOARD)
-                    {
-                        _slot = ALSRCAL_PORT.ALSRCAL_PORT_A;
-                        panelControl.Enabled = true;
-                        WriteLog($"slot A select {slotAtype[0]} slot B: {slotBtype[0]} box: {boxes} hBox:{_hBox.ToString()}");
-                    }    
-                        
-                    else if (slotBtype[0] == (int)ALSRCAL_BOARD.ALSRCAL_PCAL_BOARD)
-                    {
-                        _slot = ALSRCAL_PORT.ALSRCAL_PORT_B;
-                        panelControl.Enabled = true;
-                        WriteLog($"slot A {slotAtype[0]} slot B select: {slotBtype[0]} box: {boxes} hBox:{_hBox.ToString()}");
-                    }    
-                    else
-                    {
-                        panelControl.Enabled = false;
-                        WriteLog("can not find slot type.slotA:" + slotAtype[0]+" slotB:" + slotBtype[0] + " box:" + boxes);
-                    }
                 }
             }
             catch (Exception ex)
@@ -126,13 +99,26 @@ namespace LaserControl
             }
         }
 
+        private void btnInit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ALSRCAL_CODE code = (ALSRCAL_CODE)LaserApi.aLsrCalPcalInit(_hBox, (ushort)_slot);
+                WriteLog($"close response code:{code.ToString()}");
+            }
+            catch (Exception ex)
+            {
+                WriteLog("exception :" + ex.Message);
+            }
+        }
+
         private void btnReadPos_Click(object sender, EventArgs e)
         {
             try
             {
                 LaserApi.POS pposLaser = new LaserApi.POS();
                 LaserApi.POS pposEncoder = new LaserApi.POS();
-                ulong ulSmplQty = 5;
+                ulong ulSmplQty = 10;
                 ulong pulSmplXfr = 0;
                 ALSRCAL_CODE code = (ALSRCAL_CODE)LaserApi.aLsrCalPcalReadPos(_hBox, (ushort)_slot,ref pposLaser,ref pposEncoder, ulSmplQty,ref pulSmplXfr);
                 WriteLog($"read pos response code:{code.ToString()}");
@@ -146,14 +132,17 @@ namespace LaserControl
             }
         }
 
-        private void btnGetInfos_Click(object sender, EventArgs e)
+        private void btnGetInfo2_Click(object sender, EventArgs e)
         {
             try
             {
-                LaserApi.TU_LSRINFO_SENSOR_TYPE pPortAInfo = new LaserApi.TU_LSRINFO_SENSOR_TYPE();
-                LaserApi.TU_LSRINFO_SENSOR_TYPE pPortBInfo = new LaserApi.TU_LSRINFO_SENSOR_TYPE();
-                ALSRCAL_CODE code = (ALSRCAL_CODE)LaserApi.aLsrCalGetInfo(_hBox, (ushort)_slot,ref pPortAInfo,ref pPortBInfo);
-                WriteLog($"read info response code:{code.ToString()}");
+                LaserApi.TU_LSRINFO_DEVICE_INFO pPortAInfo = new LaserApi.TU_LSRINFO_DEVICE_INFO();
+                pPortAInfo.SerialNumber=new byte[16];
+                LaserApi.TU_LSRINFO_DEVICE_INFO pPortBInfo = new LaserApi.TU_LSRINFO_DEVICE_INFO();
+                pPortBInfo.SerialNumber = new byte[16];
+                ALSRCAL_CODE code = (ALSRCAL_CODE)LaserApi.aLsrCalGetInfo(_hBox, (ushort)cboBoardInfoType.SelectedIndex,
+                                                                                            ref pPortAInfo, ref pPortBInfo);
+                WriteLog($"read info 2 response code:{code.ToString()}");
                 WriteLog($"sensor A:{JsonConvert.SerializeObject(pPortAInfo)}");
                 WriteLog($"sensor B:{JsonConvert.SerializeObject(pPortBInfo)}");
             }
@@ -161,6 +150,7 @@ namespace LaserControl
             {
                 WriteLog("exception :" + ex.Message);
             }
+            
         }
 
         private void btnReadVersion_Click(object sender, EventArgs e)
@@ -168,9 +158,9 @@ namespace LaserControl
             try
             {
                 byte[] hw = new byte[100];
-                hw[0] = 100;
+                hw[0] = 99;
                 byte[] fw=new byte[100];
-                fw[0] = 100;
+                fw[0] = 99;
                 ALSRCAL_CODE code = (ALSRCAL_CODE)LaserApi.aLsrCalGetVersions(_hBox, ref hw, ref fw);
                 WriteLog($"read version response code:{code.ToString()}");
                 hw[0] = (byte)':';
@@ -183,6 +173,23 @@ namespace LaserControl
                 WriteLog("exception :" + ex.Message);
             }
         }
+
+        private void btnReadSetting_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LaserApi.PCAL pcal = new LaserApi.PCAL();
+                ALSRCAL_CODE code = (ALSRCAL_CODE)LaserApi.aLsrCalPcalGetSettings(_hBox, (ushort)_slot, ref pcal);
+                WriteLog($"read version response code:{code.ToString()}");
+                WriteLog($"setting info:{JsonConvert.SerializeObject(pcal)}");
+            }
+            catch (Exception ex)
+            {
+                WriteLog("exception :" + ex.Message);
+            }
+        }
+
+        
 
         private void WriteLog(string msg)
         {
