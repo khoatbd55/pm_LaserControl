@@ -30,18 +30,17 @@
         {
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl = new DevExpress.XtraEditors.PanelControl();
-            this.btnReadVersion = new DevExpress.XtraEditors.SimpleButton();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.cboBoardInfoType = new System.Windows.Forms.ComboBox();
+            this.btnInit = new DevExpress.XtraEditors.SimpleButton();
+            this.btnGetInfo2 = new DevExpress.XtraEditors.SimpleButton();
+            this.btnReadSetting = new DevExpress.XtraEditors.SimpleButton();
             this.btnClose = new DevExpress.XtraEditors.SimpleButton();
             this.btnReadPos = new DevExpress.XtraEditors.SimpleButton();
             this.btnOpen = new DevExpress.XtraEditors.SimpleButton();
             this.btnFind2 = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.listLog = new System.Windows.Forms.ListBox();
-            this.btnReadSetting = new DevExpress.XtraEditors.SimpleButton();
-            this.btnGetInfo2 = new DevExpress.XtraEditors.SimpleButton();
-            this.btnInit = new DevExpress.XtraEditors.SimpleButton();
-            this.cboBoardInfoType = new System.Windows.Forms.ComboBox();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl)).BeginInit();
@@ -71,7 +70,6 @@
             this.panelControl.Controls.Add(this.btnInit);
             this.panelControl.Controls.Add(this.btnGetInfo2);
             this.panelControl.Controls.Add(this.btnReadSetting);
-            this.panelControl.Controls.Add(this.btnReadVersion);
             this.panelControl.Controls.Add(this.btnClose);
             this.panelControl.Controls.Add(this.btnReadPos);
             this.panelControl.Controls.Add(this.btnOpen);
@@ -81,14 +79,48 @@
             this.panelControl.Size = new System.Drawing.Size(1590, 274);
             this.panelControl.TabIndex = 6;
             // 
-            // btnReadVersion
+            // labelControl1
             // 
-            this.btnReadVersion.Location = new System.Drawing.Point(12, 190);
-            this.btnReadVersion.Name = "btnReadVersion";
-            this.btnReadVersion.Size = new System.Drawing.Size(164, 61);
-            this.btnReadVersion.TabIndex = 4;
-            this.btnReadVersion.Text = "Read Version";
-            this.btnReadVersion.Click += new System.EventHandler(this.btnReadVersion_Click);
+            this.labelControl1.Location = new System.Drawing.Point(446, 103);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(113, 20);
+            this.labelControl1.TabIndex = 9;
+            this.labelControl1.Text = "Board Info Type";
+            // 
+            // cboBoardInfoType
+            // 
+            this.cboBoardInfoType.FormattingEnabled = true;
+            this.cboBoardInfoType.Location = new System.Drawing.Point(446, 136);
+            this.cboBoardInfoType.Name = "cboBoardInfoType";
+            this.cboBoardInfoType.Size = new System.Drawing.Size(385, 28);
+            this.cboBoardInfoType.TabIndex = 8;
+            // 
+            // btnInit
+            // 
+            this.btnInit.Location = new System.Drawing.Point(446, 22);
+            this.btnInit.Name = "btnInit";
+            this.btnInit.Size = new System.Drawing.Size(164, 61);
+            this.btnInit.TabIndex = 7;
+            this.btnInit.Text = "Init";
+            this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
+            // 
+            // btnGetInfo2
+            // 
+            this.btnGetInfo2.Location = new System.Drawing.Point(220, 103);
+            this.btnGetInfo2.Name = "btnGetInfo2";
+            this.btnGetInfo2.Size = new System.Drawing.Size(164, 61);
+            this.btnGetInfo2.TabIndex = 6;
+            this.btnGetInfo2.Text = "Get Infos2";
+            this.btnGetInfo2.Click += new System.EventHandler(this.btnGetInfo2_Click);
+            // 
+            // btnReadSetting
+            // 
+            this.btnReadSetting.Location = new System.Drawing.Point(12, 189);
+            this.btnReadSetting.Name = "btnReadSetting";
+            this.btnReadSetting.Size = new System.Drawing.Size(164, 61);
+            this.btnReadSetting.TabIndex = 5;
+            this.btnReadSetting.Text = "Read Setting";
+            this.btnReadSetting.Click += new System.EventHandler(this.btnReadSetting_Click);
             // 
             // btnClose
             // 
@@ -151,49 +183,6 @@
             this.listLog.Size = new System.Drawing.Size(1614, 335);
             this.listLog.TabIndex = 0;
             // 
-            // btnReadSetting
-            // 
-            this.btnReadSetting.Location = new System.Drawing.Point(220, 190);
-            this.btnReadSetting.Name = "btnReadSetting";
-            this.btnReadSetting.Size = new System.Drawing.Size(164, 61);
-            this.btnReadSetting.TabIndex = 5;
-            this.btnReadSetting.Text = "Read Setting";
-            this.btnReadSetting.Click += new System.EventHandler(this.btnReadSetting_Click);
-            // 
-            // btnGetInfo2
-            // 
-            this.btnGetInfo2.Location = new System.Drawing.Point(220, 103);
-            this.btnGetInfo2.Name = "btnGetInfo2";
-            this.btnGetInfo2.Size = new System.Drawing.Size(164, 61);
-            this.btnGetInfo2.TabIndex = 6;
-            this.btnGetInfo2.Text = "Get Infos2";
-            this.btnGetInfo2.Click += new System.EventHandler(this.btnGetInfo2_Click);
-            // 
-            // btnInit
-            // 
-            this.btnInit.Location = new System.Drawing.Point(446, 22);
-            this.btnInit.Name = "btnInit";
-            this.btnInit.Size = new System.Drawing.Size(164, 61);
-            this.btnInit.TabIndex = 7;
-            this.btnInit.Text = "Init";
-            this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
-            // 
-            // cboBoardInfoType
-            // 
-            this.cboBoardInfoType.FormattingEnabled = true;
-            this.cboBoardInfoType.Location = new System.Drawing.Point(446, 136);
-            this.cboBoardInfoType.Name = "cboBoardInfoType";
-            this.cboBoardInfoType.Size = new System.Drawing.Size(385, 28);
-            this.cboBoardInfoType.TabIndex = 8;
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.Location = new System.Drawing.Point(446, 103);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(113, 20);
-            this.labelControl1.TabIndex = 9;
-            this.labelControl1.Text = "Board Info Type";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -226,7 +215,6 @@
         private DevExpress.XtraEditors.SimpleButton btnClose;
         private DevExpress.XtraEditors.SimpleButton btnFind2;
         private DevExpress.XtraEditors.PanelControl panelControl;
-        private DevExpress.XtraEditors.SimpleButton btnReadVersion;
         private DevExpress.XtraEditors.SimpleButton btnReadSetting;
         private DevExpress.XtraEditors.SimpleButton btnGetInfo2;
         private DevExpress.XtraEditors.SimpleButton btnInit;
