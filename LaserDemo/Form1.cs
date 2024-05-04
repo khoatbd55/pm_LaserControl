@@ -1,4 +1,6 @@
-﻿using DevExpress.Utils.MVVM;
+﻿using DevExpress.Data.TreeList;
+using DevExpress.Utils.MVVM;
+using DevExpress.XtraWaitForm;
 using LaserDemo.Models;
 using System;
 using System.Collections;
@@ -14,278 +16,260 @@ using System.Windows.Forms;
 
 namespace LaserDemo
 {
-    public unsafe partial class Form1 : DevExpress.XtraEditors.XtraForm
+    public partial class Form1 : DevExpress.XtraEditors.XtraForm
     {
-        Queue<MessageLaserBase> _queueLog=new Queue<MessageLaserBase>();
-        object _syncQueue=new object();
-        AutoResetEvent _waitQueueLog = new AutoResetEvent(false);
-        Thread threadLaser;
+        Task _task;
+        IntPtr hBoxes = IntPtr.Zero;
+        bool _isRunning = false;
+        bool _firstClose = true;
+        bool _isRequireReset = false;
+        WaitForm_Service _waitForm;
+        struct Boxes
+        {
+            public IntPtr[] hBoxes;    // MUST change to ulong for 64-bit targets (both here and in wrap.cs file)
+            public ushort[] PortABrdType;
+            public ushort[] PortBBrdType;
+        }
         public Form1()
         {
             this.Load += Form1_Load;
             this.FormClosed += Form1_FormClosed;
             this.FormClosing += Form1_FormClosing;
             InitializeComponent();
-            
         }
 
-        private unsafe void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private async void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (threadLaser != null)
+            if (_firstClose)
             {
-                if (threadLaser.IsAlive)
-                    try
-                    {
-                        threadLaser.Abort();
-                    }
-                    catch (Exception)
-                    {
-
-                    }
+                _firstClose = false;
+                e.Cancel = true;
+                await StopAsync();
+                await Task.Delay(100);
+                e.Cancel = true;
+                this.Close();
             }
-            if(_isRunning)
+            else
             {
-                _isRunning = false;
-                if(hBoxes!=0)
+                try
                 {
-                    LaserApi.aLsrCalPcalClose(hBoxes, SLOTSELECT.ALSRCAL_PORT_A);
-                }    
-            }    
-            timer1.Stop();
+                    Application.Exit();
+                }
+                catch (Exception)
+                {
+
+                }
+            }
         }
 
-        private unsafe void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.ExitThread();
             Application.Exit();
         }
 
-        private unsafe void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            timer1.Start();
+            _waitForm = new WaitForm_Service(this);
         }
         
-        private unsafe void btnConnect_Click(object sender, EventArgs e)
+        private async void btnConnect_Click(object sender, EventArgs e)
         {
             if (_isRunning == false)
             {
                 _isRunning = true;
                 btnConnect.Enabled = false;
                 btnConnect.Text = "Disconnect";
-                threadLaser= new Thread(ProcessLaser);
-                threadLaser.Start();
+                _task = Task.Run(() => ProcessLaser());
             }
             else
             {
-                _isRunning = false;
-                btnReset.Enabled = false;
-                btnConnect.Enabled = false;
-                hBoxes = 0;
+                await StopAsync();
             }
         }
 
 
-        private unsafe void btnReset_Click(object sender, EventArgs e)
+        private void btnReset_Click(object sender, EventArgs e)
         {
-            if(_isRunning && hBoxes!=0)
-            {
-                POS ZeroPos = new POS();
-                ZeroPos.dPosition = 0.0;
-                LaserApi.aLsrCalPcalResetLaser(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, ZeroPos);
-            }    
-            
+            _isRequireReset = true;
         }
 
-        uint hBoxes = 0;
-        bool _isRunning = false;
-
-        private unsafe void ProcessLaser()
+        
+        private async Task StopAsync()
         {
+            _waitForm.ShowProgressPanel();
+            await Task.Delay(200);
+            if(_isRunning)
             {
-                ALSRCALRC rc;
-                Boxes LsrBox = new Boxes();
-                ushort MxBoxes = 4;
+                _isRunning = false;
+                await WaitForTask(_task);
+            }    
+            btnReset.Enabled = false;
+            btnConnect.Enabled = true;
+            btnConnect.Text = "Connect";
+            _isRequireReset = false;
+            _waitForm.CloseProgressPanel();
+        }
 
-                WriteLog("Program Starting");
-                rc = LaserApi.aLsrCalFind(&LsrBox.hBoxes[0], (BOARDTYPE*)&LsrBox.PortABrdType[0], (BOARDTYPE*)&LsrBox.PortBBrdType[0], &MxBoxes);
-                WriteLog("Find returned " + Convert.ToString(rc) + ", boxes = " + Convert.ToString(MxBoxes));
-                for (ushort boxsel = 0; boxsel < MxBoxes; boxsel++)
+        private async Task WaitForTask(Task task)
+        {
+            try
+            {
+                if (task != null && !task.IsCompleted)
+                    await task.ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private async Task ProcessLaser()
+        {
+            ALSRCALRC rc;
+            Boxes LsrBox = new Boxes()
+            {
+                hBoxes = new IntPtr[4],
+                PortABrdType = new ushort[4],
+                PortBBrdType = new ushort[4]
+            };
+            ushort MxBoxes = 4;
+
+            WriteLog("Program Starting");
+            rc = LaserApi.aLsrCalFind(ref LsrBox.hBoxes[0], ref LsrBox.PortABrdType[0], ref LsrBox.PortBBrdType[0], ref MxBoxes);
+            WriteLog("Find returned " + Convert.ToString(rc) + ", boxes = " + Convert.ToString(MxBoxes));
+
+            if ((MxBoxes > 0) && ((BOARDTYPE)LsrBox.PortABrdType[0] == BOARDTYPE.ALSRCAL_PCAL_BOARD))
+            {
+                IntPtr hBoxes = LsrBox.hBoxes[0]; // MUST change to ulong for 64-bit targets
+
+                rc = LaserApi.aLsrCalPcalOpen(hBoxes, SLOTSELECT.ALSRCAL_PORT_A);
+                WriteLog("Box 1 Pcal Open returns: " + Convert.ToString(rc));
+                if (rc == ALSRCALRC.ALSRCAL_NO_ERROR)
                 {
-                    uint hBoxes = LsrBox.hBoxes[boxsel];    // MUST change to ulong for 64-bit targets
+                    rc = LaserApi.aLsrCalPcalInit(hBoxes, SLOTSELECT.ALSRCAL_PORT_A);
+                    WriteLog("  Pcal Init returns: " + Convert.ToString(rc));
 
-                    WriteLog("Box " + Convert.ToString(boxsel + 1));
-                    WriteLog("  PortA contains: " + Convert.ToString((BOARDTYPE)LsrBox.PortABrdType[boxsel]));
-                    WriteLog("  PortB contains: " + Convert.ToString((BOARDTYPE)LsrBox.PortBBrdType[boxsel]));
+                    PCAL PcalSetup = new PCAL();
+                    rc = LaserApi.aLsrCalPcalGetSettings(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, ref PcalSetup);
+                    WriteLog("  Pcal Get Settings returns: " + Convert.ToString(rc));
+                    if (rc == ALSRCALRC.ALSRCAL_NO_ERROR)
+                        ShowLsrSetup(ref PcalSetup);
 
-                    if ((BOARDTYPE)LsrBox.PortABrdType[boxsel] == BOARDTYPE.ALSRCAL_PCAL_BOARD)
-                    {
-                        LSRINFO DeviceInfo;
-
-                        rc = LaserApi.aLsrCalGetInfo(hBoxes, BOARDINFOTYPE.BRDINFOTYPE_CARDINFO, &DeviceInfo, (LSRINFO*)0);
-                        WriteLog("  GetInfo(E1735A) returns: " + Convert.ToString(rc));
-                        if (rc == ALSRCALRC.ALSRCAL_NO_ERROR)
-                            ShowDevDetails(&DeviceInfo.DevInfo, 2);
-                    }
-
-                    if ((BOARDTYPE)LsrBox.PortBBrdType[boxsel] == BOARDTYPE.ALSRCAL_COMP_BOARD)
-                    {
-                        LSRINFO SensTypeInfo, DeviceInfo;
-
-                        rc = LaserApi.aLsrCalGetInfo(hBoxes, BOARDINFOTYPE.BRDINFOTYPE_CARDINFO, (LSRINFO*)0, &DeviceInfo);
-                        WriteLog("  GetInfo(E1736A) returns: " + Convert.ToString(rc));
-                        if (rc == ALSRCALRC.ALSRCAL_NO_ERROR)
-                            ShowDevDetails(&DeviceInfo.DevInfo, 2);
-
-                        rc = LaserApi.aLsrCalGetInfo(hBoxes, BOARDINFOTYPE.BRDINFOTYPE_SENSORSTYPE, (LSRINFO*)0, &SensTypeInfo);
-                        WriteLog("    GetInfo(SensorType) returns: " + Convert.ToString(rc));
-                        WriteLog("      Sensor 1: " + SensTypeInfo.SnsType.Sensor1Type.ToString("x8"));
-                        WriteLog("      Sensor 2: " + SensTypeInfo.SnsType.Sensor2Type.ToString("x8"));
-                        WriteLog("      Sensor 3: " + SensTypeInfo.SnsType.Sensor3Type.ToString("x8"));
-                        WriteLog("      Sensor 4: " + SensTypeInfo.SnsType.Sensor4Type.ToString("x8"));
-
-                        for (uint SnsNdx = 0; SnsNdx < 4; SnsNdx++)
-                        {
-                            if ((SensTypeInfo.Array[SnsNdx] == 0xE1737A) || (SensTypeInfo.Array[SnsNdx] == 0xE1738A))
-                            {
-                                rc = LaserApi.aLsrCalGetInfo(hBoxes, (BOARDINFOTYPE)(SnsNdx + 1), (LSRINFO*)0, &DeviceInfo);
-                                WriteLog("    GetInfo(Sensor" + Convert.ToString(SnsNdx + 1) + "Info) returns: " + Convert.ToString(rc));
-                                if (rc == ALSRCALRC.ALSRCAL_NO_ERROR)
-                                    ShowDevDetails(&DeviceInfo.DevInfo, 4);
-                            }
-                        }
-                    }
-                }
-
-                if ((MxBoxes > 0) && ((BOARDTYPE)LsrBox.PortABrdType[0] == BOARDTYPE.ALSRCAL_PCAL_BOARD))
-                {
-                    hBoxes = LsrBox.hBoxes[0]; // MUST change to ulong for 64-bit targets
-                    rc = LaserApi.aLsrCalPcalOpen(hBoxes, SLOTSELECT.ALSRCAL_PORT_A);
-                    WriteLog("Box 1 Pcal Open returns: " + Convert.ToString(rc));
+                    POS ZeroPos = new POS();
+                    ZeroPos.dPosition = 0.0;
+                    rc = LaserApi.aLsrCalPcalResetLaser(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, ZeroPos);
+                    WriteLog("  Pcal Reset returns: " + Convert.ToString(rc));
                     if (rc == ALSRCALRC.ALSRCAL_NO_ERROR)
                     {
-                        rc = LaserApi.aLsrCalPcalInit(hBoxes, SLOTSELECT.ALSRCAL_PORT_A);
-                        WriteLog("  Pcal Init returns: " + Convert.ToString(rc));
+                        POS LivePos = new POS();
+                        float LiveBeam = 0;
+                        uint LiveSmpl = 0, Samples = 0;
+                        TRIGSTAT LiveTrig = TRIGSTAT.TRIG_ARMED;
+                        ALSRCALRC rc_async = ALSRCALRC.ALSRCAL_APIDLL_ERROR;
+                        EventWaitHandle MyEvent = new EventWaitHandle(false, EventResetMode.AutoReset); // created to avoid null pointer, but is not used below (but could be)
 
-                        PCAL PcalSetup = new PCAL();
-                        rc = LaserApi.aLsrCalPcalGetSettings(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, &PcalSetup);
+                        rc = LaserApi.aLsrCalPcalSetSampleMode(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, DCSDRVMODE.DCSDM_NEVER, 0, 0, SMPLMODE.SMPL_SW);
+                        WriteLog("  Set Smpl Mode returns: " + Convert.ToString(rc));
+
+                        rc = LaserApi.aLsrCalPcalSetTriggering(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, TRIGMODE.TRIG_NONE, TRIGMODE.TRIG_HW_REC, ZeroPos, ZeroPos);
+                        WriteLog("  Set Trigger Mode returns: " + Convert.ToString(rc));
+
+                        rc = LaserApi.aLsrCalPcalSetTimeout(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, 60000);
+                        WriteLog("  Set Timeout returns: " + Convert.ToString(rc));
+
+                        rc = LaserApi.aLsrCalPcalGetSettings(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, ref PcalSetup);
                         WriteLog("  Pcal Get Settings returns: " + Convert.ToString(rc));
                         if (rc == ALSRCALRC.ALSRCAL_NO_ERROR)
                             ShowLsrSetup(ref PcalSetup);
 
-                        POS ZeroPos = new POS();
-                        ZeroPos.dPosition = 0.0;
-                        rc = LaserApi.aLsrCalPcalResetLaser(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, ZeroPos);
-                        WriteLog("  Pcal Reset returns: " + Convert.ToString(rc));
+                        POS[] MyData = new POS[10];
+                        for (uint i = 0; i < 10; i++)
+                            MyData[i].dPosition = (i + 1) * 1.11111;
+                        POS pposEncoder = new POS();
+                        rc = LaserApi.aLsrCalPcalReadPosAsync(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, ref MyData[0], ref pposEncoder, 10, ref Samples, MyEvent.SafeWaitHandle.DangerousGetHandle());
+                        WriteLog("  Read Async returns: " + Convert.ToString(rc));
                         if (rc == ALSRCALRC.ALSRCAL_NO_ERROR)
                         {
-                            POS LivePos;
-                            float LiveBeam;
-                            uint LiveSmpl, Samples = 0;
-                            TRIGSTAT LiveTrig;
-                            PosData MyData = new PosData();
-                            ALSRCALRC rc_async;
-                            EventWaitHandle MyEvent = new EventWaitHandle(false, EventResetMode.AutoReset); // created to avoid null pointer, but is not used below (but could be)
-
-                            for (uint i = 0; i < 10; i++) MyData.LsrPos[i] = (i + 1) * 1.11111;
-
-                            rc = LaserApi.aLsrCalPcalSetSampleMode(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, DCSDRVMODE.DCSDM_NEVER, 0, 0, SMPLMODE.SMPL_SW);
-                            WriteLog("  Set Smpl Mode returns: " + Convert.ToString(rc));
-
-                            rc = LaserApi.aLsrCalPcalSetTriggering(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, TRIGMODE.TRIG_NONE, TRIGMODE.TRIG_HW_REC, ZeroPos, ZeroPos);
-                            WriteLog("  Set Trigger Mode returns: " + Convert.ToString(rc));
-
-                            rc = LaserApi.aLsrCalPcalSetTimeout(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, 60000);
-                            WriteLog("  Set Timeout returns: " + Convert.ToString(rc));
-
-                            rc = LaserApi.aLsrCalPcalGetSettings(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, &PcalSetup);
-                            WriteLog("  Pcal Get Settings returns: " + Convert.ToString(rc));
-                            if (rc == ALSRCALRC.ALSRCAL_NO_ERROR)
-                                ShowLsrSetup(ref PcalSetup);
-
-                            rc = LaserApi.aLsrCalPcalReadPosAsync(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, (POS*)&MyData.LsrPos[0], (POS*)0, 10, &Samples, (void*)MyEvent.SafeWaitHandle.DangerousGetHandle());
-                            WriteLog("  Read Async returns: " + Convert.ToString(rc));
-                            if (rc == ALSRCALRC.ALSRCAL_NO_ERROR)
+                            WriteConnectLaser(true);
+                            do
                             {
-                                WriteConnectLaser(true);
-                                do
+                                POS posX = new POS();
+                                POS posECd = new POS();
+                                rc = LaserApi.aLsrCalPcalGetCurState(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, ref LivePos, ref posX, ref posECd, ref LiveBeam, ref LiveSmpl, ref LiveTrig);
+                                WriteLog(
+                                        "  Pos: " + string.Format("{0,12:0.#####0}", LivePos.dPosition) +
+                                        " mm, Beam: " + LiveBeam.ToString("##.0") +
+                                        "%, Smpls: " + LiveSmpl.ToString() +
+                                        ", Trig: " + LiveTrig.ToString()
+                                        );
+                                WritePos(LivePos.dPosition, LiveBeam, LiveSmpl, LiveTrig);
+                                if(_isRequireReset)
                                 {
-                                    rc = LaserApi.aLsrCalPcalGetCurState(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, &LivePos, (POS*)0, (POS*)0, &LiveBeam, &LiveSmpl, &LiveTrig);
-                                    WriteLog(
-                                            "  Pos: " + string.Format("{0,12:0.#####0}", LivePos.dPosition) +
-                                            " mm, Beam: " + LiveBeam.ToString("##.0") +
-                                            "%, Smpls: " + LiveSmpl.ToString() +
-                                            ", Trig: " + LiveTrig.ToString()
-                                            );
-                                    WritePos(LivePos.dPosition, LiveBeam, LiveSmpl, LiveTrig);
-                                    Thread.Sleep(1000);
-                                }
-                                //while ((LiveSmpl < 10) && (Abort == false) && (MyEvent.WaitOne(0) == false));
-                                while ((_isRunning == true));
+                                    _isRequireReset = false;
+                                    rc = LaserApi.aLsrCalPcalResetLaser(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, ZeroPos);
+                                    WriteLog("  Pcal Reset returns: " + Convert.ToString(rc));
+                                    rc = LaserApi.aLsrCalPcalSetTriggering(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, TRIGMODE.TRIG_NONE, TRIGMODE.TRIG_HW_REC, ZeroPos, ZeroPos);
+                                    WriteLog("  Set Trigger Mode returns: " + Convert.ToString(rc));
+                                    
+                                }    
+                                await Task.Delay(1000);
                             }
-                            else
-                            {
-                                WriteConnectLaser(false);
-                            }
-
-                            rc = LaserApi.aLsrCalPcalGetAsyncRC(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, &rc_async);
-                            WriteLog("  Get Async Result returns: " + Convert.ToString(rc) + ", Async result:" + Convert.ToString(rc_async));
-                            for (uint i = 0; i < 10; i++)
-                                WriteLog("    Sample " + i.ToString() + " = " + MyData.LsrPos[i].ToString());
+                            while (_isRunning);
                         }
                         else
                         {
                             WriteConnectLaser(false);
                         }
 
-                        rc = LaserApi.aLsrCalPcalClose(hBoxes, SLOTSELECT.ALSRCAL_PORT_A);
-                        WriteLog("  Pcal Close returns: " + Convert.ToString(rc));
-                        //hBoxes = 0;
+                        rc = LaserApi.aLsrCalPcalGetAsyncRC(hBoxes, SLOTSELECT.ALSRCAL_PORT_A, ref rc_async);
+                        WriteLog("  Get Async Result returns: " + Convert.ToString(rc) + ", Async result:" + Convert.ToString(rc_async));
+                        for (uint i = 0; i < 10; i++)
+                            WriteLog("    Sample " + i.ToString() + " = " + MyData[i].dPosition.ToString());
                     }
                     else
                     {
                         WriteConnectLaser(false);
                     }
+                    rc = LaserApi.aLsrCalPcalClose(hBoxes, SLOTSELECT.ALSRCAL_PORT_A);
+                    WriteLog("  Pcal Close returns: " + Convert.ToString(rc));
                 }
                 else
                 {
                     WriteConnectLaser(false);
                 }
             }
+            else
+            {
+                WriteConnectLaser(false);
+            }
             
+
         }
 
-        unsafe struct Boxes
-        {
-            public fixed uint hBoxes[4];    // MUST change to ulong for 64-bit targets (both here and in wrap.cs file)
-            public fixed ushort PortABrdType[4];
-            public fixed ushort PortBBrdType[4];
-        }
+        
 
-        unsafe struct PosData
-        {
-            public fixed double LsrPos[10];
-        }
 
-        unsafe void ShowDevDetails(DEVICEINFO* Info, uint IndentSize)
+         void ShowDevDetails(DEVICEINFO Info, uint IndentSize)
         {
             StringBuilder temp = new StringBuilder();
             for (uint i = 0; i < 16; i++)
             {
-                if (Info->SerialNumber[i] == 0) break;
-                temp.Append(Convert.ToChar(Info->SerialNumber[i]));
+                if (Info.SerialNumber[i] == 0) break;
+                temp.Append(Convert.ToChar(Info.SerialNumber[i]));
             }
 
             StringBuilder Indent = new StringBuilder();
             for (uint i = 0; i < 2 + IndentSize; i++) Indent.Append(" ");
 
-            WriteLog(Indent + " PCB Rev: 0x" + Info->PCBRevision.ToString("x8"));
-            WriteLog(Indent + "Sldr Opt: 0x" + Info->SolderOption.ToString("x8"));
-            WriteLog(Indent + " MCU Rev: 0x" + Info->MCURevision.ToString("x8"));
+            WriteLog(Indent + " PCB Rev: 0x" + Info.PCBRevision.ToString("x8"));
+            WriteLog(Indent + "Sldr Opt: 0x" + Info.SolderOption.ToString("x8"));
+            WriteLog(Indent + " MCU Rev: 0x" + Info.MCURevision.ToString("x8"));
             WriteLog(Indent + "Serial #: " + temp.ToString());
-            WriteLog(Indent + "Mfg Date: 0x" + Info->ManufactureDate.ToString("x8"));
+            WriteLog(Indent + "Mfg Date: 0x" + Info.ManufactureDate.ToString("x8"));
         }
 
-        unsafe void ShowLsrSetup(ref PCAL Setup)
+        void ShowLsrSetup(ref PCAL Setup)
         {
             string Indent = "    ";
             WriteLog(Indent + "    Version: " + Setup.version.ToString("x8"));
@@ -321,93 +305,51 @@ namespace LaserDemo
             WriteLog(Indent + "Ncdr    SwL: " + Setup.ncdr_swl.ToString());
         }
 
-        private unsafe void WriteLog(string message)
+        private void WriteLog(string message)
         {
-            lock (_syncQueue)
+            this.Invoke(new MethodInvoker(() =>
             {
-                _queueLog.Enqueue(new MessageLaserLog()
+                listLog.Items.Add(message);
+                while (listLog.Items.Count > 300)
                 {
-                    Str = message
-                });
-                _waitQueueLog.Set();
-            }
-        }
-
-        private unsafe void WriteConnectLaser(bool isConnect)
-        {
-            lock (_syncQueue)
-            {
-                _queueLog.Enqueue(new MessageLaserConnection()
-                {
-                    IsConnected = isConnect
-                });
-            }
-        }
-
-        private unsafe void WritePos(double pos,float beam,uint smpl,TRIGSTAT trig)
-        {
-            lock (_syncQueue)
-            {
-                _queueLog.Enqueue(new MessageLaserPosition()
-                {
-                    Pos=pos,
-                    Beam=beam,
-                    Smpl=smpl,
-                    Trig=trig
-                });
-            }
-        }
-
-        private unsafe void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            ProcessLaser();
-        }
-
-        private unsafe void timer1_Tick(object sender, EventArgs e)
-        {
-            MessageLaserBase msg = null;
-            lock (_syncQueue)
-            {
-                if (_queueLog.Count > 0)
-                    msg = _queueLog.Dequeue();
-            }
-            if (msg != null)
-            {
-                if(msg is MessageLaserLog msgLog)
-                {
-                    listLog.Items.Add(msgLog.Str);
-                    while (listLog.Items.Count > 300)
-                    {
-                        listLog.Items.RemoveAt(0);
-                    }
-                    listLog.SelectedIndex=listLog.Items.Count-1;
+                    listLog.Items.RemoveAt(0);
                 }
-                else if(msg is MessageLaserPosition msgPos)
-                {
-                    labelPos.Text = string.Format("{0,12:0.#####0}", msgPos.Pos);
-                    var beam = msgPos.Beam;
-                    if (beam > 100)
-                        beam = 100;
-                    progressBarBeam.Position = (int)beam;
-                }
-                else if(msg is MessageLaserConnection msgConnect)
-                {
-                    if (msgConnect.IsConnected)
-                    {
-                        btnConnect.Enabled = true;
-                        btnConnect.Text = "Disconnect";
-                        btnReset.Enabled = true;
-                    }
-                    else
-                    {
-                        btnReset.Enabled = false;
-                        btnConnect.Enabled = true;
-                        btnConnect.Text = "Connect";
-                        _isRunning = false;
-                        hBoxes = 0;
-                    }
-                }
-            }
+                listLog.SelectedIndex = listLog.Items.Count - 1;
+            }));
         }
+
+        private void WriteConnectLaser(bool isConnect)
+        {
+            this.Invoke(new MethodInvoker(() =>
+            {
+                if (isConnect)
+                {
+                    btnConnect.Enabled = true;
+                    btnConnect.Text = "Disconnect";
+                    btnReset.Enabled = true;
+                }
+                else
+                {
+                    btnReset.Enabled = false;
+                    btnConnect.Enabled = true;
+                    btnConnect.Text = "Connect";
+                    _isRunning = false;
+                    hBoxes = IntPtr.Zero;
+                }
+            }));
+        }
+
+        private void WritePos(double pos,float beam,uint smpl,TRIGSTAT trig)
+        {
+            this.Invoke(new MethodInvoker(() =>
+            {
+                labelPos.Text = string.Format("{0,12:0.#####0}", pos);
+                if (beam > 100)
+                    beam = 100;
+                progressBarBeam.Position = (int)beam;
+            }));
+        }
+
+
     }
 }

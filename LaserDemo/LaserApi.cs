@@ -206,12 +206,13 @@ namespace LaserDemo
 
     #region aLsrCal_structures
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct DEVICEINFO
+    public struct DEVICEINFO
     {
         public uint PCBRevision; // MSB=Major Rev ... LSB=Debug Rev
         public uint SolderOption; // ditto
         public uint MCURevision; // ditto
-        public fixed byte SerialNumber[16]; // 15-char (8-bit) null terminated c string
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        public byte[] SerialNumber; // 15-char (8-bit) null terminated c string
         public uint ManufactureDate; // #days since 12/30/1899
     }
 
@@ -225,11 +226,17 @@ namespace LaserDemo
     };
 
     [StructLayout(LayoutKind.Explicit)]
-    public unsafe struct LSRINFO
+    public struct LSRINFO
     {
-        [FieldOffset(0)] public DEVICEINFO DevInfo; // for most InfoType selectors
-        [FieldOffset(0)] public SENSORTYPE SnsType; // only 'SENSORTYPE InfoType selector
-        [FieldOffset(0)] public fixed uint Array[8];    // to allow for loop iteration over contents
+        [FieldOffset(0)]
+        public DEVICEINFO DevInfo; // for most InfoType selectors
+
+        [FieldOffset(0)]
+        public SENSORTYPE SnsType; // only 'SENSORTYPE InfoType selector
+
+        [FieldOffset(0)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+        public byte[] Array;    // to allow for loop iteration over contents
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -277,115 +284,115 @@ namespace LaserDemo
     }
     #endregion aLsrCal_structures
 
-    public unsafe class LaserApi
+    public class LaserApi
     {
         #region aLsrCal_general
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalBlink(uint hDev, LEDSELECT LEDSelector);
+        aLsrCalBlink(IntPtr hDev, LEDSELECT LEDSelector);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalFind(uint* hBoxes, BOARDTYPE* PortABrdType, BOARDTYPE* PortBBrdType, ushort* spMxBoxes);
+        aLsrCalFind(ref IntPtr hBoxes, ref ushort PortABrdType, ref ushort PortBBrdType, ref ushort spMxBoxes);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalGetVersions(uint hDev, byte* HWversion, byte* DLLversion);
+        aLsrCalGetVersions(IntPtr hDev, ref byte HWversion, ref byte DLLversion);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalClose(uint hDev, SLOTSELECT SlotSelector);
+        aLsrCalPcalClose(IntPtr hDev, SLOTSELECT SlotSelector);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalInit(uint hDev, SLOTSELECT SlotSelector);
+        aLsrCalPcalInit(IntPtr hDev, SLOTSELECT SlotSelector);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalOpen(uint hDev, SLOTSELECT SlotSelector);
+        aLsrCalPcalOpen(IntPtr hDev, SLOTSELECT SlotSelector);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetTimeout(uint hDev, SLOTSELECT SlotSelector, uint ulInterval);
+        aLsrCalPcalSetTimeout(IntPtr hDev, SLOTSELECT SlotSelector, uint ulInterval);
         #endregion aLsrCal_general
 
         #region aLsrCal_comp
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompSelfCal(uint hDev, SLOTSELECT SlotSelector);
+        aLsrCalCompSelfCal(IntPtr hDev, SLOTSELECT SlotSelector);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompMux_w(uint hDev, SLOTSELECT SlotSelector, ushort mux);
+        aLsrCalCompMux_w(IntPtr hDev, SLOTSELECT SlotSelector, ushort mux);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompADC_r(uint hDev, SLOTSELECT SlotSelector, ushort* value);
+        aLsrCalCompADC_r(IntPtr hDev, SLOTSELECT SlotSelector, ref ushort value);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompVolt_r(uint hDev, SLOTSELECT SlotSelector, float* volts);
+        aLsrCalCompVolt_r(IntPtr hDev, SLOTSELECT SlotSelector, ref float volts);
 
         // NOTE - next two routines may take up to ~0.5 sec to return
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompSampleV_r(uint hDev, SLOTSELECT SlotSelector, float* volts);
+        aLsrCalCompSampleV_r(IntPtr hDev, SLOTSELECT SlotSelector, ref float volts);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompMuxSampleV_r(uint hDev, SLOTSELECT SlotSelector, ushort mux, float* volts);
+        aLsrCalCompMuxSampleV_r(IntPtr hDev, SLOTSELECT SlotSelector, ushort mux, ref float volts);
 
         // NOTE - next seven routines may take up to ~0.5 sec to return
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompAirTempC_r(uint hDev, SLOTSELECT SlotSelector, float* degC);
+        aLsrCalCompAirTempC_r(IntPtr hDev, SLOTSELECT SlotSelector, ref float degC);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompAirTempF_r(uint hDev, SLOTSELECT SlotSelector, float* degF);
+        aLsrCalCompAirTempF_r(IntPtr hDev, SLOTSELECT SlotSelector, ref float degF);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompAirPresMM_r(uint hDev, SLOTSELECT SlotSelector, float* mmHg);
+        aLsrCalCompAirPresMM_r(IntPtr hDev, SLOTSELECT SlotSelector, ref float mmHg);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompAirPresIN_r(uint hDev, SLOTSELECT SlotSelector, float* inHg);
+        aLsrCalCompAirPresIN_r(IntPtr hDev, SLOTSELECT SlotSelector, ref float inHg);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompAirHumid_r(uint hDev, SLOTSELECT SlotSelector, float* percent);
+        aLsrCalCompAirHumid_r(IntPtr hDev, SLOTSELECT SlotSelector, ref float percent);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompMatTempC_r(uint hDev, SLOTSELECT SlotSelector, COMPSEL sensor, float* degC);
+        aLsrCalCompMatTempC_r(IntPtr hDev, SLOTSELECT SlotSelector, COMPSEL sensor, ref float degC);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompMatTempF_r(uint hDev, SLOTSELECT SlotSelector, COMPSEL sensor, float* degF);
+        aLsrCalCompMatTempF_r(IntPtr hDev, SLOTSELECT SlotSelector, COMPSEL sensor, ref float degF);
 
         // NOTE - next two routines take ~0.5 sec to return (~0.8 sec for 55292 box)
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompAirCMM_r(uint hDev, ushort SlotSelector, float* pValues);
+        aLsrCalCompAirCMM_r(IntPtr hDev, ushort SlotSelector, ref float pValues);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompAirFIN_r(uint hDev, ushort SlotSelector, float* pValues);
+        aLsrCalCompAirFIN_r(IntPtr hDev, ushort SlotSelector, ref float pValues);
 
         // NOTE - next routine takes > 1 second to return - best if run in own thread.
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompTCN(uint hDev, SLOTSELECT SlotSelector, float CoefExpC, TCNMTSSEL mts_sel, double* TCN);
+        aLsrCalCompTCN(IntPtr hDev, SLOTSELECT SlotSelector, float CoefExpC, TCNMTSSEL mts_sel, ref double TCN);
 
         // NOTE - next two routines take ~0.5 * (1 + # MatSensors) sec to return (>1 sec for 55292 box)
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompTCNcmm(uint hDev, ushort SlotSelector, float* pFloatArray, ushort mts_sel, double* pTCN);
+        aLsrCalCompTCNcmm(IntPtr hDev, ushort SlotSelector, ref float pFloatArray, ushort mts_sel, ref double pTCN);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalCompTCNfin(uint hDev, ushort SlotSelector, float* pFloatArray, ushort mts_sel, double* pTCN);
+        aLsrCalCompTCNfin(IntPtr hDev, ushort SlotSelector, ref float pFloatArray, ushort mts_sel, ref double pTCN);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern double
@@ -428,109 +435,109 @@ namespace LaserDemo
         // Calibrator Setup Routines
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalGetSettings(uint hDev, SLOTSELECT SlotSelector, PCAL* ppcal);
+        aLsrCalPcalGetSettings(IntPtr hDev, SLOTSELECT SlotSelector, ref PCAL ppcal);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetCalFactor(uint hDev, SLOTSELECT SlotSelector, double stcal, double aocal);
+        aLsrCalPcalSetCalFactor(IntPtr hDev, SLOTSELECT SlotSelector, double stcal, double aocal);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetDeadpath(uint hDev, SLOTSELECT SlotSelector, double dDeadpath);
+        aLsrCalPcalSetDeadpath(IntPtr hDev, SLOTSELECT SlotSelector, double dDeadpath);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetLambda(uint hDev, SLOTSELECT SlotSelector, double dLambda);
+        aLsrCalPcalSetLambda(IntPtr hDev, SLOTSELECT SlotSelector, double dLambda);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetOptics(uint hDev, SLOTSELECT SlotSelector, OPTICS optics);
+        aLsrCalPcalSetOptics(IntPtr hDev, SLOTSELECT SlotSelector, OPTICS optics);
+
+        //[DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
+        //public static extern ALSRCALRC
+        //aLsrCalPcalSetRcrdFunction(IntPtr hDev, SLOTSELECT SlotSelector, void* callback, uint callbackparam);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetRcrdFunction(uint hDev, SLOTSELECT SlotSelector, void* callback, uint callbackparam);
-
-        [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern ALSRCALRC
-        aLsrCalPcalSetSampleMode(uint hDev, SLOTSELECT SlotSelector, DCSDRVMODE dcsdrvmode, uint swextdrv,
+        aLsrCalPcalSetSampleMode(IntPtr hDev, SLOTSELECT SlotSelector, DCSDRVMODE dcsdrvmode, uint swextdrv,
                     uint ncdrwlsr, SMPLMODE smplmode);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetTCN(uint hDev, SLOTSELECT SlotSelector, double dTCN);
+        aLsrCalPcalSetTCN(IntPtr hDev, SLOTSELECT SlotSelector, double dTCN);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetTimebaseInterval(uint hDev, SLOTSELECT SlotSelector, uint ulInterval);
+        aLsrCalPcalSetTimebaseInterval(IntPtr hDev, SLOTSELECT SlotSelector, uint ulInterval);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetTriggering(uint hDev, SLOTSELECT SlotSelector, TRIGMODE trigmodeStart,
+        aLsrCalPcalSetTriggering(IntPtr hDev, SLOTSELECT SlotSelector, TRIGMODE trigmodeStart,
                     TRIGMODE trigmodeStop, POS posStartTrig, POS posStopTrig);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetUnits(uint hDev, SLOTSELECT SlotSelector, UNITS units);
+        aLsrCalPcalSetUnits(IntPtr hDev, SLOTSELECT SlotSelector, UNITS units);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetupAutoSample(uint hDev, SLOTSELECT SlotSelector, double increment,
+        aLsrCalPcalSetupAutoSample(IntPtr hDev, SLOTSELECT SlotSelector, double increment,
                     double epsilon, uint duration);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetupEncoder(uint hDev, SLOTSELECT SlotSelector, ENCINPUT encinput, double dResolution,
+        aLsrCalPcalSetupEncoder(IntPtr hDev, SLOTSELECT SlotSelector, ENCINPUT encinput, double dResolution,
                     UNITS units, uint ulPrescale, uint ulHysteresis);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalSetupExtRes(uint hDev, SLOTSELECT SlotSelector, EXTRESMODE extresmode,
+        aLsrCalPcalSetupExtRes(IntPtr hDev, SLOTSELECT SlotSelector, EXTRESMODE extresmode,
                     ACCUMRATE accumrate, uint ulNVA);
 
         // Calibrator Operation Routines
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalAbort(uint hDev, SLOTSELECT SlotSelector);
+        aLsrCalPcalAbort(IntPtr hDev, SLOTSELECT SlotSelector);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalGetAsyncRC(uint hDev, SLOTSELECT SlotSelector, ALSRCALRC* returncode);
+        aLsrCalPcalGetAsyncRC(IntPtr hDev, SLOTSELECT SlotSelector, ref ALSRCALRC returncode);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalGetCurState(uint hDev, SLOTSELECT SlotSelector, POS* pposLaser, POS* pposLsrXRes,
-                    POS* pposEncoder, float* pulBeamStrength, uint* pulSamples, TRIGSTAT* pTrigstat);
+        aLsrCalPcalGetCurState(IntPtr hDev, SLOTSELECT SlotSelector, ref POS pposLaser, ref POS pposLsrXRes,
+                    ref POS pposEncoder, ref float pulBeamStrength, ref uint pulSamples, ref TRIGSTAT pTrigstat);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalReadPos(uint hDev, SLOTSELECT SlotSelector, POS* pposLaser, POS* pposEncoder,
-                    uint ulSmplQty, uint* pulSmplXfr);
+        aLsrCalPcalReadPos(IntPtr hDev, SLOTSELECT SlotSelector, ref POS pposLaser, ref POS pposEncoder,
+                    uint ulSmplQty, ref uint pulSmplXfr);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalReadPosAsync(uint hDev, SLOTSELECT SlotSelector, POS* pposLaser, POS* pposEncoder,
-                    uint ulSmplQty, uint* pulSmplXfr, void* hNotify);
+        aLsrCalPcalReadPosAsync(IntPtr hDev, SLOTSELECT SlotSelector, ref POS pposLaser, ref POS pposEncoder,
+                    uint ulSmplQty, ref uint pulSmplXfr, IntPtr hNotify);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalRecord(uint hDev, SLOTSELECT SlotSelector);
+        aLsrCalPcalRecord(IntPtr hDev, SLOTSELECT SlotSelector);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalResetEncoder(uint hDev, SLOTSELECT SlotSelector, POS preset);
+        aLsrCalPcalResetEncoder(IntPtr hDev, SLOTSELECT SlotSelector, POS preset);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalResetLaser(uint hDev, SLOTSELECT SlotSelector, POS preset);
+        aLsrCalPcalResetLaser(IntPtr hDev, SLOTSELECT SlotSelector, POS preset);
 
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalPcalTriggerArm(uint hDev, SLOTSELECT SlotSelector);
+        aLsrCalPcalTriggerArm(IntPtr hDev, SLOTSELECT SlotSelector);
 
         // Calibrator Information Routines
         [DllImport("aLsrCalApi.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern ALSRCALRC
-        aLsrCalGetInfo(uint hDev, BOARDINFOTYPE InfoType, LSRINFO* pPortAInfo, LSRINFO* pPortBInfo);
+        aLsrCalGetInfo(IntPtr hDev, BOARDINFOTYPE InfoType, ref LSRINFO pPortAInfo, ref LSRINFO pPortBInfo);
         #endregion aLsrCal_pcal
     }
 }
