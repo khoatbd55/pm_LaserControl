@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.listLog = new System.Windows.Forms.ListBox();
@@ -38,8 +37,8 @@
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.labelPos = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
             this.progressBarBeam = new DevExpress.XtraEditors.ProgressBarControl();
+            this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();

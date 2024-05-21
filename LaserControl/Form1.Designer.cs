@@ -60,7 +60,7 @@
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Margin = new System.Windows.Forms.Padding(6);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1614, 366);
+            this.panelControl1.Size = new System.Drawing.Size(1614, 348);
             this.panelControl1.TabIndex = 0;
             // 
             // panelControl
@@ -74,86 +74,86 @@
             this.panelControl.Controls.Add(this.btnReadPos);
             this.panelControl.Controls.Add(this.btnOpen);
             this.panelControl.Enabled = false;
-            this.panelControl.Location = new System.Drawing.Point(12, 79);
+            this.panelControl.Location = new System.Drawing.Point(12, 75);
             this.panelControl.Name = "panelControl";
-            this.panelControl.Size = new System.Drawing.Size(1590, 274);
+            this.panelControl.Size = new System.Drawing.Size(1590, 260);
             this.panelControl.TabIndex = 6;
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(446, 103);
+            this.labelControl1.Location = new System.Drawing.Point(446, 98);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(113, 20);
+            this.labelControl1.Size = new System.Drawing.Size(115, 19);
             this.labelControl1.TabIndex = 9;
             this.labelControl1.Text = "Board Info Type";
             // 
             // cboBoardInfoType
             // 
             this.cboBoardInfoType.FormattingEnabled = true;
-            this.cboBoardInfoType.Location = new System.Drawing.Point(446, 136);
+            this.cboBoardInfoType.Location = new System.Drawing.Point(446, 129);
             this.cboBoardInfoType.Name = "cboBoardInfoType";
-            this.cboBoardInfoType.Size = new System.Drawing.Size(385, 28);
+            this.cboBoardInfoType.Size = new System.Drawing.Size(385, 27);
             this.cboBoardInfoType.TabIndex = 8;
             // 
             // btnInit
             // 
-            this.btnInit.Location = new System.Drawing.Point(446, 22);
+            this.btnInit.Location = new System.Drawing.Point(446, 21);
             this.btnInit.Name = "btnInit";
-            this.btnInit.Size = new System.Drawing.Size(164, 61);
+            this.btnInit.Size = new System.Drawing.Size(164, 58);
             this.btnInit.TabIndex = 7;
             this.btnInit.Text = "Init";
             this.btnInit.Click += new System.EventHandler(this.btnInit_Click);
             // 
             // btnGetInfo2
             // 
-            this.btnGetInfo2.Location = new System.Drawing.Point(220, 103);
+            this.btnGetInfo2.Location = new System.Drawing.Point(220, 98);
             this.btnGetInfo2.Name = "btnGetInfo2";
-            this.btnGetInfo2.Size = new System.Drawing.Size(164, 61);
+            this.btnGetInfo2.Size = new System.Drawing.Size(164, 58);
             this.btnGetInfo2.TabIndex = 6;
             this.btnGetInfo2.Text = "Get Infos2";
             this.btnGetInfo2.Click += new System.EventHandler(this.btnGetInfo2_Click);
             // 
             // btnReadSetting
             // 
-            this.btnReadSetting.Location = new System.Drawing.Point(12, 189);
+            this.btnReadSetting.Location = new System.Drawing.Point(12, 180);
             this.btnReadSetting.Name = "btnReadSetting";
-            this.btnReadSetting.Size = new System.Drawing.Size(164, 61);
+            this.btnReadSetting.Size = new System.Drawing.Size(164, 58);
             this.btnReadSetting.TabIndex = 5;
             this.btnReadSetting.Text = "Read Setting";
             this.btnReadSetting.Click += new System.EventHandler(this.btnReadSetting_Click);
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(220, 22);
+            this.btnClose.Location = new System.Drawing.Point(220, 21);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(164, 61);
+            this.btnClose.Size = new System.Drawing.Size(164, 58);
             this.btnClose.TabIndex = 3;
             this.btnClose.Text = "Close";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnReadPos
             // 
-            this.btnReadPos.Location = new System.Drawing.Point(12, 103);
+            this.btnReadPos.Location = new System.Drawing.Point(12, 98);
             this.btnReadPos.Name = "btnReadPos";
-            this.btnReadPos.Size = new System.Drawing.Size(164, 61);
+            this.btnReadPos.Size = new System.Drawing.Size(164, 58);
             this.btnReadPos.TabIndex = 1;
             this.btnReadPos.Text = "Read Pos";
             this.btnReadPos.Click += new System.EventHandler(this.btnReadPos_Click);
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(12, 22);
+            this.btnOpen.Location = new System.Drawing.Point(12, 21);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(164, 61);
+            this.btnOpen.Size = new System.Drawing.Size(164, 58);
             this.btnOpen.TabIndex = 0;
             this.btnOpen.Text = "Open";
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // btnFind2
             // 
-            this.btnFind2.Location = new System.Drawing.Point(24, 12);
+            this.btnFind2.Location = new System.Drawing.Point(24, 11);
             this.btnFind2.Name = "btnFind2";
-            this.btnFind2.Size = new System.Drawing.Size(164, 61);
+            this.btnFind2.Size = new System.Drawing.Size(164, 58);
             this.btnFind2.TabIndex = 5;
             this.btnFind2.Text = "Find";
             this.btnFind2.Click += new System.EventHandler(this.btnFind2_Click);
@@ -163,10 +163,10 @@
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl2.Controls.Add(this.listLog);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl2.Location = new System.Drawing.Point(0, 366);
+            this.panelControl2.Location = new System.Drawing.Point(0, 348);
             this.panelControl2.Margin = new System.Windows.Forms.Padding(4);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(1614, 335);
+            this.panelControl2.Size = new System.Drawing.Size(1614, 318);
             this.panelControl2.TabIndex = 1;
             // 
             // listLog
@@ -180,14 +180,14 @@
             this.listLog.ItemHeight = 25;
             this.listLog.Location = new System.Drawing.Point(0, 0);
             this.listLog.Name = "listLog";
-            this.listLog.Size = new System.Drawing.Size(1614, 335);
+            this.listLog.Size = new System.Drawing.Size(1614, 318);
             this.listLog.TabIndex = 0;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1614, 701);
+            this.ClientSize = new System.Drawing.Size(1614, 666);
             this.Controls.Add(this.panelControl2);
             this.Controls.Add(this.panelControl1);
             this.Name = "Form1";
