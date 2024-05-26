@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaserControl", "LaserControl\LaserControl.csproj", "{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaserTest2", "LaserTest2\LaserTest2.csproj", "{EB962130-B246-4BF0-B762-C0A1527A0E7A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaserDemo", "LaserDemo\LaserDemo.csproj", "{230D5BE8-1550-4C1C-97F5-2A4441275AA7}"
@@ -12,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaserWrap", "LaserWrap\LaserWrap.csproj", "{AA8535EE-5C6E-4FDF-9CE7-5C86E825B485}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaserCalibration", "LaserCalibration\LaserCalibration.csproj", "{40841D85-4CC4-438D-8392-1D35C20AEBB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{4B7C4E0F-6F03-4E40-BA2D-0C80BA9519F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,18 +23,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}.Debug|x64.ActiveCfg = Debug|x64
-		{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}.Debug|x64.Build.0 = Debug|x64
-		{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}.Debug|x86.ActiveCfg = Debug|x86
-		{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}.Debug|x86.Build.0 = Debug|x86
-		{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}.Release|x64.ActiveCfg = Release|x64
-		{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}.Release|x64.Build.0 = Release|x64
-		{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}.Release|x86.ActiveCfg = Release|x86
-		{B4B0FFC9-0BC6-4F36-A7FE-A3BD0B82A76E}.Release|x86.Build.0 = Release|x86
 		{EB962130-B246-4BF0-B762-C0A1527A0E7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB962130-B246-4BF0-B762-C0A1527A0E7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB962130-B246-4BF0-B762-C0A1527A0E7A}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -86,6 +74,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EB962130-B246-4BF0-B762-C0A1527A0E7A} = {4B7C4E0F-6F03-4E40-BA2D-0C80BA9519F8}
+		{230D5BE8-1550-4C1C-97F5-2A4441275AA7} = {4B7C4E0F-6F03-4E40-BA2D-0C80BA9519F8}
+		{AA8535EE-5C6E-4FDF-9CE7-5C86E825B485} = {4B7C4E0F-6F03-4E40-BA2D-0C80BA9519F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {12A9108D-60A8-4C3E-BAC5-C3F9143639BA}
