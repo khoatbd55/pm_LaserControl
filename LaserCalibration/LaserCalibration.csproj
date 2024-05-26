@@ -19,7 +19,7 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -159,6 +159,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="LaserWrap\LaserApi.cs" />
+    <Compile Include="Models\Camera\CameraConnection_EventArg.cs" />
     <Compile Include="Models\Camera\CameraImage_EventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -208,6 +210,33 @@
     <Content Include="E1736ACore.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\yellow_circle_80px.png" />
+    <None Include="Resources\warning_50px.png" />
+    <None Include="Resources\success_80px.png" />
+    <None Include="Resources\success_50px.png" />
+    <None Include="Resources\subtract_30px.png" />
+    <None Include="Resources\stop_48px.png" />
+    <None Include="Resources\play_48px.png" />
+    <None Include="Resources\learning_32px.png" />
+    <None Include="Resources\info_50px.png" />
+    <None Include="Resources\icons8_comparator_32.png" />
+    <None Include="Resources\green_circle_80px.png" />
+    <None Include="Resources\green_circle_50px.png" />
+    <None Include="Resources\green_circle_32px.png" />
+    <None Include="Resources\error_80px.png" />
+    <None Include="Resources\error_50px.png" />
+    <None Include="Resources\enter_48px.png" />
+    <None Include="Resources\enter_100px.png" />
+    <None Include="Resources\edit_property_32px.png" />
+    <None Include="Resources\do_hoi_tho_32.png" />
+    <None Include="Resources\disconnected_48px.png" />
+    <None Include="Resources\delete_50px.png" />
+    <None Include="Resources\delete_32px.png" />
+    <None Include="Resources\connected_48px.png" />
+    <None Include="Resources\black_circle_50px.png" />
+    <None Include="Resources\black_circle_32px.png" />
+    <None Include="Resources\360_F_355607062_zYMS8jaz4SfoykpWz5oViRVKL32IabTP.jpg" />
+    <None Include="Resources\1logo_anh_duy_450_200.jpg" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

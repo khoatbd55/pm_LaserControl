@@ -39,6 +39,14 @@
             this.panelControl15 = new DevExpress.XtraEditors.PanelControl();
             this.dataGridViewX1 = new DevComponents.DotNetBar.Controls.DataGridViewX();
             this.panelControl14 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
+            this.picEnviromentalStatus = new System.Windows.Forms.PictureBox();
+            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
+            this.picTemperatureStatus = new System.Windows.Forms.PictureBox();
+            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
+            this.picLaserStatus = new System.Windows.Forms.PictureBox();
+            this.labelCameraStatus = new DevExpress.XtraEditors.LabelControl();
+            this.picCameraStatus = new System.Windows.Forms.PictureBox();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl9 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
@@ -68,23 +76,26 @@
             this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.panelControl8 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
             this.picCamera = new System.Windows.Forms.PictureBox();
+            this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
+            this.vScrollBar2 = new DevExpress.XtraEditors.VScrollBar();
+            this.panelControl16 = new DevExpress.XtraEditors.PanelControl();
+            this.vScrollBar1 = new DevExpress.XtraEditors.VScrollBar();
             this.panelControl7 = new DevExpress.XtraEditors.PanelControl();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
+            this.picDebug = new System.Windows.Forms.PictureBox();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.hideContainerRight = new DevExpress.XtraBars.Docking.AutoHideContainer();
             this.dockPanel1 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.listLog = new System.Windows.Forms.ListBox();
-            this.panelControl16 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
-            this.vScrollBar1 = new DevExpress.XtraEditors.VScrollBar();
-            this.vScrollBar2 = new DevExpress.XtraEditors.VScrollBar();
-            this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
-            this.picDebug = new System.Windows.Forms.PictureBox();
+            this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
@@ -96,6 +107,11 @@
             this.panelControl15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewX1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).BeginInit();
+            this.panelControl14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picEnviromentalStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picTemperatureStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLaserStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCameraStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl9)).BeginInit();
@@ -125,21 +141,27 @@
             this.groupControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).BeginInit();
             this.panelControl8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
+            this.panelControl18.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picCamera)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
+            this.panelControl17.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).BeginInit();
+            this.panelControl16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).BeginInit();
             this.panelControl7.SuspendLayout();
             this.xtraTabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDebug)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.hideContainerRight.SuspendLayout();
             this.dockPanel1.SuspendLayout();
             this.dockPanel1_Container.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).BeginInit();
-            this.panelControl16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
-            this.panelControl17.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
-            this.panelControl18.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picDebug)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
+            this.panelControl19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
+            this.panelControl20.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
+            this.panelControl21.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelControl1
@@ -241,12 +263,100 @@
             // panelControl14
             // 
             this.panelControl14.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl14.Controls.Add(this.labelControl14);
+            this.panelControl14.Controls.Add(this.picEnviromentalStatus);
+            this.panelControl14.Controls.Add(this.labelControl13);
+            this.panelControl14.Controls.Add(this.picTemperatureStatus);
+            this.panelControl14.Controls.Add(this.labelControl12);
+            this.panelControl14.Controls.Add(this.picLaserStatus);
+            this.panelControl14.Controls.Add(this.labelCameraStatus);
+            this.panelControl14.Controls.Add(this.picCameraStatus);
             this.panelControl14.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelControl14.Location = new System.Drawing.Point(12, 159);
             this.panelControl14.Margin = new System.Windows.Forms.Padding(6);
             this.panelControl14.Name = "panelControl14";
             this.panelControl14.Size = new System.Drawing.Size(1695, 37);
             this.panelControl14.TabIndex = 1;
+            // 
+            // labelControl14
+            // 
+            this.labelControl14.Appearance.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl14.Appearance.Options.UseFont = true;
+            this.labelControl14.Location = new System.Drawing.Point(484, 8);
+            this.labelControl14.Name = "labelControl14";
+            this.labelControl14.Size = new System.Drawing.Size(106, 22);
+            this.labelControl14.TabIndex = 7;
+            this.labelControl14.Text = "Enviromental";
+            // 
+            // picEnviromentalStatus
+            // 
+            this.picEnviromentalStatus.Image = global::LaserCalibration.Properties.Resources.black_circle_32px;
+            this.picEnviromentalStatus.Location = new System.Drawing.Point(443, 3);
+            this.picEnviromentalStatus.Name = "picEnviromentalStatus";
+            this.picEnviromentalStatus.Size = new System.Drawing.Size(32, 32);
+            this.picEnviromentalStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picEnviromentalStatus.TabIndex = 6;
+            this.picEnviromentalStatus.TabStop = false;
+            // 
+            // labelControl13
+            // 
+            this.labelControl13.Appearance.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl13.Appearance.Options.UseFont = true;
+            this.labelControl13.Location = new System.Drawing.Point(303, 8);
+            this.labelControl13.Name = "labelControl13";
+            this.labelControl13.Size = new System.Drawing.Size(100, 22);
+            this.labelControl13.TabIndex = 5;
+            this.labelControl13.Text = "Temperature";
+            // 
+            // picTemperatureStatus
+            // 
+            this.picTemperatureStatus.Image = global::LaserCalibration.Properties.Resources.black_circle_32px;
+            this.picTemperatureStatus.Location = new System.Drawing.Point(262, 3);
+            this.picTemperatureStatus.Name = "picTemperatureStatus";
+            this.picTemperatureStatus.Size = new System.Drawing.Size(32, 32);
+            this.picTemperatureStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picTemperatureStatus.TabIndex = 4;
+            this.picTemperatureStatus.TabStop = false;
+            // 
+            // labelControl12
+            // 
+            this.labelControl12.Appearance.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl12.Appearance.Options.UseFont = true;
+            this.labelControl12.Location = new System.Drawing.Point(179, 8);
+            this.labelControl12.Name = "labelControl12";
+            this.labelControl12.Size = new System.Drawing.Size(45, 22);
+            this.labelControl12.TabIndex = 3;
+            this.labelControl12.Text = "Laser";
+            // 
+            // picLaserStatus
+            // 
+            this.picLaserStatus.Image = global::LaserCalibration.Properties.Resources.black_circle_32px;
+            this.picLaserStatus.Location = new System.Drawing.Point(138, 3);
+            this.picLaserStatus.Name = "picLaserStatus";
+            this.picLaserStatus.Size = new System.Drawing.Size(32, 32);
+            this.picLaserStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLaserStatus.TabIndex = 2;
+            this.picLaserStatus.TabStop = false;
+            // 
+            // labelCameraStatus
+            // 
+            this.labelCameraStatus.Appearance.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCameraStatus.Appearance.Options.UseFont = true;
+            this.labelCameraStatus.Location = new System.Drawing.Point(45, 8);
+            this.labelCameraStatus.Name = "labelCameraStatus";
+            this.labelCameraStatus.Size = new System.Drawing.Size(62, 22);
+            this.labelCameraStatus.TabIndex = 1;
+            this.labelCameraStatus.Text = "Camera";
+            // 
+            // picCameraStatus
+            // 
+            this.picCameraStatus.Image = global::LaserCalibration.Properties.Resources.black_circle_32px;
+            this.picCameraStatus.Location = new System.Drawing.Point(4, 3);
+            this.picCameraStatus.Name = "picCameraStatus";
+            this.picCameraStatus.Size = new System.Drawing.Size(32, 32);
+            this.picCameraStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCameraStatus.TabIndex = 0;
+            this.picCameraStatus.TabStop = false;
             // 
             // panelControl3
             // 
@@ -637,6 +747,16 @@
             this.panelControl8.Size = new System.Drawing.Size(559, 378);
             this.panelControl8.TabIndex = 1;
             // 
+            // panelControl18
+            // 
+            this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl18.Controls.Add(this.picCamera);
+            this.panelControl18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl18.Location = new System.Drawing.Point(27, 0);
+            this.panelControl18.Name = "panelControl18";
+            this.panelControl18.Size = new System.Drawing.Size(505, 378);
+            this.panelControl18.TabIndex = 3;
+            // 
             // picCamera
             // 
             this.picCamera.BackColor = System.Drawing.Color.Black;
@@ -648,6 +768,43 @@
             this.picCamera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCamera.TabIndex = 0;
             this.picCamera.TabStop = false;
+            // 
+            // panelControl17
+            // 
+            this.panelControl17.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl17.Controls.Add(this.vScrollBar2);
+            this.panelControl17.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl17.Location = new System.Drawing.Point(532, 0);
+            this.panelControl17.Name = "panelControl17";
+            this.panelControl17.Size = new System.Drawing.Size(27, 378);
+            this.panelControl17.TabIndex = 2;
+            // 
+            // vScrollBar2
+            // 
+            this.vScrollBar2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vScrollBar2.Location = new System.Drawing.Point(0, 0);
+            this.vScrollBar2.Name = "vScrollBar2";
+            this.vScrollBar2.Size = new System.Drawing.Size(27, 378);
+            this.vScrollBar2.TabIndex = 1;
+            // 
+            // panelControl16
+            // 
+            this.panelControl16.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl16.Controls.Add(this.vScrollBar1);
+            this.panelControl16.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl16.Location = new System.Drawing.Point(0, 0);
+            this.panelControl16.Name = "panelControl16";
+            this.panelControl16.Size = new System.Drawing.Size(27, 378);
+            this.panelControl16.TabIndex = 1;
+            // 
+            // vScrollBar1
+            // 
+            this.vScrollBar1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vScrollBar1.Location = new System.Drawing.Point(0, 0);
+            this.vScrollBar1.Name = "vScrollBar1";
+            this.vScrollBar1.Size = new System.Drawing.Size(27, 378);
+            this.vScrollBar1.TabIndex = 0;
+            this.vScrollBar1.Value = 100;
             // 
             // panelControl7
             // 
@@ -705,10 +862,19 @@
             // 
             // xtraTabPage2
             // 
-            this.xtraTabPage2.Controls.Add(this.picDebug);
+            this.xtraTabPage2.Controls.Add(this.panelControl19);
             this.xtraTabPage2.Name = "xtraTabPage2";
             this.xtraTabPage2.Size = new System.Drawing.Size(1719, 763);
             this.xtraTabPage2.Text = "xtraTabPage2";
+            // 
+            // picDebug
+            // 
+            this.picDebug.Location = new System.Drawing.Point(114, 26);
+            this.picDebug.Name = "picDebug";
+            this.picDebug.Size = new System.Drawing.Size(358, 289);
+            this.picDebug.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picDebug.TabIndex = 7;
+            this.picDebug.TabStop = false;
             // 
             // dockManager1
             // 
@@ -772,61 +938,34 @@
             this.listLog.Size = new System.Drawing.Size(563, 738);
             this.listLog.TabIndex = 0;
             // 
-            // panelControl16
+            // panelControl19
             // 
-            this.panelControl16.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl16.Controls.Add(this.vScrollBar1);
-            this.panelControl16.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelControl16.Location = new System.Drawing.Point(0, 0);
-            this.panelControl16.Name = "panelControl16";
-            this.panelControl16.Size = new System.Drawing.Size(27, 378);
-            this.panelControl16.TabIndex = 1;
+            this.panelControl19.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl19.Controls.Add(this.panelControl20);
+            this.panelControl19.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl19.Location = new System.Drawing.Point(0, 0);
+            this.panelControl19.Name = "panelControl19";
+            this.panelControl19.Size = new System.Drawing.Size(1719, 763);
+            this.panelControl19.TabIndex = 8;
             // 
-            // panelControl17
+            // panelControl20
             // 
-            this.panelControl17.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl17.Controls.Add(this.vScrollBar2);
-            this.panelControl17.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl17.Location = new System.Drawing.Point(532, 0);
-            this.panelControl17.Name = "panelControl17";
-            this.panelControl17.Size = new System.Drawing.Size(27, 378);
-            this.panelControl17.TabIndex = 2;
+            this.panelControl20.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelControl20.Controls.Add(this.panelControl21);
+            this.panelControl20.Location = new System.Drawing.Point(221, 45);
+            this.panelControl20.Name = "panelControl20";
+            this.panelControl20.Size = new System.Drawing.Size(1326, 641);
+            this.panelControl20.TabIndex = 8;
             // 
-            // vScrollBar1
+            // panelControl21
             // 
-            this.vScrollBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vScrollBar1.Location = new System.Drawing.Point(0, 0);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(27, 378);
-            this.vScrollBar1.TabIndex = 0;
-            this.vScrollBar1.Value = 100;
-            // 
-            // vScrollBar2
-            // 
-            this.vScrollBar2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vScrollBar2.Location = new System.Drawing.Point(0, 0);
-            this.vScrollBar2.Name = "vScrollBar2";
-            this.vScrollBar2.Size = new System.Drawing.Size(27, 378);
-            this.vScrollBar2.TabIndex = 1;
-            // 
-            // panelControl18
-            // 
-            this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl18.Controls.Add(this.picCamera);
-            this.panelControl18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl18.Location = new System.Drawing.Point(27, 0);
-            this.panelControl18.Name = "panelControl18";
-            this.panelControl18.Size = new System.Drawing.Size(505, 378);
-            this.panelControl18.TabIndex = 3;
-            // 
-            // picDebug
-            // 
-            this.picDebug.Location = new System.Drawing.Point(24, 24);
-            this.picDebug.Name = "picDebug";
-            this.picDebug.Size = new System.Drawing.Size(293, 213);
-            this.picDebug.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picDebug.TabIndex = 7;
-            this.picDebug.TabStop = false;
+            this.panelControl21.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl21.Controls.Add(this.picDebug);
+            this.panelControl21.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl21.Location = new System.Drawing.Point(755, 2);
+            this.panelControl21.Name = "panelControl21";
+            this.panelControl21.Size = new System.Drawing.Size(569, 637);
+            this.panelControl21.TabIndex = 8;
             // 
             // Form1
             // 
@@ -850,6 +989,12 @@
             this.panelControl15.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewX1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).EndInit();
+            this.panelControl14.ResumeLayout(false);
+            this.panelControl14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picEnviromentalStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picTemperatureStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLaserStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCameraStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl9)).EndInit();
@@ -882,22 +1027,28 @@
             this.groupControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).EndInit();
             this.panelControl8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
+            this.panelControl18.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picCamera)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
+            this.panelControl17.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).EndInit();
+            this.panelControl16.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).EndInit();
             this.panelControl7.ResumeLayout(false);
             this.panelControl7.PerformLayout();
             this.xtraTabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picDebug)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.hideContainerRight.ResumeLayout(false);
             this.dockPanel1.ResumeLayout(false);
             this.dockPanel1_Container.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).EndInit();
-            this.panelControl16.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
-            this.panelControl17.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
-            this.panelControl18.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picDebug)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
+            this.panelControl19.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
+            this.panelControl20.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
+            this.panelControl21.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -957,6 +1108,17 @@
         private DevExpress.XtraEditors.PanelControl panelControl16;
         private DevExpress.XtraEditors.VScrollBar vScrollBar1;
         private System.Windows.Forms.PictureBox picDebug;
+        private System.Windows.Forms.PictureBox picCameraStatus;
+        private DevExpress.XtraEditors.LabelControl labelCameraStatus;
+        private DevExpress.XtraEditors.LabelControl labelControl12;
+        private System.Windows.Forms.PictureBox picLaserStatus;
+        private DevExpress.XtraEditors.LabelControl labelControl13;
+        private System.Windows.Forms.PictureBox picTemperatureStatus;
+        private DevExpress.XtraEditors.LabelControl labelControl14;
+        private System.Windows.Forms.PictureBox picEnviromentalStatus;
+        private DevExpress.XtraEditors.PanelControl panelControl19;
+        private DevExpress.XtraEditors.PanelControl panelControl20;
+        private DevExpress.XtraEditors.PanelControl panelControl21;
     }
 }
 

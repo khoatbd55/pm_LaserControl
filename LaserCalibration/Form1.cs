@@ -61,8 +61,25 @@ namespace LaserCalibration
         {
             _waitForm = new WaitForm_Service(this);
             _camera.OnImage += _camera_OnImage;
+            _camera.OnConnection += _camera_OnConnection;
             _camera.Run();
         }
+
+        private void _camera_OnConnection(object sender, Models.Camera.CameraConnection_EventArg e)
+        {
+            this.Invoke(new MethodInvoker(() =>
+            {
+                if (e.IsConnected)
+                {
+                    picCameraStatus.Image = Properties.Resources.green_circle_32px;
+                }
+                else
+                {
+                    picCameraStatus.Image = Properties.Resources.black_circle_32px;
+                }
+            }));
+        }
+
         int _countDelayImage = 0;
         private void _camera_OnImage(object sender, Models.Camera.CameraImage_EventArgs e)
         {
@@ -131,5 +148,6 @@ namespace LaserCalibration
                 
             }));
         }
+
     }
 }

@@ -18,7 +18,11 @@ namespace LaserCalibration.Services
     public class CameraService
     {
         public delegate void OnImageHandle(object sender, CameraImage_EventArgs e);
+        public delegate void OnConnectionHandle(object sender, CameraConnection_EventArg e);
         public event OnImageHandle OnImage;
+        public event OnConnectionHandle OnConnection;
+        
+
 
         // Frame rate at which an image is output for rendering.
         // Rendering very large images can cause a high load on the CPU.
@@ -118,6 +122,10 @@ namespace LaserCalibration.Services
                                 //camera.StreamGrabber.Start(GrabStrategy.OneByOne, GrabLoop.ProvidedByStreamGrabber);
                                 //camera.StreamGrabber.ImageGrabbed += OnImageGrabbed;
                                 camera.ConnectionLost += OnConnectionLost;
+                                if (OnConnection != null)
+                                {
+                                    OnConnection(this,new CameraConnection_EventArg() { IsConnected=true });
+                                }
                                 Interlocked.Exchange(ref _step, 1);
                             }
                             break;
@@ -201,6 +209,10 @@ namespace LaserCalibration.Services
                     }
                     await Task.Delay(100, c);
                     Interlocked.Exchange(ref _step,0);
+                    if (OnConnection != null)
+                    {
+                        OnConnection(this, new CameraConnection_EventArg() { IsConnected=false});
+                    }
                 }
                 
             }    
@@ -306,9 +318,12 @@ namespace LaserCalibration.Services
             }
             try
             {
-                camera.StreamGrabber.Stop();
-                // Close the connection to the camera device.
-                camera.Close();
+                if (camera != null)
+                {
+                    camera.StreamGrabber.Stop();
+                    // Close the connection to the camera device.
+                    camera.Close();
+                }
             }
             catch (Exception)
             {
