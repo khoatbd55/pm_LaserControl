@@ -164,7 +164,20 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CameraService.cs" />
+    <Compile Include="Services\Environment\Events\KNohmiClosedConnection_EventArgs.cs" />
+    <Compile Include="Services\Environment\Events\KNohmiEnvironment_EventArg.cs" />
+    <Compile Include="Services\Environment\Events\KNohmiException_EventArg.cs" />
+    <Compile Include="Services\Environment\Events\KNohmiLog_EventArg.cs" />
+    <Compile Include="Services\Environment\Events\KNohmiTransport_EventArgs.cs" />
+    <Compile Include="Services\Environment\Formatter\KNohmiFormatter.cs" />
+    <Compile Include="Services\Environment\Models\ConfigOption\KNohmiSerialOptions.cs" />
+    <Compile Include="Services\Environment\Models\Message\KEnvironmentBaseMessage.cs" />
+    <Compile Include="Services\Environment\Models\Message\KNohmiEnvironmentMessage.cs" />
+    <Compile Include="Services\Environment\Models\Message\KNohmiExceptionMessage.cs" />
+    <Compile Include="Services\Environment\Models\Message\KNohmiLogMessage.cs" />
+    <Compile Include="Services\Environment\Transport\KNohmiTransport.cs" />
     <Compile Include="Services\Forms\WaitForm_Service.cs" />
+    <Compile Include="Services\Environment\KEnvironmentSerial.cs" />
     <Compile Include="Services\LaserService.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

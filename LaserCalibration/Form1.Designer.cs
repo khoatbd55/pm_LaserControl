@@ -61,11 +61,11 @@
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl11 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            this.labelPressure = new DevExpress.XtraEditors.LabelControl();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
+            this.labelHumi = new DevExpress.XtraEditors.LabelControl();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.labelTemperature = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl10 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
@@ -78,24 +78,28 @@
             this.panelControl8 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
             this.picCamera = new System.Windows.Forms.PictureBox();
-            this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
-            this.vScrollBar2 = new DevExpress.XtraEditors.VScrollBar();
-            this.panelControl16 = new DevExpress.XtraEditors.PanelControl();
-            this.vScrollBar1 = new DevExpress.XtraEditors.VScrollBar();
             this.panelControl7 = new DevExpress.XtraEditors.PanelControl();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
+            this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl22 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl24 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl25 = new DevExpress.XtraEditors.PanelControl();
             this.picDebug = new System.Windows.Forms.PictureBox();
+            this.panelControl26 = new DevExpress.XtraEditors.PanelControl();
+            this.vScrollBar3 = new DevExpress.XtraEditors.VScrollBar();
+            this.panelControl27 = new DevExpress.XtraEditors.PanelControl();
+            this.vScrollBar4 = new DevExpress.XtraEditors.VScrollBar();
+            this.panelControl23 = new DevExpress.XtraEditors.PanelControl();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.hideContainerRight = new DevExpress.XtraBars.Docking.AutoHideContainer();
             this.dockPanel1 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.listLog = new System.Windows.Forms.ListBox();
-            this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
@@ -144,24 +148,31 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
             this.panelControl18.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picCamera)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
-            this.panelControl17.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).BeginInit();
-            this.panelControl16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).BeginInit();
             this.panelControl7.SuspendLayout();
             this.xtraTabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picDebug)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
-            this.hideContainerRight.SuspendLayout();
-            this.dockPanel1.SuspendLayout();
-            this.dockPanel1_Container.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
             this.panelControl19.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
             this.panelControl20.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
             this.panelControl21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).BeginInit();
+            this.panelControl22.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl24)).BeginInit();
+            this.panelControl24.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl25)).BeginInit();
+            this.panelControl25.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDebug)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl26)).BeginInit();
+            this.panelControl26.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).BeginInit();
+            this.panelControl27.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
+            this.hideContainerRight.SuspendLayout();
+            this.dockPanel1.SuspendLayout();
+            this.dockPanel1_Container.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelControl1
@@ -171,7 +182,7 @@
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Margin = new System.Windows.Forms.Padding(14, 15, 14, 15);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1725, 811);
+            this.panelControl1.Size = new System.Drawing.Size(1724, 811);
             this.panelControl1.TabIndex = 0;
             // 
             // xtraTabControl1
@@ -196,7 +207,7 @@
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
             this.xtraTabControl1.ShowHeaderFocus = DevExpress.Utils.DefaultBoolean.True;
             this.xtraTabControl1.ShowTabHeader = DevExpress.Utils.DefaultBoolean.True;
-            this.xtraTabControl1.Size = new System.Drawing.Size(1721, 807);
+            this.xtraTabControl1.Size = new System.Drawing.Size(1720, 807);
             this.xtraTabControl1.TabIndex = 1;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
@@ -211,7 +222,7 @@
             this.xtraTabPage1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("xtraTabPage1.ImageOptions.Image")));
             this.xtraTabPage1.Margin = new System.Windows.Forms.Padding(14, 15, 14, 15);
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(1719, 763);
+            this.xtraTabPage1.Size = new System.Drawing.Size(1718, 763);
             this.xtraTabPage1.Text = "Main";
             // 
             // panelControl2
@@ -224,7 +235,7 @@
             this.panelControl2.Margin = new System.Windows.Forms.Padding(6);
             this.panelControl2.Name = "panelControl2";
             this.panelControl2.Padding = new System.Windows.Forms.Padding(12, 0, 12, 0);
-            this.panelControl2.Size = new System.Drawing.Size(1719, 196);
+            this.panelControl2.Size = new System.Drawing.Size(1718, 196);
             this.panelControl2.TabIndex = 2;
             // 
             // panelControl15
@@ -235,7 +246,7 @@
             this.panelControl15.Location = new System.Drawing.Point(12, 0);
             this.panelControl15.Margin = new System.Windows.Forms.Padding(6);
             this.panelControl15.Name = "panelControl15";
-            this.panelControl15.Size = new System.Drawing.Size(1695, 159);
+            this.panelControl15.Size = new System.Drawing.Size(1694, 159);
             this.panelControl15.TabIndex = 2;
             // 
             // dataGridViewX1
@@ -245,7 +256,7 @@
             this.dataGridViewX1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8F);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(70)))), ((int)(((byte)(68)))));
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(70)))), ((int)(((byte)(68)))));
@@ -257,7 +268,7 @@
             this.dataGridViewX1.Margin = new System.Windows.Forms.Padding(9);
             this.dataGridViewX1.Name = "dataGridViewX1";
             this.dataGridViewX1.RowHeadersWidth = 62;
-            this.dataGridViewX1.Size = new System.Drawing.Size(1695, 159);
+            this.dataGridViewX1.Size = new System.Drawing.Size(1694, 159);
             this.dataGridViewX1.TabIndex = 0;
             // 
             // panelControl14
@@ -275,7 +286,7 @@
             this.panelControl14.Location = new System.Drawing.Point(12, 159);
             this.panelControl14.Margin = new System.Windows.Forms.Padding(6);
             this.panelControl14.Name = "panelControl14";
-            this.panelControl14.Size = new System.Drawing.Size(1695, 37);
+            this.panelControl14.Size = new System.Drawing.Size(1694, 37);
             this.panelControl14.TabIndex = 1;
             // 
             // labelControl14
@@ -369,7 +380,7 @@
             this.panelControl3.Margin = new System.Windows.Forms.Padding(14, 15, 14, 15);
             this.panelControl3.Name = "panelControl3";
             this.panelControl3.Padding = new System.Windows.Forms.Padding(18);
-            this.panelControl3.Size = new System.Drawing.Size(1719, 567);
+            this.panelControl3.Size = new System.Drawing.Size(1718, 567);
             this.panelControl3.TabIndex = 1;
             // 
             // panelControl9
@@ -380,7 +391,7 @@
             this.panelControl9.Location = new System.Drawing.Point(18, 18);
             this.panelControl9.Margin = new System.Windows.Forms.Padding(6);
             this.panelControl9.Name = "panelControl9";
-            this.panelControl9.Size = new System.Drawing.Size(662, 531);
+            this.panelControl9.Size = new System.Drawing.Size(661, 531);
             this.panelControl9.TabIndex = 2;
             // 
             // groupControl3
@@ -395,7 +406,7 @@
             this.groupControl3.LookAndFeel.UseDefaultLookAndFeel = false;
             this.groupControl3.Margin = new System.Windows.Forms.Padding(6);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(662, 531);
+            this.groupControl3.Size = new System.Drawing.Size(661, 531);
             this.groupControl3.TabIndex = 2;
             this.groupControl3.Text = "Laser Interferometer";
             // 
@@ -410,7 +421,7 @@
             this.panelControl13.Margin = new System.Windows.Forms.Padding(6);
             this.panelControl13.Name = "panelControl13";
             this.panelControl13.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
-            this.panelControl13.Size = new System.Drawing.Size(658, 400);
+            this.panelControl13.Size = new System.Drawing.Size(657, 400);
             this.panelControl13.TabIndex = 6;
             // 
             // progressBar1
@@ -419,7 +430,7 @@
             this.progressBar1.Location = new System.Drawing.Point(12, 333);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(6);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(634, 57);
+            this.progressBar1.Size = new System.Drawing.Size(633, 57);
             this.progressBar1.TabIndex = 5;
             // 
             // labelControl11
@@ -456,7 +467,7 @@
             this.panelControl12.Location = new System.Drawing.Point(2, 431);
             this.panelControl12.Margin = new System.Windows.Forms.Padding(6);
             this.panelControl12.Name = "panelControl12";
-            this.panelControl12.Size = new System.Drawing.Size(658, 98);
+            this.panelControl12.Size = new System.Drawing.Size(657, 98);
             this.panelControl12.TabIndex = 5;
             // 
             // simpleButton5
@@ -507,7 +518,7 @@
             this.panelControl5.Controls.Add(this.panelControl11);
             this.panelControl5.Controls.Add(this.panelControl10);
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl5.Location = new System.Drawing.Point(680, 18);
+            this.panelControl5.Location = new System.Drawing.Point(679, 18);
             this.panelControl5.Margin = new System.Windows.Forms.Padding(6);
             this.panelControl5.Name = "panelControl5";
             this.panelControl5.Size = new System.Drawing.Size(446, 531);
@@ -529,11 +540,11 @@
             // 
             this.groupControl2.AppearanceCaption.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupControl2.AppearanceCaption.Options.UseFont = true;
-            this.groupControl2.Controls.Add(this.labelControl6);
+            this.groupControl2.Controls.Add(this.labelPressure);
             this.groupControl2.Controls.Add(this.labelControl7);
-            this.groupControl2.Controls.Add(this.labelControl4);
+            this.groupControl2.Controls.Add(this.labelHumi);
             this.groupControl2.Controls.Add(this.labelControl5);
-            this.groupControl2.Controls.Add(this.labelControl3);
+            this.groupControl2.Controls.Add(this.labelTemperature);
             this.groupControl2.Controls.Add(this.labelControl2);
             this.groupControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl2.Location = new System.Drawing.Point(12, 0);
@@ -545,22 +556,22 @@
             this.groupControl2.TabIndex = 1;
             this.groupControl2.Text = "Enviromental Monitoring";
             // 
-            // labelControl6
+            // labelPressure
             // 
-            this.labelControl6.Appearance.BackColor = System.Drawing.Color.White;
-            this.labelControl6.Appearance.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl6.Appearance.Options.UseBackColor = true;
-            this.labelControl6.Appearance.Options.UseFont = true;
-            this.labelControl6.Appearance.Options.UseTextOptions = true;
-            this.labelControl6.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.labelControl6.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl6.Location = new System.Drawing.Point(27, 183);
-            this.labelControl6.Margin = new System.Windows.Forms.Padding(6);
-            this.labelControl6.Name = "labelControl6";
-            this.labelControl6.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
-            this.labelControl6.Size = new System.Drawing.Size(316, 51);
-            this.labelControl6.TabIndex = 6;
-            this.labelControl6.Text = "0.00";
+            this.labelPressure.Appearance.BackColor = System.Drawing.Color.White;
+            this.labelPressure.Appearance.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPressure.Appearance.Options.UseBackColor = true;
+            this.labelPressure.Appearance.Options.UseFont = true;
+            this.labelPressure.Appearance.Options.UseTextOptions = true;
+            this.labelPressure.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.labelPressure.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelPressure.Location = new System.Drawing.Point(27, 183);
+            this.labelPressure.Margin = new System.Windows.Forms.Padding(6);
+            this.labelPressure.Name = "labelPressure";
+            this.labelPressure.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
+            this.labelPressure.Size = new System.Drawing.Size(316, 51);
+            this.labelPressure.TabIndex = 6;
+            this.labelPressure.Text = "0.00";
             // 
             // labelControl7
             // 
@@ -573,22 +584,22 @@
             this.labelControl7.TabIndex = 5;
             this.labelControl7.Text = "hPa";
             // 
-            // labelControl4
+            // labelHumi
             // 
-            this.labelControl4.Appearance.BackColor = System.Drawing.Color.White;
-            this.labelControl4.Appearance.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl4.Appearance.Options.UseBackColor = true;
-            this.labelControl4.Appearance.Options.UseFont = true;
-            this.labelControl4.Appearance.Options.UseTextOptions = true;
-            this.labelControl4.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.labelControl4.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl4.Location = new System.Drawing.Point(27, 111);
-            this.labelControl4.Margin = new System.Windows.Forms.Padding(6);
-            this.labelControl4.Name = "labelControl4";
-            this.labelControl4.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
-            this.labelControl4.Size = new System.Drawing.Size(316, 51);
-            this.labelControl4.TabIndex = 4;
-            this.labelControl4.Text = "0.00";
+            this.labelHumi.Appearance.BackColor = System.Drawing.Color.White;
+            this.labelHumi.Appearance.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelHumi.Appearance.Options.UseBackColor = true;
+            this.labelHumi.Appearance.Options.UseFont = true;
+            this.labelHumi.Appearance.Options.UseTextOptions = true;
+            this.labelHumi.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.labelHumi.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelHumi.Location = new System.Drawing.Point(27, 111);
+            this.labelHumi.Margin = new System.Windows.Forms.Padding(6);
+            this.labelHumi.Name = "labelHumi";
+            this.labelHumi.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
+            this.labelHumi.Size = new System.Drawing.Size(316, 51);
+            this.labelHumi.TabIndex = 4;
+            this.labelHumi.Text = "0.00";
             // 
             // labelControl5
             // 
@@ -601,22 +612,22 @@
             this.labelControl5.TabIndex = 3;
             this.labelControl5.Text = "% RH";
             // 
-            // labelControl3
+            // labelTemperature
             // 
-            this.labelControl3.Appearance.BackColor = System.Drawing.Color.White;
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl3.Appearance.Options.UseBackColor = true;
-            this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Appearance.Options.UseTextOptions = true;
-            this.labelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl3.Location = new System.Drawing.Point(27, 48);
-            this.labelControl3.Margin = new System.Windows.Forms.Padding(6);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
-            this.labelControl3.Size = new System.Drawing.Size(316, 51);
-            this.labelControl3.TabIndex = 2;
-            this.labelControl3.Text = "0.00";
+            this.labelTemperature.Appearance.BackColor = System.Drawing.Color.White;
+            this.labelTemperature.Appearance.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTemperature.Appearance.Options.UseBackColor = true;
+            this.labelTemperature.Appearance.Options.UseFont = true;
+            this.labelTemperature.Appearance.Options.UseTextOptions = true;
+            this.labelTemperature.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.labelTemperature.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelTemperature.Location = new System.Drawing.Point(27, 48);
+            this.labelTemperature.Margin = new System.Windows.Forms.Padding(6);
+            this.labelTemperature.Name = "labelTemperature";
+            this.labelTemperature.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
+            this.labelTemperature.Size = new System.Drawing.Size(316, 51);
+            this.labelTemperature.TabIndex = 2;
+            this.labelTemperature.Text = "0.00";
             // 
             // labelControl2
             // 
@@ -700,7 +711,7 @@
             this.panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl4.Controls.Add(this.panelControl6);
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl4.Location = new System.Drawing.Point(1126, 18);
+            this.panelControl4.Location = new System.Drawing.Point(1125, 18);
             this.panelControl4.Margin = new System.Windows.Forms.Padding(14, 15, 14, 15);
             this.panelControl4.Name = "panelControl4";
             this.panelControl4.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
@@ -738,8 +749,6 @@
             // 
             this.panelControl8.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl8.Controls.Add(this.panelControl18);
-            this.panelControl8.Controls.Add(this.panelControl17);
-            this.panelControl8.Controls.Add(this.panelControl16);
             this.panelControl8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl8.Location = new System.Drawing.Point(2, 31);
             this.panelControl8.Margin = new System.Windows.Forms.Padding(6);
@@ -752,9 +761,9 @@
             this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl18.Controls.Add(this.picCamera);
             this.panelControl18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl18.Location = new System.Drawing.Point(27, 0);
+            this.panelControl18.Location = new System.Drawing.Point(0, 0);
             this.panelControl18.Name = "panelControl18";
-            this.panelControl18.Size = new System.Drawing.Size(505, 378);
+            this.panelControl18.Size = new System.Drawing.Size(559, 378);
             this.panelControl18.TabIndex = 3;
             // 
             // picCamera
@@ -764,47 +773,10 @@
             this.picCamera.Location = new System.Drawing.Point(0, 0);
             this.picCamera.Margin = new System.Windows.Forms.Padding(6);
             this.picCamera.Name = "picCamera";
-            this.picCamera.Size = new System.Drawing.Size(505, 378);
+            this.picCamera.Size = new System.Drawing.Size(559, 378);
             this.picCamera.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCamera.TabIndex = 0;
             this.picCamera.TabStop = false;
-            // 
-            // panelControl17
-            // 
-            this.panelControl17.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl17.Controls.Add(this.vScrollBar2);
-            this.panelControl17.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl17.Location = new System.Drawing.Point(532, 0);
-            this.panelControl17.Name = "panelControl17";
-            this.panelControl17.Size = new System.Drawing.Size(27, 378);
-            this.panelControl17.TabIndex = 2;
-            // 
-            // vScrollBar2
-            // 
-            this.vScrollBar2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vScrollBar2.Location = new System.Drawing.Point(0, 0);
-            this.vScrollBar2.Name = "vScrollBar2";
-            this.vScrollBar2.Size = new System.Drawing.Size(27, 378);
-            this.vScrollBar2.TabIndex = 1;
-            // 
-            // panelControl16
-            // 
-            this.panelControl16.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl16.Controls.Add(this.vScrollBar1);
-            this.panelControl16.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelControl16.Location = new System.Drawing.Point(0, 0);
-            this.panelControl16.Name = "panelControl16";
-            this.panelControl16.Size = new System.Drawing.Size(27, 378);
-            this.panelControl16.TabIndex = 1;
-            // 
-            // vScrollBar1
-            // 
-            this.vScrollBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.vScrollBar1.Location = new System.Drawing.Point(0, 0);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(27, 378);
-            this.vScrollBar1.TabIndex = 0;
-            this.vScrollBar1.Value = 100;
             // 
             // panelControl7
             // 
@@ -867,14 +839,124 @@
             this.xtraTabPage2.Size = new System.Drawing.Size(1719, 763);
             this.xtraTabPage2.Text = "xtraTabPage2";
             // 
+            // panelControl19
+            // 
+            this.panelControl19.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl19.Controls.Add(this.panelControl20);
+            this.panelControl19.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl19.Location = new System.Drawing.Point(0, 0);
+            this.panelControl19.Name = "panelControl19";
+            this.panelControl19.Size = new System.Drawing.Size(1719, 763);
+            this.panelControl19.TabIndex = 8;
+            // 
+            // panelControl20
+            // 
+            this.panelControl20.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelControl20.Controls.Add(this.panelControl21);
+            this.panelControl20.Location = new System.Drawing.Point(221, 45);
+            this.panelControl20.Name = "panelControl20";
+            this.panelControl20.Size = new System.Drawing.Size(1326, 641);
+            this.panelControl20.TabIndex = 8;
+            // 
+            // panelControl21
+            // 
+            this.panelControl21.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl21.Controls.Add(this.panelControl22);
+            this.panelControl21.Controls.Add(this.panelControl23);
+            this.panelControl21.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl21.Location = new System.Drawing.Point(741, 2);
+            this.panelControl21.Name = "panelControl21";
+            this.panelControl21.Size = new System.Drawing.Size(583, 637);
+            this.panelControl21.TabIndex = 8;
+            // 
+            // panelControl22
+            // 
+            this.panelControl22.Controls.Add(this.panelControl24);
+            this.panelControl22.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl22.Location = new System.Drawing.Point(0, 0);
+            this.panelControl22.Name = "panelControl22";
+            this.panelControl22.Size = new System.Drawing.Size(583, 388);
+            this.panelControl22.TabIndex = 10;
+            // 
+            // panelControl24
+            // 
+            this.panelControl24.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl24.Controls.Add(this.panelControl25);
+            this.panelControl24.Controls.Add(this.panelControl26);
+            this.panelControl24.Controls.Add(this.panelControl27);
+            this.panelControl24.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl24.Location = new System.Drawing.Point(2, 2);
+            this.panelControl24.Margin = new System.Windows.Forms.Padding(6);
+            this.panelControl24.Name = "panelControl24";
+            this.panelControl24.Size = new System.Drawing.Size(579, 384);
+            this.panelControl24.TabIndex = 2;
+            // 
+            // panelControl25
+            // 
+            this.panelControl25.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl25.Controls.Add(this.picDebug);
+            this.panelControl25.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl25.Location = new System.Drawing.Point(27, 0);
+            this.panelControl25.Name = "panelControl25";
+            this.panelControl25.Size = new System.Drawing.Size(525, 384);
+            this.panelControl25.TabIndex = 3;
+            // 
             // picDebug
             // 
-            this.picDebug.Location = new System.Drawing.Point(114, 26);
+            this.picDebug.BackColor = System.Drawing.Color.Black;
+            this.picDebug.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picDebug.Location = new System.Drawing.Point(0, 0);
+            this.picDebug.Margin = new System.Windows.Forms.Padding(6);
             this.picDebug.Name = "picDebug";
-            this.picDebug.Size = new System.Drawing.Size(358, 289);
+            this.picDebug.Size = new System.Drawing.Size(525, 384);
             this.picDebug.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picDebug.TabIndex = 7;
+            this.picDebug.TabIndex = 0;
             this.picDebug.TabStop = false;
+            // 
+            // panelControl26
+            // 
+            this.panelControl26.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl26.Controls.Add(this.vScrollBar3);
+            this.panelControl26.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl26.Location = new System.Drawing.Point(552, 0);
+            this.panelControl26.Name = "panelControl26";
+            this.panelControl26.Size = new System.Drawing.Size(27, 384);
+            this.panelControl26.TabIndex = 2;
+            // 
+            // vScrollBar3
+            // 
+            this.vScrollBar3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vScrollBar3.Location = new System.Drawing.Point(0, 0);
+            this.vScrollBar3.Name = "vScrollBar3";
+            this.vScrollBar3.Size = new System.Drawing.Size(27, 384);
+            this.vScrollBar3.TabIndex = 1;
+            // 
+            // panelControl27
+            // 
+            this.panelControl27.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl27.Controls.Add(this.vScrollBar4);
+            this.panelControl27.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl27.Location = new System.Drawing.Point(0, 0);
+            this.panelControl27.Name = "panelControl27";
+            this.panelControl27.Size = new System.Drawing.Size(27, 384);
+            this.panelControl27.TabIndex = 1;
+            // 
+            // vScrollBar4
+            // 
+            this.vScrollBar4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.vScrollBar4.Location = new System.Drawing.Point(0, 0);
+            this.vScrollBar4.Name = "vScrollBar4";
+            this.vScrollBar4.Size = new System.Drawing.Size(27, 384);
+            this.vScrollBar4.TabIndex = 0;
+            this.vScrollBar4.Value = 100;
+            // 
+            // panelControl23
+            // 
+            this.panelControl23.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl23.Location = new System.Drawing.Point(0, 388);
+            this.panelControl23.Name = "panelControl23";
+            this.panelControl23.Size = new System.Drawing.Size(583, 249);
+            this.panelControl23.TabIndex = 9;
             // 
             // dockManager1
             // 
@@ -900,9 +982,9 @@
             this.hideContainerRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
             this.hideContainerRight.Controls.Add(this.dockPanel1);
             this.hideContainerRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.hideContainerRight.Location = new System.Drawing.Point(1725, 0);
+            this.hideContainerRight.Location = new System.Drawing.Point(1724, 0);
             this.hideContainerRight.Name = "hideContainerRight";
-            this.hideContainerRight.Size = new System.Drawing.Size(39, 811);
+            this.hideContainerRight.Size = new System.Drawing.Size(40, 811);
             // 
             // dockPanel1
             // 
@@ -937,35 +1019,6 @@
             this.listLog.Name = "listLog";
             this.listLog.Size = new System.Drawing.Size(563, 738);
             this.listLog.TabIndex = 0;
-            // 
-            // panelControl19
-            // 
-            this.panelControl19.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl19.Controls.Add(this.panelControl20);
-            this.panelControl19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl19.Location = new System.Drawing.Point(0, 0);
-            this.panelControl19.Name = "panelControl19";
-            this.panelControl19.Size = new System.Drawing.Size(1719, 763);
-            this.panelControl19.TabIndex = 8;
-            // 
-            // panelControl20
-            // 
-            this.panelControl20.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panelControl20.Controls.Add(this.panelControl21);
-            this.panelControl20.Location = new System.Drawing.Point(221, 45);
-            this.panelControl20.Name = "panelControl20";
-            this.panelControl20.Size = new System.Drawing.Size(1326, 641);
-            this.panelControl20.TabIndex = 8;
-            // 
-            // panelControl21
-            // 
-            this.panelControl21.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl21.Controls.Add(this.picDebug);
-            this.panelControl21.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl21.Location = new System.Drawing.Point(755, 2);
-            this.panelControl21.Name = "panelControl21";
-            this.panelControl21.Size = new System.Drawing.Size(569, 637);
-            this.panelControl21.TabIndex = 8;
             // 
             // Form1
             // 
@@ -1030,25 +1083,32 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
             this.panelControl18.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picCamera)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
-            this.panelControl17.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).EndInit();
-            this.panelControl16.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).EndInit();
             this.panelControl7.ResumeLayout(false);
             this.panelControl7.PerformLayout();
             this.xtraTabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picDebug)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
-            this.hideContainerRight.ResumeLayout(false);
-            this.dockPanel1.ResumeLayout(false);
-            this.dockPanel1_Container.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
             this.panelControl19.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
             this.panelControl20.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
             this.panelControl21.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).EndInit();
+            this.panelControl22.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl24)).EndInit();
+            this.panelControl24.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl25)).EndInit();
+            this.panelControl25.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picDebug)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl26)).EndInit();
+            this.panelControl26.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).EndInit();
+            this.panelControl27.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
+            this.hideContainerRight.ResumeLayout(false);
+            this.dockPanel1.ResumeLayout(false);
+            this.dockPanel1_Container.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1080,10 +1140,10 @@
         private DevExpress.XtraBars.Docking.ControlContainer dockPanel1_Container;
         private System.Windows.Forms.ListBox listLog;
         private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.LabelControl labelControl3;
-        private DevExpress.XtraEditors.LabelControl labelControl6;
+        private DevExpress.XtraEditors.LabelControl labelTemperature;
+        private DevExpress.XtraEditors.LabelControl labelPressure;
         private DevExpress.XtraEditors.LabelControl labelControl7;
-        private DevExpress.XtraEditors.LabelControl labelControl4;
+        private DevExpress.XtraEditors.LabelControl labelHumi;
         private DevExpress.XtraEditors.LabelControl labelControl5;
         private DevExpress.XtraEditors.PanelControl panelControl8;
         private System.Windows.Forms.PictureBox picCamera;
@@ -1103,11 +1163,6 @@
         private DevExpress.XtraEditors.PanelControl panelControl14;
         private DevExpress.XtraTab.XtraTabPage xtraTabPage2;
         private DevExpress.XtraEditors.PanelControl panelControl18;
-        private DevExpress.XtraEditors.PanelControl panelControl17;
-        private DevExpress.XtraEditors.VScrollBar vScrollBar2;
-        private DevExpress.XtraEditors.PanelControl panelControl16;
-        private DevExpress.XtraEditors.VScrollBar vScrollBar1;
-        private System.Windows.Forms.PictureBox picDebug;
         private System.Windows.Forms.PictureBox picCameraStatus;
         private DevExpress.XtraEditors.LabelControl labelCameraStatus;
         private DevExpress.XtraEditors.LabelControl labelControl12;
@@ -1119,6 +1174,15 @@
         private DevExpress.XtraEditors.PanelControl panelControl19;
         private DevExpress.XtraEditors.PanelControl panelControl20;
         private DevExpress.XtraEditors.PanelControl panelControl21;
+        private DevExpress.XtraEditors.PanelControl panelControl23;
+        private DevExpress.XtraEditors.PanelControl panelControl22;
+        private DevExpress.XtraEditors.PanelControl panelControl24;
+        private DevExpress.XtraEditors.PanelControl panelControl25;
+        private System.Windows.Forms.PictureBox picDebug;
+        private DevExpress.XtraEditors.PanelControl panelControl26;
+        private DevExpress.XtraEditors.VScrollBar vScrollBar3;
+        private DevExpress.XtraEditors.PanelControl panelControl27;
+        private DevExpress.XtraEditors.VScrollBar vScrollBar4;
     }
 }
 

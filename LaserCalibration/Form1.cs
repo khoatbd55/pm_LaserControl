@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
+using LaserCalibration.Services.Environment;
 
 namespace LaserCalibration
 {
@@ -22,6 +23,7 @@ namespace LaserCalibration
         CancellationTokenSource _backgroundCancellTokenSource = new CancellationTokenSource();
         CameraService _camera = new CameraService();
         WaitForm_Service _waitForm;
+        KEnvironmentSerial _environmentSerial=new KEnvironmentSerial();
         public Form1()
         {
             InitializeComponent();
@@ -39,6 +41,7 @@ namespace LaserCalibration
                 _waitForm.ShowProgressPanel();
 
                 await _camera.StopAsync();
+                await _environmentSerial.DisconnectAsync();
                 await Task.Delay(100);
                 _waitForm.CloseProgressPanel();
                 e.Cancel = true;
@@ -63,6 +66,40 @@ namespace LaserCalibration
             _camera.OnImage += _camera_OnImage;
             _camera.OnConnection += _camera_OnConnection;
             _camera.Run();
+            _environmentSerial = new KEnvironmentSerial();
+            _environmentSerial.OnExceptionAsync += _environmentSerial_OnExceptionAsync;
+            _environmentSerial.OnRecievedMessageAsync += _environmentSerial_OnRecievedMessageAsync;
+            _environmentSerial.Run(new Services.Environment.Models.ConfigOption.KNohmiSerialOptions()
+            {
+                PortName="COM4"
+            });
+        }
+
+        private Task _environmentSerial_OnRecievedMessageAsync(Services.Environment.Events.KNohmiEnvironment_EventArg arg)
+        {
+            this.Invoke(new MethodInvoker(() =>
+            {
+                try
+                {
+                    labelTemperature.Text = arg.Message.Temp.ToString();
+                    labelPressure.Text = arg.Message.Pressure.ToString();
+                    labelHumi.Text = arg.Message.Humi.ToString();
+                }
+                catch (Exception)
+                {
+
+                }
+            }));
+            return Task.CompletedTask;
+        }
+
+        private Task _environmentSerial_OnExceptionAsync(Services.Environment.Events.KNohmiException_EventArg arg)
+        {
+            this.Invoke(new MethodInvoker(() =>
+            {
+                
+            }));
+            return Task.CompletedTask;
         }
 
         private void _camera_OnConnection(object sender, Models.Camera.CameraConnection_EventArg e)
