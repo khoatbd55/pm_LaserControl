@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace LaserCalibration.Services.Environment.Events
 {
-    public class KNohmiClosedConnection_EventArgs : EventArgs
+    public class KNohmiConnection_EventArgs : EventArgs
     {
-        public KNohmiClosedConnection_EventArgs(object sender, EventArgs eventArgs)
+        public KNohmiConnection_EventArgs(object sender, bool isConnected)
         {
             Sender = sender;
-            EventArgs = eventArgs;
+            IsConnected = isConnected;
         }
+        public bool IsConnected { get;private set; }
 
         public object Sender { get; private set; }
         public EventArgs EventArgs { get; private set; }

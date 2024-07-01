@@ -28,6 +28,7 @@ namespace LaserCalibration.Services.Environment.Formatter
                         msg.TempRaw = (int)(msg.Temp * 10);
                         msg.Humi = double.Parse( matches[2].Value);
                         msg.HumiRaw = (int)(msg.Humi * 10);
+                        return msg;
                     }    
                 }    
             }

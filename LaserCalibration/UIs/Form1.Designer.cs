@@ -95,11 +95,29 @@
             this.panelControl27 = new DevExpress.XtraEditors.PanelControl();
             this.vScrollBar4 = new DevExpress.XtraEditors.VScrollBar();
             this.panelControl23 = new DevExpress.XtraEditors.PanelControl();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.zoomTrackBarControl1 = new DevExpress.XtraEditors.ZoomTrackBarControl();
+            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            this.nudDiemDuoi = new System.Windows.Forms.NumericUpDown();
+            this.trackDiemDuoi = new DevExpress.XtraEditors.ZoomTrackBarControl();
+            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
+            this.nudDiemTren = new System.Windows.Forms.NumericUpDown();
+            this.trackDiemTren = new DevExpress.XtraEditors.ZoomTrackBarControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.hideContainerRight = new DevExpress.XtraBars.Docking.AutoHideContainer();
             this.dockPanel1 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.listLog = new System.Windows.Forms.ListBox();
+            this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
+            this.comboBoxEdit2 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
+            this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
+            this.labelControl16 = new DevExpress.XtraEditors.LabelControl();
+            this.comboBoxEdit3 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
+            this.labelControl17 = new DevExpress.XtraEditors.LabelControl();
+            this.comboBoxEdit4 = new DevExpress.XtraEditors.ComboBoxEdit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
@@ -169,10 +187,29 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).BeginInit();
             this.panelControl27.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).BeginInit();
+            this.panelControl23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDiemDuoi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDiemDuoi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDiemDuoi.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDiemTren)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDiemTren)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDiemTren.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.hideContainerRight.SuspendLayout();
             this.dockPanel1.SuspendLayout();
             this.dockPanel1_Container.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
+            this.groupControl5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
+            this.groupControl6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
+            this.groupControl7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit4.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl1
@@ -836,7 +873,7 @@
             // 
             this.xtraTabPage2.Controls.Add(this.panelControl19);
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(1719, 763);
+            this.xtraTabPage2.Size = new System.Drawing.Size(1718, 763);
             this.xtraTabPage2.Text = "xtraTabPage2";
             // 
             // panelControl19
@@ -846,16 +883,19 @@
             this.panelControl19.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl19.Location = new System.Drawing.Point(0, 0);
             this.panelControl19.Name = "panelControl19";
-            this.panelControl19.Size = new System.Drawing.Size(1719, 763);
+            this.panelControl19.Size = new System.Drawing.Size(1718, 763);
             this.panelControl19.TabIndex = 8;
             // 
             // panelControl20
             // 
             this.panelControl20.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelControl20.Controls.Add(this.groupControl7);
+            this.panelControl20.Controls.Add(this.groupControl6);
+            this.panelControl20.Controls.Add(this.groupControl5);
             this.panelControl20.Controls.Add(this.panelControl21);
-            this.panelControl20.Location = new System.Drawing.Point(221, 45);
+            this.panelControl20.Location = new System.Drawing.Point(360, 14);
             this.panelControl20.Name = "panelControl20";
-            this.panelControl20.Size = new System.Drawing.Size(1326, 641);
+            this.panelControl20.Size = new System.Drawing.Size(1186, 740);
             this.panelControl20.TabIndex = 8;
             // 
             // panelControl21
@@ -864,9 +904,9 @@
             this.panelControl21.Controls.Add(this.panelControl22);
             this.panelControl21.Controls.Add(this.panelControl23);
             this.panelControl21.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl21.Location = new System.Drawing.Point(741, 2);
+            this.panelControl21.Location = new System.Drawing.Point(601, 2);
             this.panelControl21.Name = "panelControl21";
-            this.panelControl21.Size = new System.Drawing.Size(583, 637);
+            this.panelControl21.Size = new System.Drawing.Size(583, 736);
             this.panelControl21.TabIndex = 8;
             // 
             // panelControl22
@@ -875,7 +915,7 @@
             this.panelControl22.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl22.Location = new System.Drawing.Point(0, 0);
             this.panelControl22.Name = "panelControl22";
-            this.panelControl22.Size = new System.Drawing.Size(583, 388);
+            this.panelControl22.Size = new System.Drawing.Size(583, 391);
             this.panelControl22.TabIndex = 10;
             // 
             // panelControl24
@@ -888,7 +928,7 @@
             this.panelControl24.Location = new System.Drawing.Point(2, 2);
             this.panelControl24.Margin = new System.Windows.Forms.Padding(6);
             this.panelControl24.Name = "panelControl24";
-            this.panelControl24.Size = new System.Drawing.Size(579, 384);
+            this.panelControl24.Size = new System.Drawing.Size(579, 387);
             this.panelControl24.TabIndex = 2;
             // 
             // panelControl25
@@ -898,7 +938,7 @@
             this.panelControl25.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl25.Location = new System.Drawing.Point(27, 0);
             this.panelControl25.Name = "panelControl25";
-            this.panelControl25.Size = new System.Drawing.Size(525, 384);
+            this.panelControl25.Size = new System.Drawing.Size(525, 387);
             this.panelControl25.TabIndex = 3;
             // 
             // picDebug
@@ -908,7 +948,7 @@
             this.picDebug.Location = new System.Drawing.Point(0, 0);
             this.picDebug.Margin = new System.Windows.Forms.Padding(6);
             this.picDebug.Name = "picDebug";
-            this.picDebug.Size = new System.Drawing.Size(525, 384);
+            this.picDebug.Size = new System.Drawing.Size(525, 387);
             this.picDebug.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picDebug.TabIndex = 0;
             this.picDebug.TabStop = false;
@@ -920,7 +960,7 @@
             this.panelControl26.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelControl26.Location = new System.Drawing.Point(552, 0);
             this.panelControl26.Name = "panelControl26";
-            this.panelControl26.Size = new System.Drawing.Size(27, 384);
+            this.panelControl26.Size = new System.Drawing.Size(27, 387);
             this.panelControl26.TabIndex = 2;
             // 
             // vScrollBar3
@@ -928,7 +968,7 @@
             this.vScrollBar3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vScrollBar3.Location = new System.Drawing.Point(0, 0);
             this.vScrollBar3.Name = "vScrollBar3";
-            this.vScrollBar3.Size = new System.Drawing.Size(27, 384);
+            this.vScrollBar3.Size = new System.Drawing.Size(27, 387);
             this.vScrollBar3.TabIndex = 1;
             // 
             // panelControl27
@@ -938,7 +978,7 @@
             this.panelControl27.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl27.Location = new System.Drawing.Point(0, 0);
             this.panelControl27.Name = "panelControl27";
-            this.panelControl27.Size = new System.Drawing.Size(27, 384);
+            this.panelControl27.Size = new System.Drawing.Size(27, 387);
             this.panelControl27.TabIndex = 1;
             // 
             // vScrollBar4
@@ -946,17 +986,123 @@
             this.vScrollBar4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vScrollBar4.Location = new System.Drawing.Point(0, 0);
             this.vScrollBar4.Name = "vScrollBar4";
-            this.vScrollBar4.Size = new System.Drawing.Size(27, 384);
+            this.vScrollBar4.Size = new System.Drawing.Size(27, 387);
             this.vScrollBar4.TabIndex = 0;
             this.vScrollBar4.Value = 100;
             // 
             // panelControl23
             // 
+            this.panelControl23.Controls.Add(this.numericUpDown1);
+            this.panelControl23.Controls.Add(this.zoomTrackBarControl1);
+            this.panelControl23.Controls.Add(this.labelControl6);
+            this.panelControl23.Controls.Add(this.nudDiemDuoi);
+            this.panelControl23.Controls.Add(this.trackDiemDuoi);
+            this.panelControl23.Controls.Add(this.labelControl4);
+            this.panelControl23.Controls.Add(this.nudDiemTren);
+            this.panelControl23.Controls.Add(this.trackDiemTren);
+            this.panelControl23.Controls.Add(this.labelControl3);
             this.panelControl23.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl23.Location = new System.Drawing.Point(0, 388);
+            this.panelControl23.Location = new System.Drawing.Point(0, 391);
             this.panelControl23.Name = "panelControl23";
-            this.panelControl23.Size = new System.Drawing.Size(583, 249);
+            this.panelControl23.Size = new System.Drawing.Size(583, 345);
             this.panelControl23.TabIndex = 9;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown1.Location = new System.Drawing.Point(449, 204);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 33);
+            this.numericUpDown1.TabIndex = 8;
+            // 
+            // zoomTrackBarControl1
+            // 
+            this.zoomTrackBarControl1.EditValue = null;
+            this.zoomTrackBarControl1.Location = new System.Drawing.Point(15, 212);
+            this.zoomTrackBarControl1.Name = "zoomTrackBarControl1";
+            this.zoomTrackBarControl1.Properties.Maximum = 255;
+            this.zoomTrackBarControl1.Size = new System.Drawing.Size(428, 21);
+            this.zoomTrackBarControl1.TabIndex = 7;
+            // 
+            // labelControl6
+            // 
+            this.labelControl6.Appearance.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl6.Appearance.Options.UseFont = true;
+            this.labelControl6.Location = new System.Drawing.Point(15, 172);
+            this.labelControl6.Name = "labelControl6";
+            this.labelControl6.Size = new System.Drawing.Size(63, 22);
+            this.labelControl6.TabIndex = 6;
+            this.labelControl6.Text = "Ngưỡng";
+            // 
+            // nudDiemDuoi
+            // 
+            this.nudDiemDuoi.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudDiemDuoi.Location = new System.Drawing.Point(449, 131);
+            this.nudDiemDuoi.Maximum = new decimal(new int[] {
+            1943,
+            0,
+            0,
+            0});
+            this.nudDiemDuoi.Name = "nudDiemDuoi";
+            this.nudDiemDuoi.Size = new System.Drawing.Size(120, 33);
+            this.nudDiemDuoi.TabIndex = 5;
+            // 
+            // trackDiemDuoi
+            // 
+            this.trackDiemDuoi.EditValue = null;
+            this.trackDiemDuoi.Location = new System.Drawing.Point(15, 139);
+            this.trackDiemDuoi.Name = "trackDiemDuoi";
+            this.trackDiemDuoi.Properties.Maximum = 1943;
+            this.trackDiemDuoi.Size = new System.Drawing.Size(428, 21);
+            this.trackDiemDuoi.TabIndex = 4;
+            // 
+            // labelControl4
+            // 
+            this.labelControl4.Appearance.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl4.Appearance.Options.UseFont = true;
+            this.labelControl4.Location = new System.Drawing.Point(15, 99);
+            this.labelControl4.Name = "labelControl4";
+            this.labelControl4.Size = new System.Drawing.Size(155, 22);
+            this.labelControl4.TabIndex = 3;
+            this.labelControl4.Text = "Điểm dưới:(pixcel)";
+            // 
+            // nudDiemTren
+            // 
+            this.nudDiemTren.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudDiemTren.Location = new System.Drawing.Point(449, 48);
+            this.nudDiemTren.Maximum = new decimal(new int[] {
+            1943,
+            0,
+            0,
+            0});
+            this.nudDiemTren.Name = "nudDiemTren";
+            this.nudDiemTren.Size = new System.Drawing.Size(120, 33);
+            this.nudDiemTren.TabIndex = 2;
+            // 
+            // trackDiemTren
+            // 
+            this.trackDiemTren.EditValue = 1;
+            this.trackDiemTren.Location = new System.Drawing.Point(15, 56);
+            this.trackDiemTren.Name = "trackDiemTren";
+            this.trackDiemTren.Properties.Maximum = 1943;
+            this.trackDiemTren.Size = new System.Drawing.Size(428, 21);
+            this.trackDiemTren.TabIndex = 1;
+            this.trackDiemTren.Value = 1;
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl3.Appearance.Options.UseFont = true;
+            this.labelControl3.Location = new System.Drawing.Point(15, 16);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(147, 22);
+            this.labelControl3.TabIndex = 0;
+            this.labelControl3.Text = "Điểm trên:(pixcel)";
             // 
             // dockManager1
             // 
@@ -1019,6 +1165,120 @@
             this.listLog.Name = "listLog";
             this.listLog.Size = new System.Drawing.Size(563, 738);
             this.listLog.TabIndex = 0;
+            // 
+            // groupControl5
+            // 
+            this.groupControl5.AppearanceCaption.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl5.AppearanceCaption.Options.UseFont = true;
+            this.groupControl5.Controls.Add(this.labelControl15);
+            this.groupControl5.Controls.Add(this.comboBoxEdit2);
+            this.groupControl5.Location = new System.Drawing.Point(21, 119);
+            this.groupControl5.LookAndFeel.SkinName = "Office 2016 Colorful";
+            this.groupControl5.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.groupControl5.Margin = new System.Windows.Forms.Padding(6);
+            this.groupControl5.Name = "groupControl5";
+            this.groupControl5.Size = new System.Drawing.Size(549, 108);
+            this.groupControl5.TabIndex = 9;
+            this.groupControl5.Text = "Enviroment";
+            // 
+            // comboBoxEdit2
+            // 
+            this.comboBoxEdit2.Location = new System.Drawing.Point(167, 49);
+            this.comboBoxEdit2.Margin = new System.Windows.Forms.Padding(6);
+            this.comboBoxEdit2.Name = "comboBoxEdit2";
+            this.comboBoxEdit2.Properties.Appearance.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxEdit2.Properties.Appearance.Options.UseFont = true;
+            this.comboBoxEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboBoxEdit2.Size = new System.Drawing.Size(321, 40);
+            this.comboBoxEdit2.TabIndex = 0;
+            // 
+            // labelControl15
+            // 
+            this.labelControl15.Appearance.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl15.Appearance.Options.UseFont = true;
+            this.labelControl15.Location = new System.Drawing.Point(12, 57);
+            this.labelControl15.Margin = new System.Windows.Forms.Padding(6);
+            this.labelControl15.Name = "labelControl15";
+            this.labelControl15.Size = new System.Drawing.Size(129, 25);
+            this.labelControl15.TabIndex = 3;
+            this.labelControl15.Text = "Comport name";
+            // 
+            // groupControl6
+            // 
+            this.groupControl6.AppearanceCaption.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl6.AppearanceCaption.Options.UseFont = true;
+            this.groupControl6.Controls.Add(this.labelControl16);
+            this.groupControl6.Controls.Add(this.comboBoxEdit3);
+            this.groupControl6.Location = new System.Drawing.Point(21, 253);
+            this.groupControl6.LookAndFeel.SkinName = "Office 2016 Colorful";
+            this.groupControl6.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.groupControl6.Margin = new System.Windows.Forms.Padding(6);
+            this.groupControl6.Name = "groupControl6";
+            this.groupControl6.Size = new System.Drawing.Size(549, 108);
+            this.groupControl6.TabIndex = 10;
+            this.groupControl6.Text = "Temperature";
+            // 
+            // labelControl16
+            // 
+            this.labelControl16.Appearance.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl16.Appearance.Options.UseFont = true;
+            this.labelControl16.Location = new System.Drawing.Point(12, 57);
+            this.labelControl16.Margin = new System.Windows.Forms.Padding(6);
+            this.labelControl16.Name = "labelControl16";
+            this.labelControl16.Size = new System.Drawing.Size(129, 25);
+            this.labelControl16.TabIndex = 3;
+            this.labelControl16.Text = "Comport name";
+            // 
+            // comboBoxEdit3
+            // 
+            this.comboBoxEdit3.Location = new System.Drawing.Point(167, 49);
+            this.comboBoxEdit3.Margin = new System.Windows.Forms.Padding(6);
+            this.comboBoxEdit3.Name = "comboBoxEdit3";
+            this.comboBoxEdit3.Properties.Appearance.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxEdit3.Properties.Appearance.Options.UseFont = true;
+            this.comboBoxEdit3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboBoxEdit3.Size = new System.Drawing.Size(321, 40);
+            this.comboBoxEdit3.TabIndex = 0;
+            // 
+            // groupControl7
+            // 
+            this.groupControl7.AppearanceCaption.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl7.AppearanceCaption.Options.UseFont = true;
+            this.groupControl7.Controls.Add(this.labelControl17);
+            this.groupControl7.Controls.Add(this.comboBoxEdit4);
+            this.groupControl7.Location = new System.Drawing.Point(21, 393);
+            this.groupControl7.LookAndFeel.SkinName = "Office 2016 Colorful";
+            this.groupControl7.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.groupControl7.Margin = new System.Windows.Forms.Padding(6);
+            this.groupControl7.Name = "groupControl7";
+            this.groupControl7.Size = new System.Drawing.Size(549, 108);
+            this.groupControl7.TabIndex = 11;
+            this.groupControl7.Text = "Display";
+            // 
+            // labelControl17
+            // 
+            this.labelControl17.Appearance.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl17.Appearance.Options.UseFont = true;
+            this.labelControl17.Location = new System.Drawing.Point(12, 57);
+            this.labelControl17.Margin = new System.Windows.Forms.Padding(6);
+            this.labelControl17.Name = "labelControl17";
+            this.labelControl17.Size = new System.Drawing.Size(129, 25);
+            this.labelControl17.TabIndex = 3;
+            this.labelControl17.Text = "Comport name";
+            // 
+            // comboBoxEdit4
+            // 
+            this.comboBoxEdit4.Location = new System.Drawing.Point(167, 49);
+            this.comboBoxEdit4.Margin = new System.Windows.Forms.Padding(6);
+            this.comboBoxEdit4.Name = "comboBoxEdit4";
+            this.comboBoxEdit4.Properties.Appearance.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxEdit4.Properties.Appearance.Options.UseFont = true;
+            this.comboBoxEdit4.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboBoxEdit4.Size = new System.Drawing.Size(321, 40);
+            this.comboBoxEdit4.TabIndex = 0;
             // 
             // Form1
             // 
@@ -1105,10 +1365,33 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).EndInit();
             this.panelControl27.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).EndInit();
+            this.panelControl23.ResumeLayout(false);
+            this.panelControl23.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.zoomTrackBarControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDiemDuoi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDiemDuoi.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDiemDuoi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDiemTren)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDiemTren.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDiemTren)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.hideContainerRight.ResumeLayout(false);
             this.dockPanel1.ResumeLayout(false);
             this.dockPanel1_Container.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
+            this.groupControl5.ResumeLayout(false);
+            this.groupControl5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
+            this.groupControl6.ResumeLayout(false);
+            this.groupControl6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
+            this.groupControl7.ResumeLayout(false);
+            this.groupControl7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit4.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1183,6 +1466,24 @@
         private DevExpress.XtraEditors.VScrollBar vScrollBar3;
         private DevExpress.XtraEditors.PanelControl panelControl27;
         private DevExpress.XtraEditors.VScrollBar vScrollBar4;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.ZoomTrackBarControl trackDiemTren;
+        private System.Windows.Forms.NumericUpDown nudDiemTren;
+        private System.Windows.Forms.NumericUpDown nudDiemDuoi;
+        private DevExpress.XtraEditors.ZoomTrackBarControl trackDiemDuoi;
+        private DevExpress.XtraEditors.LabelControl labelControl4;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private DevExpress.XtraEditors.ZoomTrackBarControl zoomTrackBarControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl6;
+        private DevExpress.XtraEditors.GroupControl groupControl5;
+        private DevExpress.XtraEditors.LabelControl labelControl15;
+        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit2;
+        private DevExpress.XtraEditors.GroupControl groupControl6;
+        private DevExpress.XtraEditors.LabelControl labelControl16;
+        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit3;
+        private DevExpress.XtraEditors.GroupControl groupControl7;
+        private DevExpress.XtraEditors.LabelControl labelControl17;
+        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit4;
     }
 }
 

@@ -18,7 +18,7 @@ namespace LaserCalibration.Services.Environment
         readonly KAsyncEvent<KNohmiEnvironment_EventArg> _recievedMessage = new KAsyncEvent<KNohmiEnvironment_EventArg>();
         readonly KAsyncEvent<KNohmiLog_EventArg> _logEvent = new KAsyncEvent<KNohmiLog_EventArg>();
         readonly KAsyncEvent<KNohmiException_EventArg> _exceptionEvent = new KAsyncEvent<KNohmiException_EventArg>();
-        readonly KAsyncEvent<KNohmiClosedConnection_EventArgs> _closedConnectionEvent = new KAsyncEvent<KNohmiClosedConnection_EventArgs>();
+        readonly KAsyncEvent<KNohmiConnection_EventArgs> _onConnectionEvent = new KAsyncEvent<KNohmiConnection_EventArgs>();
 
 
 
@@ -40,10 +40,10 @@ namespace LaserCalibration.Services.Environment
             remove => _exceptionEvent.RemoveHandler(value);
         }
 
-        public event Func<KNohmiClosedConnection_EventArgs, Task> OnClosedConnectionAsync
+        public event Func<KNohmiConnection_EventArgs, Task> OnConnectionAsync
         {
-            add => _closedConnectionEvent.AddHandler(value);
-            remove => _closedConnectionEvent.RemoveHandler(value);
+            add => _onConnectionEvent.AddHandler(value);
+            remove => _onConnectionEvent.RemoveHandler(value);
         }
 
         KNohmiTransport _transport;
@@ -57,6 +57,7 @@ namespace LaserCalibration.Services.Environment
         int _isComportOpened = 0;
         KNohmiFormatter _formatter = new KNohmiFormatter();
         public bool IsRunning { get; private set; } = false;
+        long _isConnected = 0;
 
         KAsyncQueue<KNohmiTransport_EventArgs> _transportMsgQueue = new KAsyncQueue<KNohmiTransport_EventArgs>(50000);
         KAsyncQueue<KEnvironmentBaseMessage> _eventQueue = new KAsyncQueue<KEnvironmentBaseMessage>(50000);
@@ -90,6 +91,7 @@ namespace LaserCalibration.Services.Environment
                         var result = _formatter.Decode(msgQueue.Item.Message, msgQueue.Item.Raw);
                         if (result != null)
                         {
+                           
                             EnqueueMessage(result);
                         }
                     }
@@ -149,6 +151,12 @@ namespace LaserCalibration.Services.Environment
                         {
                             if (_logEvent.HasHandlers)
                             {
+                                var isConnect = Interlocked.Read(ref _isConnected);
+                                if (isConnect == 0)
+                                {
+                                    Interlocked.Exchange(ref _isConnected, 1);
+                                    await _onConnectionEvent.InvokeAsync(new KNohmiConnection_EventArgs(this, true));
+                                }
                                 await _logEvent.InvokeAsync(new KNohmiLog_EventArg(this, log.Content)).ConfigureAwait(false);
                             }
                         }
@@ -156,6 +164,12 @@ namespace LaserCalibration.Services.Environment
                         {
                             if (_exceptionEvent.HasHandlers)
                             {
+                                var isConnect = Interlocked.Read(ref _isConnected);
+                                if (isConnect !=0)
+                                {
+                                    Interlocked.Exchange(ref _isConnected, 0);
+                                    await _onConnectionEvent.InvokeAsync(new KNohmiConnection_EventArgs(this, true));
+                                }
                                 await _exceptionEvent.InvokeAsync(new KNohmiException_EventArg(this, ex.Ex)).ConfigureAwait(false);
                             }
                         }
@@ -240,9 +254,9 @@ namespace LaserCalibration.Services.Environment
             await WaitForTask(_taskDecode).ConfigureAwait(false);
             _transportMsgQueue.Clear();
             _eventQueue.Clear();
-            if (_closedConnectionEvent.HasHandlers)
+            if (_onConnectionEvent.HasHandlers)
             {
-                await _closedConnectionEvent.InvokeAsync(new KNohmiClosedConnection_EventArgs(this, new EventArgs())).ConfigureAwait(false);
+                await _onConnectionEvent.InvokeAsync(new KNohmiConnection_EventArgs(this, false)).ConfigureAwait(false);
             }
         }
 

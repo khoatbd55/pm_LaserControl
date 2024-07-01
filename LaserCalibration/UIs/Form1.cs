@@ -68,11 +68,35 @@ namespace LaserCalibration
             _camera.Run();
             _environmentSerial = new KEnvironmentSerial();
             _environmentSerial.OnExceptionAsync += _environmentSerial_OnExceptionAsync;
+            _environmentSerial.OnConnectionAsync += _environmentSerial_OnConnectionAsync;
             _environmentSerial.OnRecievedMessageAsync += _environmentSerial_OnRecievedMessageAsync;
             _environmentSerial.Run(new Services.Environment.Models.ConfigOption.KNohmiSerialOptions()
             {
                 PortName="COM4"
             });
+        }
+
+        private Task _environmentSerial_OnConnectionAsync(Services.Environment.Events.KNohmiConnection_EventArgs arg)
+        {
+            this.Invoke(new MethodInvoker(() =>
+            {
+                try
+                {
+                    if (arg.IsConnected)
+                    {
+                        picEnviromentalStatus.Image= Properties.Resources.green_circle_32px;
+                    }
+                    else
+                    {
+                        picEnviromentalStatus.Image = Properties.Resources.black_circle_32px;
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }));
+            return Task.CompletedTask;
         }
 
         private Task _environmentSerial_OnRecievedMessageAsync(Services.Environment.Events.KNohmiEnvironment_EventArg arg)
@@ -115,6 +139,7 @@ namespace LaserCalibration
                     picCameraStatus.Image = Properties.Resources.black_circle_32px;
                 }
             }));
+
         }
 
         int _countDelayImage = 0;
@@ -134,13 +159,18 @@ namespace LaserCalibration
                     Mat grayImage = new Mat();
                     Cv2.CvtColor(image, grayImage, ColorConversionCodes.BGR2GRAY);
 
+                    Mat blurred = new Mat();
+                    Cv2.GaussianBlur(grayImage, blurred, new OpenCvSharp.Size(5, 5), 0);
+
                     // Threshold the image
                     Mat binaryImage = new Mat();
                     Cv2.Threshold(grayImage, binaryImage, 80, 255, ThresholdTypes.Binary);
 
+                    
+
                     if (picDebug.Image != null)
                         picDebug.Image = null;
-                    picDebug.Image = BitmapConverter.ToBitmap(binaryImage);
+                    picDebug.Image = BitmapConverter.ToBitmap(blurred);
 
                     //return;
                     // Find contours
@@ -148,7 +178,7 @@ namespace LaserCalibration
                     HierarchyIndex[] hierarchy;
                     Cv2.FindContours(binaryImage, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
                     List<Rect> _listPoint = new List<Rect>();
-
+                        
                     //int idx = 0;
                     foreach (var contour in contours)
                     {
