@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using LaserCalibration.Services.Environment;
+using LaserCalibration.UIs.UCs;
 
 namespace LaserCalibration
 {
@@ -23,7 +24,8 @@ namespace LaserCalibration
         CancellationTokenSource _backgroundCancellTokenSource = new CancellationTokenSource();
         CameraService _camera = new CameraService();
         WaitForm_Service _waitForm;
-        KEnvironmentSerial _environmentSerial=new KEnvironmentSerial();
+        KEnvironmentSerial _environmentSerial = new KEnvironmentSerial();
+        LaserSettingUc _settingUc = new LaserSettingUc();
         public Form1()
         {
             InitializeComponent();
@@ -63,6 +65,9 @@ namespace LaserCalibration
         private void Form1_Load(object sender, EventArgs e)
         {
             _waitForm = new WaitForm_Service(this);
+            xtraTabSetting.Controls.Clear();
+            _settingUc.Dock= DockStyle.Fill;
+            xtraTabSetting.Controls.Add(_settingUc);
             _camera.OnImage += _camera_OnImage;
             _camera.OnConnection += _camera_OnConnection;
             _camera.Run();
@@ -166,11 +171,9 @@ namespace LaserCalibration
                     Mat binaryImage = new Mat();
                     Cv2.Threshold(grayImage, binaryImage, 80, 255, ThresholdTypes.Binary);
 
-                    
-
-                    if (picDebug.Image != null)
-                        picDebug.Image = null;
-                    picDebug.Image = BitmapConverter.ToBitmap(blurred);
+                    //if (picDebug.Image != null)
+                    //    picDebug.Image = null;
+                    //picDebug.Image = BitmapConverter.ToBitmap(blurred);
 
                     //return;
                     // Find contours
@@ -216,5 +219,9 @@ namespace LaserCalibration
             }));
         }
 
+        private void xtraTabControl_SelectedPageChanged(object sender, DevExpress.XtraTab.TabPageChangedEventArgs e)
+        {
+            //MessageBox.Show(xtraTabControl.SelectedTabPageIndex.ToString());
+        }
     }
 }
