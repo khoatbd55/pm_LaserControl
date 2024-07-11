@@ -260,7 +260,9 @@
     <None Include="Resources\360_F_355607062_zYMS8jaz4SfoykpWz5oViRVKL32IabTP.jpg" />
     <None Include="Resources\1logo_anh_duy_450_200.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\Configuration\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

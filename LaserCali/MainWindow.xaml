@@ -1,0 +1,75 @@
+﻿<Window Closing="Window_Closing"
+        Closed="Window_Closed"
+        Loaded="Window_Loaded"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LaserCali"
+        xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion" x:Class="LaserCali.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1000" WindowStartupLocation="CenterScreen" Background="#FFCDCCCC">
+    <Window.Resources>
+        <!--A Style that affects all TextBlocks-->
+        <Style TargetType="Border" x:Key="BorderCard">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Margin" Value="5 5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="5,5,5,5"/>
+            <Setter Property="Padding" Value="5,5,5,5"/>
+            <Setter Property="BorderBrush" Value="#FFB7B7B7"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" >
+            <Border Style="{StaticResource BorderCard}">
+                <StackPanel Orientation="Horizontal">
+                    <dx:SimpleButton Content="Cài đặt" x:Name="btnSetting"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" >
+                    <Border Style="{StaticResource BorderCard}">
+
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Border Style="{StaticResource BorderCard}">
+
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Border Style="{StaticResource BorderCard}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="70"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Image Stretch="Fill" x:Name="picCamera"></Image>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</Window>
