@@ -168,7 +168,7 @@ namespace LaserCali.Services
                                             {
                                                 OnImage(this, new CameraImage_EventArgs()
                                                 {
-                                                    Image = bitmap
+                                                    Image = bitmap,
                                                 });
                                             }
                                         }

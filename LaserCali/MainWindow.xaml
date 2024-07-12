@@ -1,4 +1,4 @@
-﻿<Window Closing="Window_Closing"
+﻿<Window xmlns:UCs="clr-namespace:LaserCali.UIs.UCs"  Closing="Window_Closing"
         Closed="Window_Closed"
         Loaded="Window_Loaded"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
@@ -9,7 +9,8 @@
         xmlns:local="clr-namespace:LaserCali"
         xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion" x:Class="LaserCali.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000" WindowStartupLocation="CenterScreen" Background="#FFCDCCCC">
+        xmlns:fa5="http://schemas.fontawesome.com/icons/"
+        Title="MainWindow" Height="620" Width="1000" WindowStartupLocation="CenterScreen" Background="#FFCDCCCC">
     <Window.Resources>
         <!--A Style that affects all TextBlocks-->
         <Style TargetType="Border" x:Key="BorderCard">
@@ -26,7 +27,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="300"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" >
             <Border Style="{StaticResource BorderCard}">
@@ -44,7 +45,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" >
                     <Border Style="{StaticResource BorderCard}">
-
+                        <UCs:MainLaserUC VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                     </Border>
                 </Grid>
                 <Grid Grid.Column="1">
@@ -54,22 +55,37 @@
                 </Grid>
                 <Grid Grid.Column="2">
                     <Border Style="{StaticResource BorderCard}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="70"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Image Stretch="Fill" x:Name="picCamera"></Image>
+                        <GroupBox Header="Camera" Padding="0,0,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="70"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Image Stretch="Fill" x:Name="picCamera"></Image>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    
+                                </Grid>
                             </Grid>
-                            <Grid Grid.Row="1">
-                                
-                            </Grid>
-                        </Grid>
+                        </GroupBox>
+                        
                     </Border>
                 </Grid>
             </Grid>
             
+        </Grid>
+        <Grid Grid.Row="2">
+            <Border Style="{StaticResource BorderCard}">
+                
+            </Border>
+        </Grid>
+        
+        <Grid Grid.Row="3">
+            <Border Style="{StaticResource BorderCard}" Margin="5,0,5,5">
+                <UCs:DeviceConnectionUC x:Name="iconConnections" 
+                            HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            </Border>
         </Grid>
     </Grid>
 </Window>

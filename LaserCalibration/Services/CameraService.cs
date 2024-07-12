@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using LaserCalibration.Models.Camera;
-using static System.Resources.ResXFileRef;
 using DevComponents.DotNetBar.Metro.Rendering;
 
 namespace LaserCalibration.Services
@@ -171,7 +170,7 @@ namespace LaserCalibration.Services
                                             {
                                                 OnImage(this, new CameraImage_EventArgs()
                                                 {
-                                                    Image = bitmap
+                                                    Image = bitmap,
                                                 });
                                             }
                                         }
