@@ -1,5 +1,6 @@
 ﻿using LaserCali.Models.Camera;
 using LaserCali.Services;
+using LaserCali.Services.Environment;
 using OpenCvSharp.Extensions;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace LaserCali
         bool _firstClose = true;
         CancellationTokenSource _backgroundCancellTokenSource = new CancellationTokenSource();
         CameraService _camera = new CameraService();
+        KEnvironmentSerial _environmentSerial = new KEnvironmentSerial();
         public MainWindow()
         {
             InitializeComponent();
@@ -45,7 +47,7 @@ namespace LaserCali
                 _backgroundCancellTokenSource?.Cancel();
 
                 await _camera.StopAsync();
-                //await _environmentSerial.DisconnectAsync();
+                await _environmentSerial.DisconnectAsync();
                 await Task.Delay(100);
                 
                 e.Cancel = true;
@@ -67,6 +69,39 @@ namespace LaserCali
             _camera.OnImage += _camera_OnImage;
             _camera.OnConnection += _camera_OnConnection;
             _camera.Run();
+            _environmentSerial = new KEnvironmentSerial();
+            _environmentSerial.OnExceptionAsync += _environmentSerial_OnExceptionAsync; ;
+            _environmentSerial.OnConnectionAsync += _environmentSerial_OnConnectionAsync; ;
+            _environmentSerial.OnRecievedMessageAsync += _environmentSerial_OnRecievedMessageAsync; ;
+            _environmentSerial.Run(new Services.Environment.Models.ConfigOption.KNohmiSerialOptions()
+            {
+                PortName = "COM4"
+            });
+        }
+
+        private Task _environmentSerial_OnRecievedMessageAsync(Services.Environment.Events.KNohmiEnvironment_EventArg arg)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                tempUc.TempEnv = arg.Message.Temp;
+                tempUc.HumiEnv = arg.Message.Humi;
+                tempUc.PressureEnv = arg.Message.Pressure;
+            }));
+            return Task.CompletedTask;
+        }
+
+        private Task _environmentSerial_OnConnectionAsync(Services.Environment.Events.KNohmiConnection_EventArgs arg)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                iconConnections.IsEnviromentConnected = arg.IsConnected;
+            }));
+            return Task.CompletedTask;
+        }
+
+        private Task _environmentSerial_OnExceptionAsync(Services.Environment.Events.KNohmiException_EventArg arg)
+        {
+            return Task.CompletedTask;
         }
 
         private void _camera_OnConnection(object sender, CameraConnection_EventArg e)

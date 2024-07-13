@@ -146,12 +146,28 @@
     <Compile Include="Cv2.cs" />
     <Compile Include="LaserWrap\LaserApi.cs" />
     <Compile Include="Services\CameraService.cs" />
+    <Compile Include="Services\Environment\Events\KNohmiConnection_EventArgs.cs" />
+    <Compile Include="Services\Environment\Events\KNohmiEnvironment_EventArg.cs" />
+    <Compile Include="Services\Environment\Events\KNohmiException_EventArg.cs" />
+    <Compile Include="Services\Environment\Events\KNohmiLog_EventArg.cs" />
+    <Compile Include="Services\Environment\Events\KNohmiTransport_EventArgs.cs" />
+    <Compile Include="Services\Environment\Formatter\KNohmiFormatter.cs" />
+    <Compile Include="Services\Environment\KEnvironmentSerial.cs" />
+    <Compile Include="Services\Environment\Models\ConfigOption\KNohmiSerialOptions.cs" />
+    <Compile Include="Services\Environment\Models\Message\KEnvironmentBaseMessage.cs" />
+    <Compile Include="Services\Environment\Models\Message\KNohmiEnvironmentMessage.cs" />
+    <Compile Include="Services\Environment\Models\Message\KNohmiExceptionMessage.cs" />
+    <Compile Include="Services\Environment\Models\Message\KNohmiLogMessage.cs" />
+    <Compile Include="Services\Environment\Transport\KNohmiTransport.cs" />
     <Compile Include="Services\ImageLaserService.cs" />
     <Compile Include="UIs\UCs\CameraUC.xaml.cs">
       <DependentUpon>CameraUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIs\UCs\DeviceConnectionUC.xaml.cs">
       <DependentUpon>DeviceConnectionUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIs\UCs\MainEnviromentUC.xaml.cs">
+      <DependentUpon>MainEnviromentUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIs\UCs\MainLaserUC.xaml.cs">
       <DependentUpon>MainLaserUC.xaml</DependentUpon>
@@ -173,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIs\UCs\DeviceConnectionUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIs\UCs\MainEnviromentUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -212,6 +232,23 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UIs\Windowns\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="aLsrCalApi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="E1735A.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="E1735ACore.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="E1736A.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="E1736ACore.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

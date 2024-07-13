@@ -50,7 +50,7 @@
                 </Grid>
                 <Grid Grid.Column="1">
                     <Border Style="{StaticResource BorderCard}">
-
+                        <UCs:MainEnviromentUC x:Name="tempUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                     </Border>
                 </Grid>
                 <Grid Grid.Column="2">
