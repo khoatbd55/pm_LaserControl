@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace LaserCali.Services
 {
-    public class CameraService
+    public class KCameraService
     {
         public delegate void OnImageHandle(object sender, CameraImage_EventArgs e);
         public delegate void OnConnectionHandle(object sender, CameraConnection_EventArg e);
@@ -62,7 +62,7 @@ namespace LaserCali.Services
         // Minimum duration between frames in stopwatch ticks.
         private int frameDurationTicks;
         long _step = 0;
-        public CameraService()
+        public KCameraService()
         {
             stopwatch = new System.Diagnostics.Stopwatch();
             // Calculate the number of stopwatch ticks for every frame at the given frame rate.

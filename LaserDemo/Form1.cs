@@ -247,10 +247,7 @@ namespace LaserDemo
 
         }
 
-        
-
-
-         void ShowDevDetails(DEVICEINFO Info, uint IndentSize)
+        void ShowDevDetails(DEVICEINFO Info, uint IndentSize)
         {
             StringBuilder temp = new StringBuilder();
             for (uint i = 0; i < 16; i++)
@@ -349,6 +346,7 @@ namespace LaserDemo
                 progressBarBeam.Position = (int)beam;
             }));
         }
+
 
 
     }

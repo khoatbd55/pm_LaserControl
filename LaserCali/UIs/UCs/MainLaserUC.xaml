@@ -33,17 +33,17 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <dx:SimpleButton Content="Reset" Margin="0,5,2,0"/>
+                        <dx:SimpleButton Content="Reset" Margin="0,5,2,0" Glyph="{dx:DXImage SvgImages/Dashboards/GridResetColumnWidths.svg}"/>
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition Height="4"/>
                         </Grid.RowDefinitions>
-                        <dx:SimpleButton Content="Data" Margin="3,5,2,0" Grid.RowSpan="2"/>
+                        <dx:SimpleButton Content="Data" Margin="3,5,2,0" Grid.RowSpan="2" Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Database.svg}"/>
                     </Grid>
                     <Grid Grid.Column="2">
-                        <dx:SimpleButton Content="Export To Excel" Margin="3,5,2,0"/>
+                        <dx:SimpleButton Content="Export To Excel" Margin="3,5,2,0" Glyph="{dx:DXImage SvgImages/Export/ExportToCSV.svg}"/>
                     </Grid>
                 </Grid>
             </Grid>

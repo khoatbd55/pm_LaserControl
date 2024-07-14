@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaserCali.LaserWrap
+namespace LaserCali.Laser.LaserWrap
 {
     #region aLsrCal_enumerations
     public enum ALSRCALRC : uint

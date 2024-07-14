@@ -1,6 +1,8 @@
-﻿using LaserCali.Models.Camera;
+﻿using DevExpress.Xpf.Editors.Helpers;
+using LaserCali.Models.Camera;
 using LaserCali.Services;
 using LaserCali.Services.Environment;
+using LaserCali.Services.Laser;
 using OpenCvSharp.Extensions;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,8 +34,9 @@ namespace LaserCali
     {
         bool _firstClose = true;
         CancellationTokenSource _backgroundCancellTokenSource = new CancellationTokenSource();
-        CameraService _camera = new CameraService();
+        KCameraService _camera = new KCameraService();
         KEnvironmentSerial _environmentSerial = new KEnvironmentSerial();
+        KLaserService _laser = new KLaserService();
         public MainWindow()
         {
             InitializeComponent();
@@ -48,6 +52,7 @@ namespace LaserCali
 
                 await _camera.StopAsync();
                 await _environmentSerial.DisconnectAsync();
+                await _laser.StopAsync();
                 await Task.Delay(100);
                 
                 e.Cancel = true;
@@ -69,6 +74,12 @@ namespace LaserCali
             _camera.OnImage += _camera_OnImage;
             _camera.OnConnection += _camera_OnConnection;
             _camera.Run();
+
+            _laser.OnResult += _laser_OnResult;
+            _laser.OnLog += _laser_OnLog;
+            _laser.OnConnections += _laser_OnConnections;
+            _laser.Run(new Services.Laser.Options.KLaserOptions() { MsDelayGetResult = 1000 });
+
             _environmentSerial = new KEnvironmentSerial();
             _environmentSerial.OnExceptionAsync += _environmentSerial_OnExceptionAsync; ;
             _environmentSerial.OnConnectionAsync += _environmentSerial_OnConnectionAsync; ;
@@ -77,6 +88,28 @@ namespace LaserCali
             {
                 PortName = "COM4"
             });
+            
+        }
+
+        private void _laser_OnConnections(object sender, Services.Laser.Events.KLaserConnections_EventArgs arg)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                iconConnections.IsLaserConnected = arg.IsConnected;
+            }));
+        }
+
+        private void _laser_OnLog(object sender, Services.Laser.Events.KLaserLog_EventArgs arg)
+        {
+            WriteLog(arg.Message);
+        }
+
+        private void _laser_OnResult(object sender, Services.Laser.Events.KLaserResult_EventArgs arg)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+
+            }));
         }
 
         private Task _environmentSerial_OnRecievedMessageAsync(Services.Environment.Events.KNohmiEnvironment_EventArg arg)
@@ -128,7 +161,14 @@ namespace LaserCali
                     picCamera.Source = ImageLaserService.ImageHandle(e.Image);
                 }
             }));
+        }
 
+        private void WriteLog(string str)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                logUc.AddItem(str);
+            }));
         }
     }
 }
