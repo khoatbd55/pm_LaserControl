@@ -194,6 +194,9 @@
     <Compile Include="UIs\UCs\DeviceConnectionUC.xaml.cs">
       <DependentUpon>DeviceConnectionUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIs\UCs\MainDataTableUC.xaml.cs">
+      <DependentUpon>MainDataTableUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIs\UCs\MainEnviromentUC.xaml.cs">
       <DependentUpon>MainEnviromentUC.xaml</DependentUpon>
     </Compile>
@@ -224,6 +227,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIs\UCs\DeviceConnectionUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIs\UCs\MainDataTableUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

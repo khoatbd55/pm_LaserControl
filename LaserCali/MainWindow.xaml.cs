@@ -37,6 +37,7 @@ namespace LaserCali
         KCameraService _camera = new KCameraService();
         KEnvironmentSerial _environmentSerial = new KEnvironmentSerial();
         KLaserService _laser = new KLaserService();
+        int _countDelayImage = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -71,6 +72,9 @@ namespace LaserCali
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            laserUc.OnResetClick += LaserUc_OnResetClick;
+            laserUc.OnDataClick += LaserUc_OnDataClick;
+            laserUc.OnExportClick += LaserUc_OnExportClick;
             _camera.OnImage += _camera_OnImage;
             _camera.OnConnection += _camera_OnConnection;
             _camera.Run();
@@ -88,8 +92,27 @@ namespace LaserCali
             {
                 PortName = "COM4"
             });
+        }
+
+        private void LaserUc_OnResetClick(RoutedEventArgs obj)
+        {
+            if (_laser != null)
+            {
+                _laser.Reset();
+            }
+        }
+
+        private void LaserUc_OnExportClick(RoutedEventArgs obj)
+        {
             
         }
+
+        private void LaserUc_OnDataClick(RoutedEventArgs obj)
+        {
+            
+        }
+
+        
 
         private void _laser_OnConnections(object sender, Services.Laser.Events.KLaserConnections_EventArgs arg)
         {
@@ -108,7 +131,8 @@ namespace LaserCali
         {
             Dispatcher.Invoke(new Action(() =>
             {
-
+                laserUc.LaserValue = arg.Pos;
+                laserUc.Beam=arg.Beam;
             }));
         }
 
@@ -147,7 +171,7 @@ namespace LaserCali
 
         
 
-        int _countDelayImage = 0;
+        
         private void _camera_OnImage(object sender, CameraImage_EventArgs e)
         {
             Dispatcher.Invoke(new Action(() =>

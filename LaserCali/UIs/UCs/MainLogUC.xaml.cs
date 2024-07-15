@@ -47,7 +47,6 @@ namespace LaserCali.UIs.UCs
             });
             listLog.SelectedIndex = vm.ListPerson.Count - 1;
             listLog.ScrollIntoView(vm.ListPerson.Last());
-            
         }   
     }
 

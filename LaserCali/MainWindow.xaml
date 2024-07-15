@@ -65,7 +65,7 @@
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0" >
                                 <Border Style="{StaticResource BorderCard}">
-                                    <UCs:MainLaserUC VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    <UCs:MainLaserUC x:Name="laserUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                                 </Border>
                             </Grid>
                             <Grid Grid.Column="1">
@@ -91,13 +91,12 @@
                                 </Border>
                             </Grid>
                         </Grid>
-
                     </Grid>
                     <Grid Grid.Row="2">
                         <Border Style="{StaticResource BorderCard}">
-
-
-
+                            <UCs:MainDataTableUC 
+                                    VerticalAlignment="Stretch" 
+                                    HorizontalAlignment="Stretch"></UCs:MainDataTableUC>
                         </Border>
                     </Grid>
 
