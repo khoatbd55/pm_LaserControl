@@ -12,7 +12,7 @@
         Loaded="Window_Loaded"
         x:Class="LaserCali.MainWindow"
         mc:Ignorable="d"
-        Title="Laser Calibration" Height="620" Width="1000" WindowStartupLocation="CenterScreen" Background="#FFCDCCCC">
+        Title="Laser Calibration" Height="620" Width="1000" WindowStartupLocation="CenterScreen" Background="#FFCDCCCC" WindowState="Maximized">
     <Window.Resources>
         <!--A Style that affects all TextBlocks-->
         <Style TargetType="{x:Type Border}" x:Key="BorderCard">
@@ -61,7 +61,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="300"/>
-                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="350"/>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0" >
                                 <Border Style="{StaticResource BorderCard}">
@@ -93,22 +93,23 @@
                         </Grid>
                     </Grid>
                     <Grid Grid.Row="2">
-                        <Border Style="{StaticResource BorderCard}">
+                        <Border Style="{StaticResource BorderCard}" Background="#EFF2F7">
                             <UCs:MainDataTableUC 
-                                    VerticalAlignment="Stretch" 
-                                    HorizontalAlignment="Stretch"></UCs:MainDataTableUC>
+                                     VerticalAlignment="Stretch" 
+                                     HorizontalAlignment="Stretch"></UCs:MainDataTableUC>
+
                         </Border>
                     </Grid>
 
                     <Grid Grid.Row="3">
                         <Border Style="{StaticResource BorderCard}" Margin="5,0,5,5">
                             <UCs:DeviceConnectionUC x:Name="iconConnections" 
-                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
                         </Border>
                     </Grid>
                 </Grid>
             </dxdo:LayoutPanel>
         </dxdo:LayoutGroup>
     </dxdo:DockLayoutManager>
-
+    
 </Window>

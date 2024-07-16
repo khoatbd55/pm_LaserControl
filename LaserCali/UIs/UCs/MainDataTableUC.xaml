@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LaserCali.UIs.UCs"
              mc:Ignorable="d" 
-             MinHeight="150" MinWidth="800" Background="White" >
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             MinHeight="150" MinWidth="800" Background="#EFF2F7" >
     <UserControl.Resources>
         <SolidColorBrush x:Key="GotFocusColor" Color="Green" />
         <SolidColorBrush x:Key="LostFocusColor" Color="Transparent" />
@@ -111,27 +112,49 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <DataGrid GridLinesVisibility="Vertical" 
-                  HeadersVisibility="All" 
-                  VerticalScrollBarVisibility="Auto"
-                  SelectionMode="Extended"
-                  HorizontalScrollBarVisibility="Auto" 
-                  Style="{StaticResource DataLaserStyle}"
-                  ItemsSource="{Binding ListData,Mode=TwoWay}"
-                  AutoGenerateColumns="False"
-                  >
+    <Grid Margin="10,10,10,10">
+        <!--<ScrollViewer HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Disabled">-->
+        <DataGrid 
+                  RowStyle="{DynamicResource DataGridRowStyle1}"
+                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                  CellStyle="{DynamicResource DataGridCellStyle1}" 
+                  x:Name="membersDataGrid" 
+                  Style="{DynamicResource DataGridStyle1}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ItemsSource="{Binding ListData}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Width="50" Binding="{Binding ID}"/>
-                <DataGridTextColumn Header="Laser (mm)" Width="*"  Binding="{Binding LaserValue}" MinWidth="100"/>
-                <DataGridTextColumn Header="ETU (mm)" Binding="{Binding ID}" Width="100"/>
-                <DataGridTextColumn Header="TMaterial, (oC)" Width="100" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Tmt, (oC)" Width="100" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="RHmt, (%)" Width="100" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Pmt, (%)" Width="100" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Edit" Width="80" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Delete" Width="80" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Laser (mm)" Binding="{Binding Laser,StringFormat=F6}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="EUT (mm)" Binding="{Binding EUT,StringFormat=F0}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="T Material (°C)" Binding="{Binding TMaterial,StringFormat=F2}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Tmt(°C)" Binding="{Binding Tmt,StringFormat=F2}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="RHmt(%)" Binding="{Binding RH,StringFormat=F2}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Pressure (hPa)" Binding="{Binding Pressure,StringFormat=F1}" IsReadOnly="True" Width="*"/>
+                <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource gridEditButton}"
+                                        Command="{Binding EditCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}">
+                                    <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
+                                </Button>
+                                <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
+                                        Command="{Binding DeleteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}">
+                                    <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        
     </Grid>
+    
+
+        
 </UserControl>

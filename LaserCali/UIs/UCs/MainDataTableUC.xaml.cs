@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DevExpress.Data.Extensions;
+using LaserCali.Commands;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -22,64 +24,62 @@ namespace LaserCali.UIs.UCs
     /// </summary>
     public partial class MainDataTableUC : UserControl
     {
-        public ObservableCollection<Author> ListData { get; set; } = new ObservableCollection<Author>();
+        public ObservableCollection<LaserValueModel> ListData { get; set; } = new ObservableCollection<LaserValueModel>();
+        public ICommand EditCommand { get; }
+        public ICommand DeleteCommand { get; }
         public MainDataTableUC()
         {
             InitializeComponent();
             DataContext = this;
 
-            ListData.Add(new Author()
+            EditCommand = new RelayCommand<LaserValueModel>(OnEdit);
+            DeleteCommand = new RelayCommand<LaserValueModel>(OnDelete);
+
+            for (int i = 0; i < 6; i++)
             {
-                ID = 101,
-                Name = "Mahesh Chand",
-                BookTitle = "Graphics Programming with GDI+",
-                DOB = new DateTime(1975, 2, 23),
-                IsMVP = false
-            });
-            ListData = LoadCollectionData();
+                ListData.Add(new LaserValueModel()
+                {
+                    ID=i,
+                    EUT=0,
+                    Laser=0,
+                    Pressure=0,
+                    RH=0,
+                    TMaterial=0,
+                    Tmt=0
+                });
+            }
         }
 
-        private ObservableCollection<Author> LoadCollectionData()
+        private void OnEdit(LaserValueModel item)
         {
-            ObservableCollection<Author> authors = new ObservableCollection<Author>();
-            authors.Add(new Author()
-            {
-                ID = 101,
-                Name = "Mahesh Chand",
-                BookTitle = "Graphics Programming with GDI+",
-                DOB = new DateTime(1975, 2, 23),
-                IsMVP = false
-            });
+            // Xử lý khi nhấn nút Edit
+        }
 
-            authors.Add(new Author()
+        private void OnDelete(LaserValueModel item)
+        {
+            // Xử lý khi nhấn nút Delete
+            var findIdx = ListData.FindIndex(x => x.ID == item.ID);
+            if (findIdx >= 0)
             {
-                ID = 201,
-                Name = "Mike Gold",
-                BookTitle = "Programming C#",
-                DOB = new DateTime(1982, 4, 12),
-                IsMVP = true
-            });
-
-            authors.Add(new Author()
-            {
-                ID = 244,
-                Name = "Mathew Cochran",
-                BookTitle = "LINQ in Vista",
-                DOB = new DateTime(1985, 9, 11),
-                IsMVP = true
-            });
-
-            return authors;
+                ListData.RemoveAt(findIdx);
+            }
         }
 
 
-        public class Author
+
+
+        public class LaserValueModel
         {
             public int ID { get; set; }
-            public string Name { get; set; }
-            public DateTime DOB { get; set; }
-            public string BookTitle { get; set; }
-            public bool IsMVP { get; set; }
+            public double Laser { get; set; }
+            public double EUT { get; set; }
+            public double TMaterial { get; set; }
+            public double Tmt { get; set; }
+            public double RH { get; set; }
+            public double Pressure { get; set; }
         }
+
     }
+
+    
 }
