@@ -3,6 +3,7 @@ using LaserCali.Models.Camera;
 using LaserCali.Services;
 using LaserCali.Services.Environment;
 using LaserCali.Services.Laser;
+using LaserCali.UIs.Windowns.Setting;
 using OpenCvSharp.Extensions;
 using System;
 using System.Collections.Generic;
@@ -193,6 +194,12 @@ namespace LaserCali
             {
                 logUc.AddItem(str);
             }));
+        }
+
+        private void btnSetting_Click(object sender, RoutedEventArgs e)
+        {
+            WindowLaserSetting windowLaserSetting = new WindowLaserSetting();
+            windowLaserSetting.ShowDialog();
         }
     }
 }

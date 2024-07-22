@@ -47,13 +47,26 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="300"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" >
                         <Border Style="{StaticResource BorderCard}">
-                            <StackPanel Orientation="Horizontal">
-                                <dx:SimpleButton Content="Cài đặt" x:Name="btnSetting"/>
-                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <dx:SimpleButton HorizontalAlignment="Left" Content="Cài đặt" x:Name="btnSetting" Click="btnSetting_Click"/>
+                                </Grid>
+                                <Grid Grid.Column="1" >
+                                    <Border Padding="3,5,3,5">
+                                        <UCs:DeviceConnectionUC x:Name="iconConnections" 
+                                            HorizontalContentAlignment="Right"
+                                            VerticalContentAlignment="Center"/>
+                                    </Border>
+                                    
+                                </Grid>
+                            </Grid>
                         </Border>
                     </Grid>
                     <Grid Grid.Row="1">
@@ -98,13 +111,6 @@
                                      VerticalAlignment="Stretch" 
                                      HorizontalAlignment="Stretch"></UCs:MainDataTableUC>
 
-                        </Border>
-                    </Grid>
-
-                    <Grid Grid.Row="3">
-                        <Border Style="{StaticResource BorderCard}" Margin="5,0,5,5">
-                            <UCs:DeviceConnectionUC x:Name="iconConnections" 
-                HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
                         </Border>
                     </Grid>
                 </Grid>

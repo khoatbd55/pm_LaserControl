@@ -1,5 +1,7 @@
 ﻿using DevExpress.Data.Extensions;
 using LaserCali.Commands;
+using LaserCali.UIs.Windowns;
+using LaserCali.UIs.Windowns.LaserDataEdit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -52,7 +54,8 @@ namespace LaserCali.UIs.UCs
 
         private void OnEdit(LaserValueModel item)
         {
-            // Xử lý khi nhấn nút Edit
+            WindowLaserDataEdit wd = new WindowLaserDataEdit();
+            wd.ShowDialog();
         }
 
         private void OnDelete(LaserValueModel item)

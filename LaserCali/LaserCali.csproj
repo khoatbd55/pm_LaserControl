@@ -176,6 +176,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Models\Config\LaserConfig_Model.cs" />
+    <Compile Include="Services\Config\LaserConfigService.cs" />
     <Compile Include="Services\Laser\Events\KLaserConnections_EventArgs.cs" />
     <Compile Include="Services\Laser\LaserWrap\LaserApi.cs" />
     <Compile Include="Services\Camera\KCameraService.cs" />
@@ -218,6 +220,12 @@
     <Compile Include="UIs\UCs\MainLogUC.xaml.cs">
       <DependentUpon>MainLogUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIs\Windowns\LaserDataEdit\WindowLaserDataEdit.xaml.cs">
+      <DependentUpon>WindowLaserDataEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIs\Windowns\Setting\WindowLaserSetting.xaml.cs">
+      <DependentUpon>WindowLaserSetting.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -258,6 +266,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UIs\Windowns\LaserDataEdit\WindowLaserDataEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIs\Windowns\Setting\WindowLaserSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Camera\CameraConnection_EventArg.cs" />
@@ -289,9 +305,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UIs\Windowns\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="aLsrCalApi.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

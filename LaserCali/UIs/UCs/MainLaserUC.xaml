@@ -23,7 +23,7 @@
                 
             </Grid>
             <Grid Grid.Row="1" >
-                <ProgressBar x:Name="prbBeam" Margin="1,1,1,1" Value="50"/>
+                <ProgressBar x:Name="prbBeam" Margin="1,1,1,1" Value="0"/>
             </Grid>
             <Grid Grid.Row="2">
                 <Grid>
