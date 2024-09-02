@@ -17,7 +17,7 @@ namespace LaserCali.UIs.Windowns.Setting
     /// <summary>
     /// Interaction logic for WindowLaserSetting.xaml
     /// </summary>
-    public partial class WindowLaserSetting : Window
+    public partial class WindowLaserSetting : DevExpress.Xpf.Core.ThemedWindow
     {
         public WindowLaserSetting()
         {

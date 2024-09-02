@@ -37,6 +37,7 @@ namespace LaserCali.UIs.UCs
             EditCommand = new RelayCommand<LaserValueModel>(OnEdit);
             DeleteCommand = new RelayCommand<LaserValueModel>(OnDelete);
 
+
             for (int i = 0; i < 6; i++)
             {
                 ListData.Add(new LaserValueModel()
@@ -67,9 +68,6 @@ namespace LaserCali.UIs.UCs
                 ListData.RemoveAt(findIdx);
             }
         }
-
-
-
 
         public class LaserValueModel
         {

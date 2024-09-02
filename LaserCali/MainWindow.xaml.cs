@@ -31,7 +31,7 @@ namespace LaserCali
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : DevExpress.Xpf.Core.ThemedWindow
     {
         bool _firstClose = true;
         CancellationTokenSource _backgroundCancellTokenSource = new CancellationTokenSource();
@@ -39,6 +39,7 @@ namespace LaserCali
         KEnvironmentSerial _environmentSerial = new KEnvironmentSerial();
         KLaserService _laser = new KLaserService();
         int _countDelayImage = 0;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -169,8 +170,6 @@ namespace LaserCali
                 iconConnections.IsCameraConnected = e.IsConnected;
             }));
         }
-
-        
 
         
         private void _camera_OnImage(object sender, CameraImage_EventArgs e)

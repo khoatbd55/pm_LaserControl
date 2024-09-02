@@ -1,68 +1,57 @@
-﻿<Window xmlns:UCs="clr-namespace:LaserCali.UIs.UCs"
-        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LaserCali"
-        xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
-        xmlns:fa5="http://schemas.fontawesome.com/icons/"
-        xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"  Closing="Window_Closing"
-        Closed="Window_Closed"
-        Loaded="Window_Loaded"
-        x:Class="LaserCali.MainWindow"
-        mc:Ignorable="d"
-        Title="Laser Calibration" Height="620" Width="1000" WindowStartupLocation="CenterScreen" Background="#FFCDCCCC" WindowState="Maximized">
-    <Window.Resources>
+﻿<dx:ThemedWindow x:Class="LaserCali.MainWindow" mc:Ignorable="d" Title="Laser Calibration" Height="620" Width="1000" WindowStartupLocation="CenterScreen" Background="#FFCDCCCC" WindowState="Maximized"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:UCs="clr-namespace:LaserCali.UIs.UCs"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:LaserCali"
+    xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
+    xmlns:fa5="http://schemas.fontawesome.com/icons/"
+    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking">
+    <dx:ThemedWindow.Resources>
         <!--A Style that affects all TextBlocks-->
         <Style TargetType="{x:Type Border}" x:Key="BorderCard">
             <Setter Property="Background" Value="White" />
-            <Setter Property="Margin" Value="5 5"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="5,5,5,5"/>
-            <Setter Property="Padding" Value="5,5,5,5"/>
-            <Setter Property="BorderBrush" Value="#FFB7B7B7"/>
+            <Setter Property="Margin" Value="5 5" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="5,5,5,5" />
+            <Setter Property="Padding" Value="5,5,5,5" />
+            <Setter Property="BorderBrush" Value="#FFB7B7B7" />
         </Style>
-    </Window.Resources>
+    </dx:ThemedWindow.Resources>
     <dxdo:DockLayoutManager DockingStyle="VS2010">
         <dxdo:DockLayoutManager.AutoHideGroups>
-            <dxdo:AutoHideGroup DockType="Right" ShowCloseButton="False" FontFamily="Times New Roman" >
-                <dxdo:LayoutPanel Caption="Log" MinWidth="350" >
-                    <UCs:MainLogUC x:Name="logUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <dxdo:AutoHideGroup DockType="Right" ShowCloseButton="False" FontFamily="Times New Roman">
+                <dxdo:LayoutPanel Caption="Log" MinWidth="350">
+                    <UCs:MainLogUC x:Name="logUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                 </dxdo:LayoutPanel>
             </dxdo:AutoHideGroup>
         </dxdo:DockLayoutManager.AutoHideGroups>
         <dxdo:LayoutGroup Caption="LayoutRoot">
-            <dxdo:LayoutPanel Caption="Panel1" 
-                        ShowHideButton="False"
-                        ShowCaption="False"
-                        ShowBorder="False"
-                        Background="#FFCDCCCC"
-                        ShowCloseButton="False" ShowCollapseButton="False">
+            <dxdo:LayoutPanel Caption="Panel1" ShowHideButton="False" ShowCaption="False" ShowBorder="False" Background="#FFCDCCCC" ShowCloseButton="False" ShowCollapseButton="False">
                 <Grid>
                     <Grid.Background>
-                        <ImageBrush ImageSource="/background.png"/>
+                        <ImageBrush ImageSource="/background.png" />
                     </Grid.Background>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="300"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="300" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" >
+                    <Grid Grid.Row="0">
                         <Border Style="{StaticResource BorderCard}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
-                                    <dx:SimpleButton HorizontalAlignment="Left" Content="Cài đặt" x:Name="btnSetting" Click="btnSetting_Click"/>
+                                    <dx:SimpleButton HorizontalAlignment="Left" Content="Cài đặt" x:Name="btnSetting" Click="btnSetting_Click" />
                                 </Grid>
-                                <Grid Grid.Column="1" >
+                                <Grid Grid.Column="1">
                                     <Border Padding="3,5,3,5">
-                                        <UCs:DeviceConnectionUC x:Name="iconConnections" 
-                                            HorizontalContentAlignment="Right"
-                                            VerticalContentAlignment="Center"/>
+                                        <UCs:DeviceConnectionUC x:Name="iconConnections" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                                     </Border>
                                     
                                 </Grid>
@@ -72,18 +61,18 @@
                     <Grid Grid.Row="1">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="300"/>
-                                <ColumnDefinition Width="350"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="300" />
+                                <ColumnDefinition Width="350" />
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" >
+                            <Grid Grid.Column="0">
                                 <Border Style="{StaticResource BorderCard}">
-                                    <UCs:MainLaserUC x:Name="laserUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    <UCs:MainLaserUC x:Name="laserUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                 </Border>
                             </Grid>
                             <Grid Grid.Column="1">
                                 <Border Style="{StaticResource BorderCard}">
-                                    <UCs:MainEnviromentUC x:Name="tempUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                    <UCs:MainEnviromentUC x:Name="tempUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                 </Border>
                             </Grid>
                             <Grid Grid.Column="2">
@@ -91,13 +80,13 @@
                                     <GroupBox Header="Camera" Padding="0,0,0,0">
                                         <Grid>
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="70"/>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="70" />
                                             </Grid.RowDefinitions>
                                             <Grid Grid.Row="0">
-                                                <Image Stretch="Fill" x:Name="picCamera"/>
+                                                <Image Stretch="Fill" x:Name="picCamera" />
                                             </Grid>
-                                            <Grid Grid.Row="1"/>
+                                            <Grid Grid.Row="1" />
                                         </Grid>
                                     </GroupBox>
 
@@ -107,9 +96,7 @@
                     </Grid>
                     <Grid Grid.Row="2">
                         <Border Style="{StaticResource BorderCard}" Background="#EFF2F7">
-                            <UCs:MainDataTableUC 
-                                     VerticalAlignment="Stretch" 
-                                     HorizontalAlignment="Stretch"></UCs:MainDataTableUC>
+                            <UCs:MainDataTableUC VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
                         </Border>
                     </Grid>
@@ -118,4 +105,4 @@
         </dxdo:LayoutGroup>
     </dxdo:DockLayoutManager>
     
-</Window>
+</dx:ThemedWindow>
