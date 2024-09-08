@@ -19,6 +19,12 @@
             <Setter Property="Padding" Value="5,5,5,5" />
             <Setter Property="BorderBrush" Value="#FFB7B7B7" />
         </Style>
+        <Style TargetType="TextBlock" x:Key="labelTitle">
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="MinWidth" Value="70"></Setter>
+        </Style>
     </dx:ThemedWindow.Resources>
     <dxdo:DockLayoutManager DockingStyle="VS2010">
         <dxdo:DockLayoutManager.AutoHideGroups>
@@ -47,7 +53,14 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
-                                    <dx:SimpleButton HorizontalAlignment="Left" Content="Cài đặt" x:Name="btnSetting" Click="btnSetting_Click" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <dx:SimpleButton HorizontalAlignment="Left" 
+                                                    Margin="0,0,10,0"
+                                                    Content="Camera Setting" x:Name="btnSetting" Click="btnSetting_Click" />
+                                        <dx:SimpleButton HorizontalAlignment="Left" 
+                                                    Content="Common Setting" x:Name="btnCommonSeting" Click="btnCommonSeting_Click" />
+                                    </StackPanel>
+                                    
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Border Padding="3,5,3,5">
@@ -81,12 +94,22 @@
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*" />
-                                                <RowDefinition Height="70" />
+                                                <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
                                             <Grid Grid.Row="0">
                                                 <Image Stretch="Fill" x:Name="picCamera" />
                                             </Grid>
-                                            <Grid Grid.Row="1" />
+                                            <Grid Grid.Row="1" >
+                                                <StackPanel Margin="5,5,5,5" Grid.Row="0" Orientation="Horizontal">
+                                                    <fa5:SvgAwesome Grid.Column="0" Margin="0,0,10,0" 
+                                                        Height="30" x:Name="iconCenter" Icon="Solid_Circle" 
+                                                        VerticalAlignment="Center" Foreground="#FF858484"/>
+                                                    <TextBlock Style="{StaticResource labelTitle}" FontSize="15" Margin="0,0,5,0" Text="Distance:"></TextBlock>
+                                                    <TextBlock Style="{StaticResource labelTitle}" FontSize="18"
+                                                        x:Name="txtCenterDistance" MinWidth="0" Margin="0,0,5,0" Text="---"></TextBlock>
+                                                    <TextBlock Style="{StaticResource labelTitle}" FontSize="15" Margin="0,0,5,0" Text="pixcel"></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
                                         </Grid>
                                     </GroupBox>
 

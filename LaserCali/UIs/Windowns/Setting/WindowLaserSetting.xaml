@@ -11,7 +11,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:LaserCali.UIs.Windowns.Setting" 
-    xmlns:local1="clr-namespace:LaserCali.Models.Behavior" >
+    xmlns:local1="clr-namespace:LaserCali.Models.Behavior"
+    xmlns:fa5="http://schemas.fontawesome.com/icons/">
     <dx:ThemedWindow.Resources>
         <Style TargetType="TextBlock" x:Key="labelTitle">
             <Setter Property="FontFamily" Value="Times New Roman"></Setter>
@@ -48,50 +49,26 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <dxlc:GroupBox Grid.Row="0" Margin="5,5,5,5" Header="Comport Serial">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Grid.Column="0">
-                                <TextBlock Style="{StaticResource labelTitle}" Text="Display:"/>
-                            </Grid>
-                            <Grid Grid.Row="0" Grid.Column="1">
-                                <dxe:ComboBoxEdit x:Name="cboDisplay" Height="30" Margin="0,0,0,10"/>
-                            </Grid>
-                            <Grid Grid.Row="1" Grid.Column="0">
-                                <TextBlock Style="{StaticResource labelTitle}" Text="Enviroment:"/>
-                            </Grid>
-                            <Grid Grid.Row="1" Grid.Column="1">
-                                <dxe:ComboBoxEdit x:Name="cboEnviroment" Height="30" Margin="0,0,0,10"/>
-                            </Grid>
-                            <Grid Grid.Row="2" Grid.Column="0">
-                                <TextBlock Style="{StaticResource labelTitle}" Text="Temperature:"/>
-                            </Grid>
-                            <Grid Grid.Row="2" Grid.Column="1">
-                                <dxe:ComboBoxEdit x:Name="cboTemperature" Height="30" Margin="0,0,0,10"/>
-                            </Grid>
-                        </Grid>
+                        
                     </dxlc:GroupBox>
 
                     <dxlc:GroupBox Padding="0,0,0,0" Grid.Row="1" Margin="5,5,5,5" Header="Camera Result">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
                             <StackPanel Margin="5,5,5,5" Grid.Row="0" Orientation="Horizontal">
+                                <fa5:SvgAwesome Grid.Column="0" Margin="0,0,10,0" 
+                                Height="25" x:Name="iconCenter" Icon="Solid_Circle" 
+                                VerticalAlignment="Center" Foreground="#FF858484"/>
                                 <TextBlock Style="{StaticResource labelTitle}" Margin="0,0,5,0" Text="Image center distance:"></TextBlock>
                                 <TextBlock Style="{StaticResource labelTitle}"
                                             x:Name="txtCenterDistance" MinWidth="0" Margin="0,0,5,0" Text="---"></TextBlock>
                                 <TextBlock Style="{StaticResource labelTitle}" Margin="0,0,5,0" Text="pixcel"></TextBlock>
                             </StackPanel>
-                            <Image Grid.Row="1" Stretch="Fill" x:Name="picCameraResult" Grid.RowSpan="2"/>
+                            <Image Grid.Row="2" Stretch="Fill" x:Name="picCameraResult" Grid.RowSpan="2"/>
                         </Grid>
 
                     </dxlc:GroupBox>

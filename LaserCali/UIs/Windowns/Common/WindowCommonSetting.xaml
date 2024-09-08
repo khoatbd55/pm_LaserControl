@@ -1,0 +1,72 @@
+﻿<dx:ThemedWindow x:Class="LaserCali.UIs.Windowns.Common.WindowCommonSetting" 
+    mc:Ignorable="d" Title="Common Setting" Height="373" Width="400"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    WindowStartupLocation="CenterScreen"
+    xmlns:local="clr-namespace:LaserCali.UIs.Windowns.Common" 
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors">
+    <dx:ThemedWindow.Resources>
+        <Style TargetType="TextBlock" x:Key="labelTitle">
+            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="MinWidth" Value="70"></Setter>
+        </Style>
+    </dx:ThemedWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <dxlc:GroupBox Grid.Row="0" Margin="5,5,5,5" Header="Comport Serial">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <TextBlock Style="{StaticResource labelTitle}" Text="Display:"/>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <dxe:ComboBoxEdit x:Name="cboDisplay" Height="30" Margin="0,0,0,10"/>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="0">
+                    <TextBlock Style="{StaticResource labelTitle}" Text="Enviroment:"/>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <dxe:ComboBoxEdit x:Name="cboEnviroment" Height="30" Margin="0,0,0,10"/>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="0">
+                    <TextBlock Style="{StaticResource labelTitle}" Text="Temperature:"/>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <dxe:ComboBoxEdit x:Name="cboTemperature" Height="30" Margin="0,0,0,10"/>
+                </Grid>
+            </Grid>
+        </dxlc:GroupBox>
+
+        <Border Grid.Row="1" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal">
+                <dx:SimpleButton x:Name="btnSave" Click="btnSave_Click" Content="Save" Margin="5,0,5,5" Glyph="{dx:DXImage SvgImages/Save/SaveAndNew.svg}">
+                    <dx:SimpleButton.Background>
+                        <ImageBrush />
+                    </dx:SimpleButton.Background>
+                </dx:SimpleButton>
+                <dx:SimpleButton x:Name="btnClose" Click="btnClose_Click" Content="Close" Margin="5,0,5,5" Glyph="{dx:DXImage SvgImages/Outlook Inspired/Close.svg}">
+                    <dx:SimpleButton.Background>
+                        <ImageBrush />
+                    </dx:SimpleButton.Background>
+                </dx:SimpleButton>
+            </StackPanel>
+        </Border>
+    </Grid>
+</dx:ThemedWindow>

@@ -227,6 +227,9 @@
     <Compile Include="UIs\UCs\MainLogUC.xaml.cs">
       <DependentUpon>MainLogUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIs\Windowns\Common\WindowCommonSetting.xaml.cs">
+      <DependentUpon>WindowCommonSetting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIs\Windowns\LaserDataEdit\WindowLaserDataEdit.xaml.cs">
       <DependentUpon>WindowLaserDataEdit.xaml</DependentUpon>
     </Compile>
@@ -270,6 +273,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIs\UCs\MainLogUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIs\Windowns\Common\WindowCommonSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

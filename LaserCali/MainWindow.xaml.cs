@@ -5,6 +5,7 @@ using LaserCali.Services;
 using LaserCali.Services.Config;
 using LaserCali.Services.Environment;
 using LaserCali.Services.Laser;
+using LaserCali.UIs.Windowns.Common;
 using LaserCali.UIs.Windowns.Setting;
 using Newtonsoft.Json;
 using OpenCvSharp.Extensions;
@@ -44,6 +45,26 @@ namespace LaserCali
         int _countDelayImage = 0;
         CameraConfig_Model _camCfg = new CameraConfig_Model();
         object _syncCamCfg=new object();
+
+        bool _isCenter = false;
+        System.Windows.Media.Color COLOR_CONNECTED = System.Windows.Media.Color.FromRgb(31, 189, 0);
+        System.Windows.Media.Color COLOR_DISCONNECTED = System.Windows.Media.Color.FromRgb(163, 163, 163);
+        bool IsCenter
+        {
+            get => _isCenter;
+            set
+            {
+                if (_isCenter != value)
+                {
+                    _isCenter = value;
+                    if (_isCenter)
+                        iconCenter.Foreground = new SolidColorBrush(COLOR_CONNECTED);
+                    else
+                        iconCenter.Foreground = new SolidColorBrush(COLOR_DISCONNECTED);
+                }
+            }
+        }
+
         public MainWindow()
         {
             this.Loaded += Window_Loaded;
@@ -208,6 +229,16 @@ namespace LaserCali
                         picCamera.Source = null;
                     var result = ImageLaserService.ImageHandleResult(e.Image, CamerConfig_Get());
                     picCamera.Source = result.Image;
+                    if (result.IsCalculatorSuccess)
+                    {
+                        txtCenterDistance.Text = result.DistancePixcel.ToString();
+                        IsCenter = result.IsCenter;
+                    }
+                    else
+                    {
+                        IsCenter = false;
+                        txtCenterDistance.Text = "---";
+                    }
                 }
             }));
         }
@@ -229,6 +260,18 @@ namespace LaserCali
             windowLaserSetting.ShowDialog();
         }
 
+        private void btnCommonSeting_Click(object sender, RoutedEventArgs e)
+        {
+            WindowCommonSetting windowCommonSetting = new WindowCommonSetting();
+            windowCommonSetting.OnSaveSuccess += WindowCommonSetting_OnSaveSuccess;
+            windowCommonSetting.ShowDialog();
+        }
+
+        private void WindowCommonSetting_OnSaveSuccess()
+        {
+            
+        }
+
         private void WindowLaserSetting_OnSaveSuccess()
         {
             var cfg = LaserConfigService.ReadConfig();
@@ -239,5 +282,7 @@ namespace LaserCali
         {
             _camera.Run();
         }
+
+        
     }
 }

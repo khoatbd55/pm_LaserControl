@@ -37,9 +37,27 @@ namespace LaserCali.UIs.Windowns.Setting
 
         CancellationTokenSource _backgroundTokenSource = new CancellationTokenSource();
         bool _firstClose = true;
-        Task _task;
         KCameraService _camera = new KCameraService();
         long _roiTop = 0,_roiBottom=100,_threshold=0,_rotation=0,_rectNoise=10,_detecionDistance=1;
+        bool _isCenter = false;
+        System.Windows.Media.Color COLOR_CONNECTED = System.Windows.Media.Color.FromRgb(31, 189, 0);
+        System.Windows.Media.Color COLOR_DISCONNECTED = System.Windows.Media.Color.FromRgb(163, 163, 163);
+        LaserConfig_Model _laserConfig = new LaserConfig_Model();
+        bool IsCenter
+        {
+            get => _isCenter;
+            set
+            {
+                if (_isCenter != value)
+                {
+                    _isCenter = value;
+                    if (_isCenter)
+                        iconCenter.Foreground = new SolidColorBrush(COLOR_CONNECTED);
+                    else
+                        iconCenter.Foreground = new SolidColorBrush(COLOR_DISCONNECTED);
+                }
+            }
+        }
 
         int RoiTop
         {
@@ -114,10 +132,6 @@ namespace LaserCali.UIs.Windowns.Setting
                 {
                     await _camera.StopAsync();
                     await Task.Delay(100);
-                    if (_task != null)
-                    {
-                        await _task;
-                    }
                     
                 }
                 catch (Exception)
@@ -137,9 +151,7 @@ namespace LaserCali.UIs.Windowns.Setting
         private void WindowLaserSetting_Loaded(object sender, RoutedEventArgs e)
         {
             var cfg = LaserConfigService.ReadConfig();
-            cboDisplay.Text = cfg.DisplayNameComport;
-            cboEnviroment.Text = cfg.EnviromentNameComport;
-            cboTemperature.Text = cfg.TempNameComport;
+            _laserConfig = cfg;
             scrollTop.Value = cfg.Camera.RoiTop;
             scrollBottom.Value = cfg.Camera.RoiBottom;
             trackThreshold.Value = cfg.Camera.Threshold;
@@ -147,7 +159,6 @@ namespace LaserCali.UIs.Windowns.Setting
             nudDetationDistance.Value = cfg.Camera.DetectionDistance;
             _camera.OnImage += _camera_OnImage;
             _camera.Run();
-            Comport_Init();
         }
 
         private CameraConfig_Model GetCamConfig()
@@ -164,6 +175,7 @@ namespace LaserCali.UIs.Windowns.Setting
         }
 
         int _countDelayImage = 0;
+        
         private void _camera_OnImage(object sender, Models.Camera.CameraImage_EventArgs e)
         {
             Dispatcher.Invoke(new Action(() =>
@@ -182,9 +194,11 @@ namespace LaserCali.UIs.Windowns.Setting
                     if (result.IsCalculatorSuccess)
                     {
                         txtCenterDistance.Text = result.DistancePixcel.ToString();
+                        IsCenter = result.IsCenter;
                     }
                     else
                     {
+                        IsCenter = false;
                         txtCenterDistance.Text = "---";
                     }
                 }
@@ -289,93 +303,7 @@ namespace LaserCali.UIs.Windowns.Setting
         }
 
 
-        #region Comport 
-
-
-        private void Comport_Init()
-        {
-            _task = Task.Run(() => ProcessCheckComport(_backgroundTokenSource.Token));
-        }
-
-        private bool CheckComportExistCboComport(string item)
-        {
-            for (int i = 0; i < cboDisplay.Items.Count; i++)
-            {
-                string nameItemCbo = cboDisplay.Items[i].ToString();
-                if (item == nameItemCbo)
-                    return true;
-            }
-            return false;
-        }
-
-
-        private bool CheckItemsExistArrComport(string[] item, string nameComport)
-        {
-            for (int i = 0; i < item.Length; i++)
-            {
-                if (nameComport == item[i])
-                    return true;
-            }
-            return false;
-        }
-
-
-
-        private async Task ProcessCheckComport(CancellationToken c)
-        {
-            try
-            {
-                while (!c.IsCancellationRequested)
-                {
-                    Dispatcher.Invoke(new Action(() =>
-                    {
-                        string[] arr_name_port = SerialPort.GetPortNames();
-                        if (arr_name_port.Length > 0)
-                        {
-                            for (int i = 0; i < arr_name_port.Length; i++)
-                            {
-                                if (!CheckComportExistCboComport(arr_name_port[i]))
-                                {
-                                    this.Dispatcher.Invoke(() =>
-                                    {
-                                        cboDisplay.Items.Add(arr_name_port[i]);
-                                        cboEnviroment.Items.Add(arr_name_port[i]);
-                                        cboTemperature.Items.Add(arr_name_port[i]);
-                                    });
-                                }
-                            }
-                            for (int i = 0; i < cboDisplay.Items.Count; i++)
-                            {
-                                if (!CheckItemsExistArrComport(arr_name_port, cboDisplay.Items[i].ToString()))
-                                {
-                                    this.Dispatcher.Invoke(() =>
-                                    {
-                                        cboDisplay.Items.RemoveAt(i);
-                                        cboEnviroment.Items.RemoveAt(i);
-                                        cboTemperature.Items.RemoveAt(i);
-                                    });
-                                }
-                            }
-                        }
-                        else
-                        {
-                            cboDisplay.Items.Clear();
-                            cboEnviroment.Items.Clear();
-                            cboTemperature.Items.Clear();
-                        }
-                    }));
-                    
-                    await Task.Delay(1000, c);
-                }
-
-            }
-            catch (Exception)
-            {
-
-            }
-        }
-
-        #endregion
+        
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
@@ -385,13 +313,8 @@ namespace LaserCali.UIs.Windowns.Setting
                 return;
             }
             // lưu cấu hình
-            LaserConfigService.SaveConfig(new Models.Config.LaserConfig_Model()
-            {
-                Camera=GetCamConfig(),
-                DisplayNameComport=cboDisplay.Text,
-                EnviromentNameComport=cboEnviroment.Text,
-                TempNameComport=cboTemperature.Text,
-            });
+            _laserConfig.Camera = GetCamConfig();
+            LaserConfigService.SaveConfig(_laserConfig);
             this.Close();
             if (OnSaveSuccess != null)
             {
