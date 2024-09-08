@@ -89,6 +89,9 @@
     <Reference Include="MahApps.Metro.IconPacks.Material, Version=5.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.Material.5.0.0\lib\net47\MahApps.Metro.IconPacks.Material.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.122\lib\net462\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -176,6 +179,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Extention\ImageExtentions.cs" />
+    <Compile Include="Models\Behavior\StepScrollBehavior.cs" />
+    <Compile Include="Models\Camera\CameraHandle_Model.cs" />
+    <Compile Include="Models\Config\CameraConfig_Model.cs" />
     <Compile Include="Models\Config\LaserConfig_Model.cs" />
     <Compile Include="Services\Config\LaserConfigService.cs" />
     <Compile Include="Services\Laser\Events\KLaserConnections_EventArgs.cs" />

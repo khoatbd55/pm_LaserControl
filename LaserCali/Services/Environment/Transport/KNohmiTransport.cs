@@ -207,7 +207,7 @@ namespace LaserCali.Services.Environment.Transport
 
                 }
             });
-            await Task.Delay(1200).ConfigureAwait(false);// đợi cho cổng đóng hẳn
+            await Task.Delay(1500).ConfigureAwait(false);// đợi cho cổng đóng hẳn
             _ = Task.Run(() =>
             {
                 // run in task avoid deadlook

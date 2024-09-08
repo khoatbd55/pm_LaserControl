@@ -220,68 +220,68 @@ namespace LaserCali.Services
             Interlocked.Exchange(ref _step, 0);
         }
 
-        private void OnImageGrabbed(object sender, ImageGrabbedEventArgs e)
-        {
-            try
-            {
-                // Wait for an image and then retrieve it. A timeout of 5000 ms is used.
-                IGrabResult grabResult = e.GrabResult;
-                using (grabResult)
-                {
-                    // Image grabbed successfully?
-                    if (grabResult.GrabSucceeded)
-                    {
-                        // Limit the number of frames passed to the image window to the display frame rate specified.
-                        if (!stopwatch.IsRunning || stopwatch.ElapsedTicks >= frameDurationTicks)
-                        {
-                            stopwatch.Restart();
-                            // Example of image processing.
-                            if (grabResult.PixelTypeValue.BitDepth() == 8 && invertPixels)
-                            {
-                                InvertColors(grabResult);
-                            }
-                            // Access the image data.
-                            Console.WriteLine("SizeX: {0}", grabResult.Width);
-                            Console.WriteLine("SizeY: {0}", grabResult.Height);
+        //private void OnImageGrabbed(object sender, ImageGrabbedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        // Wait for an image and then retrieve it. A timeout of 5000 ms is used.
+        //        IGrabResult grabResult = e.GrabResult;
+        //        using (grabResult)
+        //        {
+        //            // Image grabbed successfully?
+        //            if (grabResult.GrabSucceeded)
+        //            {
+        //                // Limit the number of frames passed to the image window to the display frame rate specified.
+        //                if (!stopwatch.IsRunning || stopwatch.ElapsedTicks >= frameDurationTicks)
+        //                {
+        //                    stopwatch.Restart();
+        //                    // Example of image processing.
+        //                    if (grabResult.PixelTypeValue.BitDepth() == 8 && invertPixels)
+        //                    {
+        //                        InvertColors(grabResult);
+        //                    }
+        //                    // Access the image data.
+        //                    Console.WriteLine("SizeX: {0}", grabResult.Width);
+        //                    Console.WriteLine("SizeY: {0}", grabResult.Height);
 
-                            Bitmap bitmap = new Bitmap(grabResult.Width, grabResult.Height, PixelFormat.Format32bppRgb);
-                            // Lock the bits of the bitmap.
-                            BitmapData bmpData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadWrite, bitmap.PixelFormat);
-                            converter.OutputPixelFormat = PixelType.BGRA8packed;
-                            // Place the pointer to the buffer of the bitmap.
-                            IntPtr ptrBmp = bmpData.Scan0;
-                            converter.Convert(ptrBmp, bmpData.Stride * bitmap.Height, grabResult);
-                            bitmap.UnlockBits(bmpData);
-                            lock (monitor)
-                            {
-                                if (latestFrame != null)
-                                {
-                                    latestFrame.Dispose();
-                                }
-                                latestFrame = bitmap;
-                            }
-                            if (OnImage != null)
-                            {
-                                OnImage(this, new CameraImage_EventArgs()
-                                {
-                                    Image = bitmap
-                                });
-                            }
-                        }
+        //                    Bitmap bitmap = new Bitmap(grabResult.Width, grabResult.Height, PixelFormat.Format32bppRgb);
+        //                    // Lock the bits of the bitmap.
+        //                    BitmapData bmpData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadWrite, bitmap.PixelFormat);
+        //                    converter.OutputPixelFormat = PixelType.BGRA8packed;
+        //                    // Place the pointer to the buffer of the bitmap.
+        //                    IntPtr ptrBmp = bmpData.Scan0;
+        //                    converter.Convert(ptrBmp, bmpData.Stride * bitmap.Height, grabResult);
+        //                    bitmap.UnlockBits(bmpData);
+        //                    lock (monitor)
+        //                    {
+        //                        if (latestFrame != null)
+        //                        {
+        //                            latestFrame.Dispose();
+        //                        }
+        //                        latestFrame = bitmap;
+        //                    }
+        //                    if (OnImage != null)
+        //                    {
+        //                        OnImage(this, new CameraImage_EventArgs()
+        //                        {
+        //                            Image = bitmap
+        //                        });
+        //                    }
+        //                }
 
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error: {0} {1}", grabResult.ErrorCode, grabResult.ErrorDescription);
-                    }
-                }
-            }
-            catch (Exception)
-            {
+        //            }
+        //            else
+        //            {
+        //                Console.WriteLine("Error: {0} {1}", grabResult.ErrorCode, grabResult.ErrorDescription);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
 
-            }
+        //    }
 
-        }
+        //}
 
         private async Task ProcessStopAllTask(CancellationToken c)
         {

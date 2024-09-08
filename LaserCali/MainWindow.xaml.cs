@@ -1,9 +1,12 @@
 ﻿using DevExpress.Xpf.Editors.Helpers;
 using LaserCali.Models.Camera;
+using LaserCali.Models.Config;
 using LaserCali.Services;
+using LaserCali.Services.Config;
 using LaserCali.Services.Environment;
 using LaserCali.Services.Laser;
 using LaserCali.UIs.Windowns.Setting;
+using Newtonsoft.Json;
 using OpenCvSharp.Extensions;
 using System;
 using System.Collections.Generic;
@@ -39,9 +42,11 @@ namespace LaserCali
         KEnvironmentSerial _environmentSerial = new KEnvironmentSerial();
         KLaserService _laser = new KLaserService();
         int _countDelayImage = 0;
-
+        CameraConfig_Model _camCfg = new CameraConfig_Model();
+        object _syncCamCfg=new object();
         public MainWindow()
         {
+            this.Loaded += Window_Loaded;
             InitializeComponent();
         }
 
@@ -72,8 +77,26 @@ namespace LaserCali
 
         }
 
+        private void CamerConfig_Set(CameraConfig_Model cfg)
+        {
+            lock (_syncCamCfg)
+            {
+                _camCfg = JsonConvert.DeserializeObject<CameraConfig_Model>(JsonConvert.SerializeObject(cfg));
+            }
+        }
+
+        private CameraConfig_Model CamerConfig_Get()
+        {
+            lock (_syncCamCfg)
+            {
+                return JsonConvert.DeserializeObject<CameraConfig_Model>(JsonConvert.SerializeObject(_camCfg));
+            }
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            var cfg = LaserConfigService.ReadConfig();
+            CamerConfig_Set(cfg.Camera);
             laserUc.OnResetClick += LaserUc_OnResetClick;
             laserUc.OnDataClick += LaserUc_OnDataClick;
             laserUc.OnExportClick += LaserUc_OnExportClick;
@@ -174,6 +197,7 @@ namespace LaserCali
         
         private void _camera_OnImage(object sender, CameraImage_EventArgs e)
         {
+            
             Dispatcher.Invoke(new Action(() =>
             {
                 if (++_countDelayImage >= 2)
@@ -182,7 +206,8 @@ namespace LaserCali
 
                     if (picCamera.Source != null)
                         picCamera.Source = null;
-                    picCamera.Source = ImageLaserService.ImageHandle(e.Image);
+                    var result = ImageLaserService.ImageHandleResult(e.Image, CamerConfig_Get());
+                    picCamera.Source = result.Image;
                 }
             }));
         }
@@ -195,10 +220,24 @@ namespace LaserCali
             }));
         }
 
-        private void btnSetting_Click(object sender, RoutedEventArgs e)
+        private async void btnSetting_Click(object sender, RoutedEventArgs e)
         {
             WindowLaserSetting windowLaserSetting = new WindowLaserSetting();
+            windowLaserSetting.Closed += WindowLaserSetting_Closed;
+            windowLaserSetting.OnSaveSuccess += WindowLaserSetting_OnSaveSuccess;
+            await _camera.StopAsync();
             windowLaserSetting.ShowDialog();
+        }
+
+        private void WindowLaserSetting_OnSaveSuccess()
+        {
+            var cfg = LaserConfigService.ReadConfig();
+            CamerConfig_Set(cfg.Camera);
+        }
+
+        private void WindowLaserSetting_Closed(object sender, EventArgs e)
+        {
+            _camera.Run();
         }
     }
 }
