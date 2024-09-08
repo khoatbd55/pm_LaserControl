@@ -24,6 +24,9 @@ namespace LaserCali.Services.Config
         public const int CAMERA_RECT_NOISE_MIN = 10;
         public const int CAMERA_RECT_NOISE_MAX = 500;
 
+        public const double LEN_WIDTH_MIN = 1;
+        public const double LEN_WIDTH_MAX = 500;
+
         public const string KeyLaser = "Laser";
 
         private static void SaveData(string key, string value)
@@ -66,6 +69,10 @@ namespace LaserCali.Services.Config
                 model.Camera.RectNoise = CAMERA_RECT_NOISE_MAX;
             if (model.Camera.Threshold < CAMERA_RECT_NOISE_MIN)
                 model.Camera.Threshold = CAMERA_RECT_NOISE_MIN;
+            if(model.Camera.LenWidth>LEN_WIDTH_MAX)
+                model.Camera.LenWidth = LEN_WIDTH_MAX;
+            if(model.Camera.LenWidth<LEN_WIDTH_MIN)
+                model.Camera.LenWidth=LEN_WIDTH_MIN;
         }
 
         public static LaserConfig_Model ReadConfig()

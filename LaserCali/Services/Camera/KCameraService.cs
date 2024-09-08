@@ -145,8 +145,8 @@ namespace LaserCali.Services
                                                 InvertColors(grabResult);
                                             }
                                             // Access the image data.
-                                            Console.WriteLine("SizeX: {0}", grabResult.Width);
-                                            Console.WriteLine("SizeY: {0}", grabResult.Height);
+                                            //Console.WriteLine("SizeX: {0}", grabResult.Width);
+                                            //Console.WriteLine("SizeY: {0}", grabResult.Height);
 
                                             Bitmap bitmap = new Bitmap(grabResult.Width, grabResult.Height, PixelFormat.Format32bppRgb);
                                             // Lock the bits of the bitmap.

@@ -2,7 +2,7 @@
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  
     x:Class="LaserCali.UIs.Windowns.Setting.WindowLaserSetting" 
     mc:Ignorable="d" Title="Laser Setting" 
-    Height="640" Width="900" WindowStartupLocation="CenterScreen"
+    Height="550" Width="900" WindowStartupLocation="CenterScreen"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -48,8 +48,47 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <dxlc:GroupBox Grid.Row="0" Margin="5,5,5,5" Header="Comport Serial">
-                        
+                    <dxlc:GroupBox Grid.Row="0" Margin="5,5,5,5" Header="Calibration">
+                        <Grid Grid.Row="3" Margin="0,5,0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                <TextBlock Style="{StaticResource labelTitle}" Width="120" Margin="5,0,0,0" Text="Rect Noise:"></TextBlock>
+                                <dxe:SpinEdit MinValue="10" MaxValue="500" 
+                                        EditValueChanged="nudRectNoise_EditValueChanged" 
+                                        x:Name="nudRectNoise" 
+                                        EditValue="10" 
+                                        Style="{StaticResource nudEdit}">
+                                </dxe:SpinEdit>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0">
+                                <TextBlock Style="{StaticResource labelTitle}"  Width="120" Margin="5,0,0,0" 
+                                    Text="Detection Distance:"></TextBlock>
+                                <dxe:SpinEdit MinValue="1" MaxValue="500" 
+                                    EditValueChanged="nudDetationDistance_EditValueChanged" 
+                                    x:Name="nudDetationDistance" 
+                                    EditValue="1" 
+                                    Style="{StaticResource nudEdit}" >
+                                </dxe:SpinEdit>
+                                <TextBlock Style="{StaticResource labelTitle}" Margin="5,0,0,0" 
+                                        Text="pixcel"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,10,0,0">
+                                <TextBlock Style="{StaticResource labelTitle}"  Width="120" Margin="5,0,0,0" 
+                                    Text="Len Width:"></TextBlock>
+                                <dxe:SpinEdit MinValue="0" MaxValue="500" 
+                                    EditValueChanged="nudLenWith_EditValueChanged" 
+                                    x:Name="nudLenWidth" 
+                                    EditValue="0" Style="{StaticResource nudEdit}" 
+                                    Mask="f2" Increment="0.01" >
+                                </dxe:SpinEdit>
+                                <TextBlock Style="{StaticResource labelTitle}" Margin="5,0,0,0" 
+                                            Text="mm"></TextBlock>
+                            </StackPanel>
+                        </Grid>
                     </dxlc:GroupBox>
 
                     <dxlc:GroupBox Padding="0,0,0,0" Grid.Row="1" Margin="5,5,5,5" Header="Camera Result">
@@ -63,9 +102,12 @@
                                 <fa5:SvgAwesome Grid.Column="0" Margin="0,0,10,0" 
                                 Height="25" x:Name="iconCenter" Icon="Solid_Circle" 
                                 VerticalAlignment="Center" Foreground="#FF858484"/>
-                                <TextBlock Style="{StaticResource labelTitle}" Margin="0,0,5,0" Text="Image center distance:"></TextBlock>
+                                <TextBlock Style="{StaticResource labelTitle}" Margin="0,0,5,0" Text="Distance:"></TextBlock>
                                 <TextBlock Style="{StaticResource labelTitle}"
-                                            x:Name="txtCenterDistance" MinWidth="0" Margin="0,0,5,0" Text="---"></TextBlock>
+                                        x:Name="txtCenterDistanceMm" MinWidth="0" Margin="0,0,5,0" Text="---"></TextBlock>
+                                <TextBlock Style="{StaticResource labelTitle}" Margin="0,0,5,0" Text="mm"></TextBlock>
+                                <TextBlock Style="{StaticResource labelTitle}"
+                                            x:Name="txtCenterDistancePixcel" MinWidth="0" Margin="0,0,5,0" Text="---"></TextBlock>
                                 <TextBlock Style="{StaticResource labelTitle}" Margin="0,0,5,0" Text="pixcel"></TextBlock>
                             </StackPanel>
                             <Image Grid.Row="2" Stretch="Fill" x:Name="picCameraResult" Grid.RowSpan="2"/>
@@ -154,32 +196,7 @@
                                 </Grid>
                             </StackPanel>
                         </Grid>
-                        <Grid Grid.Row="3" Margin="0,5,0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Orientation="Horizontal" Grid.Column="0">
-                                <TextBlock Style="{StaticResource labelTitle}" Margin="5,0,0,0" Text="Rect Noise:"></TextBlock>
-                                <dxe:SpinEdit MinValue="10" MaxValue="500" 
-                                        EditValueChanged="nudRectNoise_EditValueChanged" 
-                                        x:Name="nudRectNoise" 
-                                        EditValue="10" 
-                                        Style="{StaticResource nudEdit}" >
-                                    
-                                </dxe:SpinEdit>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Grid.Column="1">
-                                <TextBlock Style="{StaticResource labelTitle}" Margin="5,0,0,0" 
-                                        Text="Detection Distance:"></TextBlock>
-                                <dxe:SpinEdit MinValue="1" MaxValue="500" 
-                                    EditValueChanged="nudDetationDistance_EditValueChanged" 
-                                    x:Name="nudDetationDistance" 
-                                    EditValue="1" 
-                                    Style="{StaticResource nudEdit}" >              
-                                </dxe:SpinEdit>
-                            </StackPanel>
-                        </Grid>
+                        
                     </Grid>
                 </dxlc:GroupBox>
             </Grid>

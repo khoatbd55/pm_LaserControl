@@ -58,9 +58,19 @@ namespace LaserCali
                 {
                     _isCenter = value;
                     if (_isCenter)
+                    {
                         iconCenter.Foreground = new SolidColorBrush(COLOR_CONNECTED);
+                        groupCamera.BorderBrush = new SolidColorBrush(COLOR_CONNECTED);
+                        groupCamera.BorderThickness = new Thickness(2, 2, 2, 2);
+                    }    
+                        
                     else
+                    {
                         iconCenter.Foreground = new SolidColorBrush(COLOR_DISCONNECTED);
+                        groupCamera.BorderBrush = new SolidColorBrush(COLOR_DISCONNECTED);
+                        groupCamera.BorderThickness = new Thickness(1, 1, 1, 1);
+                    }    
+                        
                 }
             }
         }
@@ -231,8 +241,9 @@ namespace LaserCali
                     picCamera.Source = result.Image;
                     if (result.IsCalculatorSuccess)
                     {
-                        txtCenterDistance.Text = result.DistancePixcel.ToString();
+                        txtCenterDistance.Text = result.DistanceMm.ToString("F4");
                         IsCenter = result.IsCenter;
+                        
                     }
                     else
                     {

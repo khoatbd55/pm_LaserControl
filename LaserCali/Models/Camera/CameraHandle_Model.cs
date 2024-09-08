@@ -13,6 +13,6 @@ namespace LaserCali.Models.Camera
         public bool IsCalculatorSuccess { get; set; }
         public int DistancePixcel { get; set; }
         public bool IsCenter { get; set; }
-
+        public double DistanceMm { get; set; }
     }
 }

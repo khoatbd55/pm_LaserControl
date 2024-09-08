@@ -40,9 +40,33 @@ namespace LaserCali.UIs.Windowns.Setting
         KCameraService _camera = new KCameraService();
         long _roiTop = 0,_roiBottom=100,_threshold=0,_rotation=0,_rectNoise=10,_detecionDistance=1;
         bool _isCenter = false;
+        double _lenWidth = 0;
+        object _syncLenWidth = new object();
         System.Windows.Media.Color COLOR_CONNECTED = System.Windows.Media.Color.FromRgb(31, 189, 0);
         System.Windows.Media.Color COLOR_DISCONNECTED = System.Windows.Media.Color.FromRgb(163, 163, 163);
         LaserConfig_Model _laserConfig = new LaserConfig_Model();
+
+        double LenWidth
+        {
+            get
+            {
+                lock (_syncLenWidth)
+                {
+                    return _lenWidth;
+                }
+            }
+            set
+            {
+                lock (_syncLenWidth)
+                {
+                    if (_lenWidth != value)
+                    {
+                        _lenWidth = value;
+                    }
+                }
+                    
+            }
+        }
         bool IsCenter
         {
             get => _isCenter;
@@ -157,6 +181,7 @@ namespace LaserCali.UIs.Windowns.Setting
             trackThreshold.Value = cfg.Camera.Threshold;
             nudRectNoise.Value=cfg.Camera.RectNoise;
             nudDetationDistance.Value = cfg.Camera.DetectionDistance;
+            nudLenWidth.Value = (decimal)cfg.Camera.LenWidth;
             _camera.OnImage += _camera_OnImage;
             _camera.Run();
         }
@@ -171,6 +196,7 @@ namespace LaserCali.UIs.Windowns.Setting
                 Rotation=Rotation,
                 RectNoise = RectNoise,
                 DetectionDistance=DetectionDistance,
+                LenWidth=LenWidth,
             };
         }
 
@@ -193,13 +219,15 @@ namespace LaserCali.UIs.Windowns.Setting
                     picCameraResult.Source = result.Image;
                     if (result.IsCalculatorSuccess)
                     {
-                        txtCenterDistance.Text = result.DistancePixcel.ToString();
+                        txtCenterDistancePixcel.Text = result.DistancePixcel.ToString();
+                        txtCenterDistanceMm.Text = result.DistanceMm.ToString("F4");
                         IsCenter = result.IsCenter;
                     }
                     else
                     {
                         IsCenter = false;
-                        txtCenterDistance.Text = "---";
+                        txtCenterDistancePixcel.Text = "---";
+                        txtCenterDistanceMm.Text = "---";
                     }
                 }
             }));
@@ -229,14 +257,7 @@ namespace LaserCali.UIs.Windowns.Setting
             OpenCvSharp.Cv2.Threshold(grayImage, binaryImage, cfg.Threshold, 255, OpenCvSharp.ThresholdTypes.Binary);
             var image = binaryImage;
 
-            // Tính toán tâm của ảnh
-            OpenCvSharp.Point centerPoint = new OpenCvSharp.Point(image.Width / 2, image.Height / 2);
 
-            // Vẽ một điểm tại tâm ảnh (có thể sử dụng hình tròn hoặc điểm)
-            //Cv2.Circle(image, centerImage, 5, Scalar.Red, -1); // Vẽ một điểm màu đỏ tại tâm ảnh
-            OpenCvSharp.Cv2.Line(image, new OpenCvSharp.Point(centerPoint.X, centerPoint.Y - image.Height / 2),
-                                        new OpenCvSharp.Point(centerPoint.X, centerPoint.Y + image.Height / 2),
-                                        OpenCvSharp.Scalar.Orange, 10, OpenCvSharp.LineTypes.AntiAlias);
             var imageHight = image.Height;
             int top = cfg.RoiTop * imageHight / LaserConfigService.CAMERA_ROI_MAX;
             if (top > 0)
@@ -285,6 +306,11 @@ namespace LaserCali.UIs.Windowns.Setting
         private void nudThreshold_EditValueChanged(object sender, DevExpress.Xpf.Editors.EditValueChangedEventArgs e)
         {
            trackThreshold.Value=(int)nudThreshold.Value;
+        }
+
+        private void nudLenWith_EditValueChanged(object sender, DevExpress.Xpf.Editors.EditValueChangedEventArgs e)
+        {
+            LenWidth = (double)nudLenWidth.Value;
         }
 
         private void nudRotate_EditValueChanged(object sender, DevExpress.Xpf.Editors.EditValueChangedEventArgs e)

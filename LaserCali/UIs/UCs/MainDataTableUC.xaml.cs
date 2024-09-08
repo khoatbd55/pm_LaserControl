@@ -1,10 +1,12 @@
 ﻿using DevExpress.Data.Extensions;
+using DevExpress.Mvvm.DataAnnotations;
 using LaserCali.Commands;
 using LaserCali.UIs.Windowns;
 using LaserCali.UIs.Windowns.LaserDataEdit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,22 +29,21 @@ namespace LaserCali.UIs.UCs
     public partial class MainDataTableUC : UserControl
     {
         public ObservableCollection<LaserValueModel> ListData { get; set; } = new ObservableCollection<LaserValueModel>();
-        public ICommand EditCommand { get; }
-        public ICommand DeleteCommand { get; }
+        public ICommand EditCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
         public MainDataTableUC()
         {
             InitializeComponent();
             DataContext = this;
+            EditCommand = new RelayCommand<LaserValueModel>(Edit);
+            DeleteCommand=new RelayCommand<LaserValueModel>(Delete);
 
-            EditCommand = new RelayCommand<LaserValueModel>(OnEdit);
-            DeleteCommand = new RelayCommand<LaserValueModel>(OnDelete);
-
-
+            //dgvInfo.ItemsSource = ListData;
             for (int i = 0; i < 6; i++)
             {
                 ListData.Add(new LaserValueModel()
                 {
-                    ID=i,
+                    Id=i,
                     EUT=0,
                     Laser=0,
                     Pressure=0,
@@ -51,35 +52,133 @@ namespace LaserCali.UIs.UCs
                     Tmt=0
                 });
             }
+            // Tự động điều chỉnh kích thước cột
+            tableView.UpdateLayout();
         }
 
-        private void OnEdit(LaserValueModel item)
+        public void Edit(LaserValueModel item)
         {
             WindowLaserDataEdit wd = new WindowLaserDataEdit();
             wd.ShowDialog();
         }
 
-        private void OnDelete(LaserValueModel item)
+        public void Delete(LaserValueModel item)
         {
             // Xử lý khi nhấn nút Delete
-            var findIdx = ListData.FindIndex(x => x.ID == item.ID);
+            var findIdx = ListData.FindIndex(x => x.Id == item.Id);
             if (findIdx >= 0)
             {
                 ListData.RemoveAt(findIdx);
             }
         }
 
-        public class LaserValueModel
+        public class LaserValueModel: INotifyPropertyChanged
         {
-            public int ID { get; set; }
-            public double Laser { get; set; }
-            public double EUT { get; set; }
-            public double TMaterial { get; set; }
-            public double Tmt { get; set; }
-            public double RH { get; set; }
-            public double Pressure { get; set; }
+            private int id;
+            private double laser;
+            private double eut;
+            private double tMater;
+            private double tmt;
+            private double rh;
+            private double pressure;
+            public int Id
+            { 
+                get => id;
+                set
+                {
+                    if(id != value) 
+                    {
+                        id = value;
+                        OnPropertyChanged(nameof(Id));
+                    }
+                }
+            }
+
+            public double Laser
+            {
+                get => laser;
+                set
+                {
+                    if(laser != value)
+                    {
+                        laser = value;
+                        OnPropertyChanged(nameof(Laser));
+                    }    
+                }
+            }
+            public double EUT
+            {
+                get => eut;
+                set
+                {
+                    if(eut != value)
+                    {
+                        eut = value;
+                        OnPropertyChanged(nameof(EUT));
+                    }    
+                }
+            }
+            public double TMaterial
+            {
+                get => tMater;
+                set
+                {
+                    if (tMater != value)
+                    {
+                        OnPropertyChanged(nameof(TMaterial));
+                    }
+                }
+            }
+            public double Tmt
+            {
+                get => tmt;
+                set
+                {
+                    if (tmt != value)
+                    {
+                        tmt=value;
+                        OnPropertyChanged(nameof(Tmt));
+                    }
+                }
+            }
+
+            public double RH
+            {
+                get => rh;
+                set
+                {
+                    if(rh != value)
+                    {
+                        rh = value;
+                        OnPropertyChanged(nameof(RH));
+                    }    
+                }
+            }
+            public double Pressure
+            {
+                get => pressure;
+                set
+                {
+                    if(pressure!=value)
+                    {
+                        pressure = value;
+                        OnPropertyChanged(nameof(Pressure));
+                    }    
+                }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            protected void OnPropertyChanged(string propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
+        private void dgvInfo_SelectedItemChanged(object sender, DevExpress.Xpf.Grid.SelectedItemChangedEventArgs e)
+        {
+
+        }
     }
 
     

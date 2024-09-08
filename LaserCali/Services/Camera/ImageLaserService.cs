@@ -59,11 +59,7 @@ namespace LaserCali.Services
             // Tính toán tâm của ảnh
             OpenCvSharp.Point centerPoint = new OpenCvSharp.Point(image.Width / 2, image.Height / 2);
 
-            // Vẽ một điểm tại tâm ảnh (có thể sử dụng hình tròn hoặc điểm)
-            //Cv2.Circle(image, centerImage, 5, Scalar.Red, -1); // Vẽ một điểm màu đỏ tại tâm ảnh
-            OpenCvSharp.Cv2.Line(image, new OpenCvSharp.Point(centerPoint.X, centerPoint.Y - image.Height / 2),
-                                        new OpenCvSharp.Point(centerPoint.X, centerPoint.Y + image.Height / 2),
-                                        OpenCvSharp.Scalar.Orange, 10, OpenCvSharp.LineTypes.AntiAlias);
+            
 
             //return;
             // Find contours
@@ -93,17 +89,25 @@ namespace LaserCali.Services
                 var next = _listPoint[i + 1];
                 var middleX = current.X - (current.X - next.X - next.Width) / 2;
                 OpenCvSharp.Cv2.Line(image, new OpenCvSharp.Point(middleX, 0),
-                                new OpenCvSharp.Point(middleX, current.Y + image.Height), OpenCvSharp.Scalar.Green, 10);
+                                new OpenCvSharp.Point(middleX, current.Y + image.Height), OpenCvSharp.Scalar.LightGreen, 10);
                 int deltaDistance = Math.Abs(middleX - centerPoint.X);
                 if (minDistance < 0)
                     minDistance = deltaDistance;
                 else if (minDistance > deltaDistance)
                     minDistance = deltaDistance;
             }
+
+            // Vẽ một điểm tại tâm ảnh (có thể sử dụng hình tròn hoặc điểm)
+            //Cv2.Circle(image, centerImage, 5, Scalar.Red, -1); // Vẽ một điểm màu đỏ tại tâm ảnh
+            OpenCvSharp.Cv2.Line(image, new OpenCvSharp.Point(centerPoint.X, centerPoint.Y - image.Height / 2),
+                                        new OpenCvSharp.Point(centerPoint.X, centerPoint.Y + image.Height / 2),
+                                        OpenCvSharp.Scalar.Orange, 10, OpenCvSharp.LineTypes.AntiAlias);
+
             if (minDistance >= 0)
             {
                 result.IsCalculatorSuccess = true;
                 result.DistancePixcel = minDistance;
+                result.DistanceMm = ((double)minDistance) * cfg.LenWidth / image.Width;
                 if (result.DistancePixcel <= cfg.DetectionDistance)
                 {
                     result.IsCenter = true;

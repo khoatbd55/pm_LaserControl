@@ -14,5 +14,6 @@ namespace LaserCali.Models.Config
         public int Rotation { get; set; }
         public int RectNoise { get; set; }
         public int DetectionDistance { get; set; }
+        public double LenWidth { get; set; }
     }
 }
