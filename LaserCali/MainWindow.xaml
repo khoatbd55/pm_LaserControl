@@ -9,7 +9,7 @@
     xmlns:local="clr-namespace:LaserCali"
     xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
     xmlns:fa5="http://schemas.fontawesome.com/icons/"
-    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking">
+    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking" xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm">
     <dx:ThemedWindow.Resources>
         <!--A Style that affects all TextBlocks-->
         <Style TargetType="{x:Type Border}" x:Key="BorderCard">
@@ -28,6 +28,10 @@
         </Style>
     </dx:ThemedWindow.Resources>
     <dxdo:DockLayoutManager DockingStyle="VS2010">
+        <dxmvvm:Interaction.Behaviors>
+            <dx:SplashScreenManagerService 
+                x:Name="splashService" PredefinedSplashScreenType="WaitIndicator" InputBlock="WindowContent"/>
+        </dxmvvm:Interaction.Behaviors>
         <dxdo:DockLayoutManager.AutoHideGroups>
             <dxdo:AutoHideGroup DockType="Right" ShowCloseButton="False" FontFamily="Times New Roman">
                 <dxdo:LayoutPanel Caption="Log" MinWidth="350">
@@ -81,7 +85,8 @@
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
                                 <Border Style="{StaticResource BorderCard}">
-                                    <UCs:MainLaserUC x:Name="laserUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    <UCs:MainLaserUC x:Name="laserUc"
+                                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                 </Border>
                             </Grid>
                             <Grid Grid.Column="1">
@@ -123,7 +128,7 @@
                     </Grid>
                     <Grid Grid.Row="2">
                         <Border Style="{StaticResource BorderCard}" Padding="0,0,0,0" Background="#EFF2F7">
-                            <UCs:MainDataTableUC VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                            <UCs:MainDataTableUC x:Name="dataTableUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
                         </Border>
                     </Grid>

@@ -119,6 +119,9 @@
     <Reference Include="Nito.Disposables, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nito.Disposables.2.2.1\lib\net461\Nito.Disposables.dll</HintPath>
     </Reference>
+    <Reference Include="Notification.Wpf, Version=8.0.0.0, Culture=neutral, PublicKeyToken=1acac493089262b5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Notification.Wpf.8.0.0\lib\net47\Notification.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="OpenCvSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenCvSharp4.4.10.0.20240616\lib\netstandard2.0\OpenCvSharp.dll</HintPath>
     </Reference>
@@ -154,6 +157,9 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
@@ -180,10 +186,12 @@
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Extention\ImageExtentions.cs" />
+    <Compile Include="Extention\ObjectExtentions.cs" />
     <Compile Include="Models\Behavior\StepScrollBehavior.cs" />
     <Compile Include="Models\Camera\CameraHandle_Model.cs" />
     <Compile Include="Models\Config\CameraConfig_Model.cs" />
     <Compile Include="Models\Config\LaserConfig_Model.cs" />
+    <Compile Include="Models\Views\LaserValueModel.cs" />
     <Compile Include="Services\Config\LaserConfigService.cs" />
     <Compile Include="Services\Laser\Events\KLaserConnections_EventArgs.cs" />
     <Compile Include="Services\Laser\LaserWrap\LaserApi.cs" />
@@ -229,6 +237,9 @@
     </Compile>
     <Compile Include="UIs\Windowns\Common\WindowCommonSetting.xaml.cs">
       <DependentUpon>WindowCommonSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIs\Windowns\LaserDataAdd\WindowLaserDataAdd.xaml.cs">
+      <DependentUpon>WindowLaserDataAdd.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIs\Windowns\LaserDataEdit\WindowLaserDataEdit.xaml.cs">
       <DependentUpon>WindowLaserDataEdit.xaml</DependentUpon>
@@ -277,6 +288,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIs\Windowns\Common\WindowCommonSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIs\Windowns\LaserDataAdd\WindowLaserDataAdd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,6 +1,8 @@
 ﻿using DevExpress.Data.Extensions;
 using DevExpress.Mvvm.DataAnnotations;
+using DevExpress.Xpf.Core;
 using LaserCali.Commands;
+using LaserCali.Models.Views;
 using LaserCali.UIs.Windowns;
 using LaserCali.UIs.Windowns.LaserDataEdit;
 using System;
@@ -38,142 +40,48 @@ namespace LaserCali.UIs.UCs
             EditCommand = new RelayCommand<LaserValueModel>(Edit);
             DeleteCommand=new RelayCommand<LaserValueModel>(Delete);
 
-            //dgvInfo.ItemsSource = ListData;
-            for (int i = 0; i < 6; i++)
-            {
-                ListData.Add(new LaserValueModel()
-                {
-                    Id=i,
-                    EUT=0,
-                    Laser=0,
-                    Pressure=0,
-                    RH=0,
-                    TMaterial=0,
-                    Tmt=0
-                });
-            }
             // Tự động điều chỉnh kích thước cột
             tableView.UpdateLayout();
         }
 
-        public void Edit(LaserValueModel item)
+        private void Edit(LaserValueModel item)
         {
-            WindowLaserDataEdit wd = new WindowLaserDataEdit();
-            wd.ShowDialog();
+            WindowLaserDataEdit dataEditWindow = new WindowLaserDataEdit(item.Id, item.EUT);
+            dataEditWindow.OnSaveClick += DataEditWindow_OnSaveClick;
+            dataEditWindow.ShowDialog();
         }
 
-        public void Delete(LaserValueModel item)
+        private void DataEditWindow_OnSaveClick(object sender,int id, double eut)
         {
-            // Xử lý khi nhấn nút Delete
-            var findIdx = ListData.FindIndex(x => x.Id == item.Id);
-            if (findIdx >= 0)
+            var find = ListData.FindIndex(x => x.Id == id);
+            if (find >= 0)
             {
-                ListData.RemoveAt(findIdx);
+                ListData[find].EUT = eut;
             }
         }
 
-        public class LaserValueModel: INotifyPropertyChanged
+
+        private void Delete(LaserValueModel item)
         {
-            private int id;
-            private double laser;
-            private double eut;
-            private double tMater;
-            private double tmt;
-            private double rh;
-            private double pressure;
-            public int Id
-            { 
-                get => id;
-                set
+            var dia = DXMessageBox.Show("Are you sure you want to delete?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (dia == MessageBoxResult.Yes)
+            {
+                // Xử lý khi nhấn nút Delete
+                var findIdx = ListData.FindIndex(x => x.Id == item.Id);
+                if (findIdx >= 0)
                 {
-                    if(id != value) 
-                    {
-                        id = value;
-                        OnPropertyChanged(nameof(Id));
-                    }
+                    ListData.RemoveAt(findIdx);
                 }
             }
-
-            public double Laser
-            {
-                get => laser;
-                set
-                {
-                    if(laser != value)
-                    {
-                        laser = value;
-                        OnPropertyChanged(nameof(Laser));
-                    }    
-                }
-            }
-            public double EUT
-            {
-                get => eut;
-                set
-                {
-                    if(eut != value)
-                    {
-                        eut = value;
-                        OnPropertyChanged(nameof(EUT));
-                    }    
-                }
-            }
-            public double TMaterial
-            {
-                get => tMater;
-                set
-                {
-                    if (tMater != value)
-                    {
-                        OnPropertyChanged(nameof(TMaterial));
-                    }
-                }
-            }
-            public double Tmt
-            {
-                get => tmt;
-                set
-                {
-                    if (tmt != value)
-                    {
-                        tmt=value;
-                        OnPropertyChanged(nameof(Tmt));
-                    }
-                }
-            }
-
-            public double RH
-            {
-                get => rh;
-                set
-                {
-                    if(rh != value)
-                    {
-                        rh = value;
-                        OnPropertyChanged(nameof(RH));
-                    }    
-                }
-            }
-            public double Pressure
-            {
-                get => pressure;
-                set
-                {
-                    if(pressure!=value)
-                    {
-                        pressure = value;
-                        OnPropertyChanged(nameof(Pressure));
-                    }    
-                }
-            }
-
-            public event PropertyChangedEventHandler PropertyChanged;
-
-            protected void OnPropertyChanged(string propertyName)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
+            
         }
+
+        public void AddValue(LaserValueModel item)
+        {
+            item.Id = ListData.Count + 1;
+            ListData.Add(item);
+        }
+
 
         private void dgvInfo_SelectedItemChanged(object sender, DevExpress.Xpf.Grid.SelectedItemChangedEventArgs e)
         {

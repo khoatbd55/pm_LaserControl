@@ -5,7 +5,7 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                 xmlns:local="clr-namespace:LaserCali.UIs.UCs"
                 mc:Ignorable="d" 
-                xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              MinHeight="150" MinWidth="800" Background="#EFF2F7" >
     <UserControl.Resources>
 
@@ -19,12 +19,36 @@
                     FontFamily="Times New Roman" 
                     ItemsSource="{Binding ListData}">
             <dxg:GridColumn FieldName="Id" Header="#" Width="80" />
-            <dxg:GridColumn FieldName="Laser" Header="Laser (mm)" Width="*"/>
-            <dxg:GridColumn FieldName="EUT" Header="EUT (mm)" Width="*"/>
-            <dxg:GridColumn FieldName="TMaterial" Header="T Material (°C)" Width="*"/>
-            <dxg:GridColumn FieldName="Tmt" Header="Tmt(°C)" Width="*"/>
-            <dxg:GridColumn FieldName="RH" Header="RHmt(%)" Width="*"/>
-            <dxg:GridColumn FieldName="Pressure" Header="Pressure (hPa)" Width="*"/>
+            <dxg:GridColumn FieldName="Laser" Header="Laser (mm)" Width="*" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="f6" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="EUT" Header="EUT (mm)" Width="*">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="f4" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="TMaterial" Header="T Material (°C)" Width="*">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="f2" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="Tmt" Header="Tmt(°C)" Width="*">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="f2" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="RH" Header="RHmt(%)" Width="*">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="f2" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="Pressure" Header="Pressure (hPa)" Width="*">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="f2" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
             <dxg:GridColumn Header="Operations" Width="150">
                 <dxg:GridColumn.CellTemplate>
                     <DataTemplate>
@@ -46,13 +70,12 @@
                 </dxg:GridColumn.CellTemplate>
             </dxg:GridColumn>
             <dxg:GridControl.View>
-                <dxg:TableView  x:Name="tableView"
+                <dxg:TableView ShowGroupPanel="False"  x:Name="tableView"
                     AllowEditing="False" 
                     AllowBestFit="True"
                     AllowPerPixelScrolling="True"
                     BestFitMode="AllRows"
                     ShowAutoFilterRow="False"
-                    ShowGroupPanel="True"
                     ShowFixedTotalSummary="False"
                     ShowCheckBoxSelectorColumn="False"
                     ShowCheckBoxSelectorInGroupRow="False"

@@ -1,4 +1,7 @@
-﻿using DevExpress.Xpf.Editors.Helpers;
+﻿using DevExpress.Mvvm;
+using DevExpress.Xpf.Core.Native;
+using DevExpress.Xpf.Editors.Helpers;
+using LaserCali.Extention;
 using LaserCali.Models.Camera;
 using LaserCali.Models.Config;
 using LaserCali.Services;
@@ -6,8 +9,10 @@ using LaserCali.Services.Config;
 using LaserCali.Services.Environment;
 using LaserCali.Services.Laser;
 using LaserCali.UIs.Windowns.Common;
+using LaserCali.UIs.Windowns.LaserDataAdd;
 using LaserCali.UIs.Windowns.Setting;
 using Newtonsoft.Json;
+using Notification.Wpf;
 using OpenCvSharp.Extensions;
 using System;
 using System.Collections.Generic;
@@ -43,10 +48,15 @@ namespace LaserCali
         KEnvironmentSerial _environmentSerial = new KEnvironmentSerial();
         KLaserService _laser = new KLaserService();
         int _countDelayImage = 0;
+        LaserConfig_Model _laserCfg = new LaserConfig_Model();
         CameraConfig_Model _camCfg = new CameraConfig_Model();
         object _syncCamCfg=new object();
+        object _syncLaser = new object();
 
         bool _isCenter = false;
+        ISplashScreenManagerService _waitForm;
+        Notification.Wpf.NotificationManager _notification = new Notification.Wpf.NotificationManager();
+
         System.Windows.Media.Color COLOR_CONNECTED = System.Windows.Media.Color.FromRgb(31, 189, 0);
         System.Windows.Media.Color COLOR_DISCONNECTED = System.Windows.Media.Color.FromRgb(163, 163, 163);
         bool IsCenter
@@ -81,6 +91,14 @@ namespace LaserCali
             InitializeComponent();
         }
 
+        private void WaitForm_Init()
+        {
+            _waitForm = splashService;
+            _waitForm.ViewModel = new DXSplashScreenViewModel();
+            _waitForm.ViewModel.Subtitle = "Powered by DevExpress";
+            _waitForm.ViewModel.Logo = new Uri("../../Images/Logo.png", UriKind.Relative);
+        }
+
         private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (_firstClose)
@@ -103,16 +121,35 @@ namespace LaserCali
             }
         }
 
+
+
         private void Window_Closed(object sender, EventArgs e)
         {
 
+        }
+
+        private void LaserConfig_Set(LaserConfig_Model cfg)
+        {
+            lock(_syncLaser)
+            {
+                _laserCfg = cfg.Clone();
+            }    
+        }
+
+        private LaserConfig_Model LaserConfig_Get()
+        {
+            lock (_syncLaser)
+            {
+                return _laserCfg.Clone();
+            } 
+                
         }
 
         private void CamerConfig_Set(CameraConfig_Model cfg)
         {
             lock (_syncCamCfg)
             {
-                _camCfg = JsonConvert.DeserializeObject<CameraConfig_Model>(JsonConvert.SerializeObject(cfg));
+                _camCfg = cfg.Clone();// JsonConvert.DeserializeObject<CameraConfig_Model>(JsonConvert.SerializeObject(cfg));
             }
         }
 
@@ -120,12 +157,13 @@ namespace LaserCali
         {
             lock (_syncCamCfg)
             {
-                return JsonConvert.DeserializeObject<CameraConfig_Model>(JsonConvert.SerializeObject(_camCfg));
+                return _camCfg.Clone();
             }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            WaitForm_Init();
             var cfg = LaserConfigService.ReadConfig();
             CamerConfig_Set(cfg.Camera);
             laserUc.OnResetClick += LaserUc_OnResetClick;
@@ -146,7 +184,7 @@ namespace LaserCali
             _environmentSerial.OnRecievedMessageAsync += _environmentSerial_OnRecievedMessageAsync; ;
             _environmentSerial.Run(new Services.Environment.Models.ConfigOption.KNohmiSerialOptions()
             {
-                PortName = "COM4"
+                PortName = cfg.EnviromentNameComport,
             });
         }
 
@@ -165,10 +203,19 @@ namespace LaserCali
 
         private void LaserUc_OnDataClick(RoutedEventArgs obj)
         {
-            
+            WindowLaserDataAdd dataAddWindow = new WindowLaserDataAdd();
+            dataAddWindow.OnSaveClick += DataAddWindow_OnSaveClick;
+            dataAddWindow.ShowDialog();
         }
 
-        
+        private void DataAddWindow_OnSaveClick(object sender, double eut)
+        {
+            // thêm vào bảng giá trị
+            dataTableUc.AddValue(new Models.Views.LaserValueModel()
+            {
+                EUT = eut,
+            });
+        }
 
         private void _laser_OnConnections(object sender, Services.Laser.Events.KLaserConnections_EventArgs arg)
         {
@@ -278,8 +325,26 @@ namespace LaserCali
             windowCommonSetting.ShowDialog();
         }
 
-        private void WindowCommonSetting_OnSaveSuccess()
+
+        private async void WindowCommonSetting_OnSaveSuccess()
         {
+            // khởi động lại các service serial
+            try
+            {
+                _waitForm.Show();
+                await _environmentSerial.DisconnectAsync();
+                var cfg = LaserConfig_Get();
+                _environmentSerial.Run(new Services.Environment.Models.ConfigOption.KNohmiSerialOptions()
+                {
+                    PortName = cfg.EnviromentNameComport,
+                });
+                _waitForm.Close();
+            }
+            catch (Exception ex)
+            {
+                _notification.Show("Error restart serial", ex.Message, NotificationType.Error);
+                _waitForm.Close();
+            }
             
         }
 
