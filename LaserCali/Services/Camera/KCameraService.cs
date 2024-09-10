@@ -1,6 +1,7 @@
 ﻿using Basler.Pylon;
 using KUtilities.TaskExtentions;
 using LaserCali.Models.Camera;
+using LaserCali.Models.Config;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -69,9 +70,15 @@ namespace LaserCali.Services
             double frametime = 1 / RENDERFPS;
             frameDurationTicks = (int)(System.Diagnostics.Stopwatch.Frequency * frametime);
         }
-
-        public void Run()
+        CameraConfig_Model _cfgOption;
+        public void Run(CameraConfig_Model cfgOption)
         {
+            _cfgOption = cfgOption;
+            if(cfgOption.Frame>0)
+            {
+                double frametime = 1 / cfgOption.Frame;
+                frameDurationTicks = (int)(System.Diagnostics.Stopwatch.Frequency * frametime);
+            }    
             _backgroundCancelTokenSource = new CancellationTokenSource();
             var c = _backgroundCancelTokenSource.Token;
             _stopQueue = new KAsyncQueue<Exception>();

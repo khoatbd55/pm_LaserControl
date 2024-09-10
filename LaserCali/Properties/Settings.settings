@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LaserCali.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Laser" Type="System.String" Scope="User">
+    <Setting Name="LaserConfig" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

@@ -38,13 +38,31 @@ namespace LaserCali.UIs.Windowns.Setting
         CancellationTokenSource _backgroundTokenSource = new CancellationTokenSource();
         bool _firstClose = true;
         KCameraService _camera = new KCameraService();
-        long _roiTop = 0,_roiBottom=100,_threshold=0,_rotation=0,_rectNoise=10,_detecionDistance=1;
+        long _roiTop = 0,_roiBottom=100,_threshold=0,_rotation=0,_rectNoise=10,_detecionDistance=1,_frame=1,_cycleDisplay=1;
         bool _isCenter = false;
         double _lenWidth = 0;
         object _syncLenWidth = new object();
         System.Windows.Media.Color COLOR_CONNECTED = System.Windows.Media.Color.FromRgb(31, 189, 0);
         System.Windows.Media.Color COLOR_DISCONNECTED = System.Windows.Media.Color.FromRgb(163, 163, 163);
         LaserConfig_Model _laserConfig = new LaserConfig_Model();
+
+        int Frame
+        {
+            get => (int)Interlocked.Read(ref _frame);
+            set
+            {
+                Interlocked.Exchange(ref _frame, value);
+            }
+        }
+
+        int CycleDisplay
+        {
+            get => (int)Interlocked.Read(ref _cycleDisplay);
+            set
+            {
+                Interlocked.Exchange(ref _cycleDisplay, value);
+            }
+        }
 
         double LenWidth
         {
@@ -182,8 +200,10 @@ namespace LaserCali.UIs.Windowns.Setting
             nudRectNoise.Value=cfg.Camera.RectNoise;
             nudDetationDistance.Value = cfg.Camera.DetectionDistance;
             nudLenWidth.Value = (decimal)cfg.Camera.LenWidth;
+            nudFrame.Value = cfg.Camera.Frame;
+            nudCycleDisplay.Value = cfg.Camera.CycleDisplay;
             _camera.OnImage += _camera_OnImage;
-            _camera.Run();
+            _camera.Run(cfg.Camera);
         }
 
         private CameraConfig_Model GetCamConfig()
@@ -197,6 +217,8 @@ namespace LaserCali.UIs.Windowns.Setting
                 RectNoise = RectNoise,
                 DetectionDistance=DetectionDistance,
                 LenWidth=LenWidth,
+                CycleDisplay=CycleDisplay,
+                Frame=Frame,
             };
         }
 
@@ -206,7 +228,7 @@ namespace LaserCali.UIs.Windowns.Setting
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                if (++_countDelayImage >= 2)
+                if (++_countDelayImage >= CycleDisplay)
                 {
                     _countDelayImage = 0;
 
@@ -311,6 +333,16 @@ namespace LaserCali.UIs.Windowns.Setting
         private void nudLenWith_EditValueChanged(object sender, DevExpress.Xpf.Editors.EditValueChangedEventArgs e)
         {
             LenWidth = (double)nudLenWidth.Value;
+        }
+
+        private void nudCycleDisplay_EditValueChanged(object sender, DevExpress.Xpf.Editors.EditValueChangedEventArgs e)
+        {
+            CycleDisplay = (int)nudCycleDisplay.Value;
+        }
+
+        private void nudFrame_EditValueChanged(object sender, DevExpress.Xpf.Editors.EditValueChangedEventArgs e)
+        {
+            Frame = (int)nudFrame.Value;
         }
 
         private void nudRotate_EditValueChanged(object sender, DevExpress.Xpf.Editors.EditValueChangedEventArgs e)

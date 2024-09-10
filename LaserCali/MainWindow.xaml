@@ -94,10 +94,10 @@
                                     <UCs:MainEnviromentUC x:Name="tempUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                 </Border>
                             </Grid>
-                            <Grid Grid.Column="2">
-                                <Border Style="{StaticResource BorderCard}">
-                                    <GroupBox Header="Camera" x:Name="groupCamera" Padding="0,0,0,0" BorderBrush="Gray">
-                                        <Grid>
+                            <Grid Grid.Column="2" >
+                                <Border Style="{StaticResource BorderCard}" x:Name="borderCamera">
+                                    <GroupBox Header="Camera" x:Name="groupCamera" Padding="0,0,0,0" BorderBrush="Gray" >
+                                        <Grid >
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*" />
                                                 <RowDefinition Height="Auto" />
@@ -111,12 +111,14 @@
                                             </Grid>
                                             <Grid Grid.Row="1" >
                                                 <StackPanel Margin="5,5,5,5" Grid.Row="0" Orientation="Horizontal">
-                                                    <fa5:SvgAwesome Grid.Column="0" Margin="0,0,10,0" 
+                                                    <fa5:SvgAwesome Visibility="Collapsed" Grid.Column="0" Margin="0,0,10,0" 
                                                         Height="30" x:Name="iconCenter" Icon="Solid_Circle" 
                                                         VerticalAlignment="Center" Foreground="#FF858484"/>
-                                                    <TextBlock Style="{StaticResource labelTitle}" FontSize="18"
+                                                    <TextBlock Style="{StaticResource labelTitle}" MinWidth="0" FontSize="18" FontWeight="Bold" x:Name="txtLabelCenter" Margin="5,0,5,0" Text=""></TextBlock>
+                                                    <TextBlock Style="{StaticResource labelTitle}" FontSize="19" FontWeight="Bold"
                                                         x:Name="txtCenterDistance" MinWidth="0" Margin="0,0,5,0" Text="---"></TextBlock>
                                                     <TextBlock Style="{StaticResource labelTitle}" FontSize="15" Margin="0,0,5,0" Text="mm"></TextBlock>
+                                                    
                                                 </StackPanel>
                                             </Grid>
                                         </Grid>

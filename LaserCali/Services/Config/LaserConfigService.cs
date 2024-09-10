@@ -27,7 +27,13 @@ namespace LaserCali.Services.Config
         public const double LEN_WIDTH_MIN = 1;
         public const double LEN_WIDTH_MAX = 500;
 
-        public const string KeyLaser = "Laser";
+        public const int FRAME_MAX = 14;
+        public const int FRAME_MIN = 1;
+
+        public const int CYCLE_DISPLAY_MAX = 14;
+        public const int CYCLE_DISPLAY_MIN = 1;
+
+        public const string KeyLaser = "LaserConfig";
 
         private static void SaveData(string key, string value)
         {
@@ -73,6 +79,14 @@ namespace LaserCali.Services.Config
                 model.Camera.LenWidth = LEN_WIDTH_MAX;
             if(model.Camera.LenWidth<LEN_WIDTH_MIN)
                 model.Camera.LenWidth=LEN_WIDTH_MIN;
+            if (model.Camera.Frame > FRAME_MAX)
+                model.Camera.Frame = FRAME_MAX;
+            if (model.Camera.Frame < FRAME_MIN)
+                model.Camera.Frame = FRAME_MIN;
+            if(model.Camera.CycleDisplay>CYCLE_DISPLAY_MAX)
+                model.Camera.CycleDisplay =CYCLE_DISPLAY_MAX;
+            if(model.Camera.CycleDisplay<CYCLE_DISPLAY_MIN)
+                model.Camera.CycleDisplay=CYCLE_DISPLAY_MIN;
         }
 
         public static LaserConfig_Model ReadConfig()
@@ -86,7 +100,11 @@ namespace LaserCali.Services.Config
                     Threshold = 80,
                     RoiTop = CAMERA_ROI_MIN,
                     Rotation = CAMERA_ROTATION_MIN,
-                    RectNoise=20
+                    RectNoise=20,
+                    CycleDisplay=2,
+                    Frame=10,
+                    DetectionDistance=5,
+                    LenWidth=5.7
                 },
                 DisplayNameComport="COM1",
                 EnviromentNameComport="COM2",

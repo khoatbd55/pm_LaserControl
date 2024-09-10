@@ -69,16 +69,20 @@ namespace LaserCali
                     _isCenter = value;
                     if (_isCenter)
                     {
-                        iconCenter.Foreground = new SolidColorBrush(COLOR_CONNECTED);
-                        groupCamera.BorderBrush = new SolidColorBrush(COLOR_CONNECTED);
-                        groupCamera.BorderThickness = new Thickness(2, 2, 2, 2);
+                        var color = new SolidColorBrush(COLOR_CONNECTED);
+                        iconCenter.Foreground = color;
+                        borderCamera.Background= color;
+                        txtCenterDistance.Foreground= new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
+                        txtLabelCenter.Text = "Centering";
+                        txtLabelCenter.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255)); ;
                     }    
-                        
                     else
                     {
+                        
                         iconCenter.Foreground = new SolidColorBrush(COLOR_DISCONNECTED);
-                        groupCamera.BorderBrush = new SolidColorBrush(COLOR_DISCONNECTED);
-                        groupCamera.BorderThickness = new Thickness(1, 1, 1, 1);
+                        borderCamera.Background=new SolidColorBrush(System.Windows.Media.Color.FromRgb(255,255,255));
+                        txtCenterDistance.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(30, 30, 30));
+                        txtLabelCenter.Text = "";
                     }    
                         
                 }
@@ -171,7 +175,7 @@ namespace LaserCali
             laserUc.OnExportClick += LaserUc_OnExportClick;
             _camera.OnImage += _camera_OnImage;
             _camera.OnConnection += _camera_OnConnection;
-            _camera.Run();
+            _camera.Run(CamerConfig_Get());
 
             _laser.OnResult += _laser_OnResult;
             _laser.OnLog += _laser_OnLog;
@@ -214,6 +218,11 @@ namespace LaserCali
             dataTableUc.AddValue(new Models.Views.LaserValueModel()
             {
                 EUT = eut,
+                Laser=laserUc.LaserValue,
+                Pressure= tempUc.PressureEnv,
+                Tmt=tempUc.TempEnv,
+                RH=tempUc.HumiEnv,
+                TMaterial=0,
             });
         }
 
@@ -236,6 +245,7 @@ namespace LaserCali
             {
                 laserUc.LaserValue = arg.Pos;
                 laserUc.Beam=arg.Beam;
+
             }));
         }
 
@@ -278,7 +288,8 @@ namespace LaserCali
             
             Dispatcher.Invoke(new Action(() =>
             {
-                if (++_countDelayImage >= 2)
+                var cfg = CamerConfig_Get();
+                if (++_countDelayImage >= cfg.CycleDisplay)
                 {
                     _countDelayImage = 0;
 
@@ -356,7 +367,7 @@ namespace LaserCali
 
         private void WindowLaserSetting_Closed(object sender, EventArgs e)
         {
-            _camera.Run();
+            _camera.Run(CamerConfig_Get());
         }
 
         

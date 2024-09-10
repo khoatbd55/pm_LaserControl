@@ -2,7 +2,7 @@
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  
     x:Class="LaserCali.UIs.Windowns.Setting.WindowLaserSetting" 
     mc:Ignorable="d" Title="Laser Setting" 
-    Height="550" Width="900" WindowStartupLocation="CenterScreen"
+    Height="600" Width="900" WindowStartupLocation="CenterScreen"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -54,6 +54,8 @@
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal" Grid.Row="0">
                                 <TextBlock Style="{StaticResource labelTitle}" Width="120" Margin="5,0,0,0" Text="Rect Noise:"></TextBlock>
@@ -87,6 +89,24 @@
                                 </dxe:SpinEdit>
                                 <TextBlock Style="{StaticResource labelTitle}" Margin="5,0,0,0" 
                                             Text="mm"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,10,0,0">
+                                <TextBlock Style="{StaticResource labelTitle}" Width="120" Margin="5,0,0,0" Text="Frame:"></TextBlock>
+                                <dxe:SpinEdit MinValue="1" MaxValue="14" 
+                                            EditValueChanged="nudFrame_EditValueChanged" 
+                                            x:Name="nudFrame" 
+                                            EditValue="1" 
+                                            Style="{StaticResource nudEdit}">
+                                </dxe:SpinEdit>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="0,10,0,0">
+                                <TextBlock Style="{StaticResource labelTitle}" Width="120" Margin="5,0,0,0" Text="Cycle Display:"></TextBlock>
+                                <dxe:SpinEdit MinValue="1" MaxValue="14" 
+                                                EditValueChanged="nudCycleDisplay_EditValueChanged" 
+                                                x:Name="nudCycleDisplay" 
+                                                EditValue="1" 
+                                                Style="{StaticResource nudEdit}">
+                                </dxe:SpinEdit>
                             </StackPanel>
                         </Grid>
                     </dxlc:GroupBox>
