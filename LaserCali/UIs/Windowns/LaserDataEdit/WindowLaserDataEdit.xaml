@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LaserCali.UIs.Windowns.LaserDataEdit" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Edit Data" Height="244" Width="294">
+        Title="Edit Data" Height="283" Width="393" Icon="/Images/logo.ico">
     <Window.Resources>
         <Style TargetType="dxe:SpinEdit" x:Key="nudEdit">
             <Setter Property="FontFamily" Value="Times New Roman"></Setter>
@@ -29,7 +29,7 @@
             <dxlc:GroupBox Header="EUT" Margin="5,5,5,5">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock FontFamily="Times New Roman" FontSize="17" Text="EUT (mm)"></TextBlock>
-                    <dxe:SpinEdit MinValue="0" MaxValue="500" 
+                    <dxe:SpinEdit MinValue="0" MaxValue="100000" 
                             EditValueChanged="nudEut_EditValueChanged" 
                             x:Name="nudEut" EditValue="0.0000" Style="{StaticResource nudEdit}" 
                             Mask="f4" Increment="0.0001" >

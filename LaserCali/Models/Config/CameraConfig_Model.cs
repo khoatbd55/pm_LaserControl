@@ -17,5 +17,7 @@ namespace LaserCali.Models.Config
         public double LenWidth { get; set; }
         public int Frame { get; set; }
         public int CycleDisplay { get; set; }
+        
+
     }
 }

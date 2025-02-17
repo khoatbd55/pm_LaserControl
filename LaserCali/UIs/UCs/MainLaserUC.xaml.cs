@@ -37,6 +37,7 @@ namespace LaserCali.UIs.UCs
                 {
                     _laserValue = value;
                     txtLaserValue.Text= _laserValue.ToString("F6");
+                    
                 }
             }
         }
@@ -50,6 +51,20 @@ namespace LaserCali.UIs.UCs
                 {
                     _beam = value;
                     prbBeam.Value= _beam;
+                    if(_beam>50)
+                    {
+                        prbBeam.Foreground = new SolidColorBrush(Colors.Green);
+                        txtPrbBeam.Foreground = new SolidColorBrush(Colors.White);
+                    }    
+                    else if(_beam>0)
+                    {
+                        prbBeam.Foreground = new SolidColorBrush(Colors.Yellow);
+                        txtPrbBeam.Foreground = new SolidColorBrush(Colors.White);
+                    }
+                    else
+                    {
+                        txtPrbBeam.Foreground= new SolidColorBrush(Colors.Black);
+                    }
                 }
             }
         }

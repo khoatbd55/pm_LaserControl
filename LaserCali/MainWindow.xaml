@@ -9,7 +9,7 @@
     xmlns:local="clr-namespace:LaserCali"
     xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
     xmlns:fa5="http://schemas.fontawesome.com/icons/"
-    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking" xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm">
+    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking" xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" Icon="/Images/logo.ico">
     <dx:ThemedWindow.Resources>
         <!--A Style that affects all TextBlocks-->
         <Style TargetType="{x:Type Border}" x:Key="BorderCard">

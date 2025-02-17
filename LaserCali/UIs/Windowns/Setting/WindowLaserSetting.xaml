@@ -12,7 +12,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:LaserCali.UIs.Windowns.Setting" 
     xmlns:local1="clr-namespace:LaserCali.Models.Behavior"
-    xmlns:fa5="http://schemas.fontawesome.com/icons/">
+    xmlns:fa5="http://schemas.fontawesome.com/icons/" Icon="/Images/logo.ico">
     <dx:ThemedWindow.Resources>
         <Style TargetType="TextBlock" x:Key="labelTitle">
             <Setter Property="FontFamily" Value="Times New Roman"></Setter>

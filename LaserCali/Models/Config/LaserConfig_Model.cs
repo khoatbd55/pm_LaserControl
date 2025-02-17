@@ -15,6 +15,7 @@ namespace LaserCali.Models.Config
         public string EnviromentNameComport { get; set; }
         public string TempNameComport { get; set; }
         public string DisplayNameComport { get; set; }
+        public string MqttHost { get; set; }
         public CameraConfig_Model Camera { get; set; }
     }
 }

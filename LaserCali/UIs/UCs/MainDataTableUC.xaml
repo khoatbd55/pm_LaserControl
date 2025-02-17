@@ -17,39 +17,44 @@
                     x:Name="dgvInfo"
                     Margin="5,5,5,5" 
                     FontFamily="Times New Roman" 
-                    ItemsSource="{Binding ListData}">
-            <dxg:GridColumn FieldName="Id" Header="#" Width="80" />
-            <dxg:GridColumn FieldName="Laser" Header="Laser (mm)" Width="*" >
+                    ItemsSource="{Binding ListData}" >
+            <dxg:GridColumn FieldName="Id" Header="#" HorizontalHeaderContentAlignment="Center" Width="80" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
-                    <dxe:TextEditSettings DisplayFormat="f6" />
+                    <dxe:TextEditSettings HorizontalContentAlignment="Center" />
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="EUT" Header="EUT (mm)" Width="*">
+            <dxg:GridColumn FieldName="Laser" Header="Laser (mm)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
+                
                 <dxg:GridColumn.EditSettings>
-                    <dxe:TextEditSettings DisplayFormat="f4" />
+                    <dxe:TextEditSettings DisplayFormat="f6" HorizontalContentAlignment="Center" />
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="TMaterial" Header="T Material (°C)" Width="*">
+            <dxg:GridColumn FieldName="EUT" Header="EUT (mm)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
-                    <dxe:TextEditSettings DisplayFormat="f2" />
+                    <dxe:TextEditSettings DisplayFormat="f4" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Tmt" Header="Tmt(°C)" Width="*">
+            <dxg:GridColumn FieldName="TMaterial" Header="T Material (°C)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
-                    <dxe:TextEditSettings DisplayFormat="f2" />
+                    <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="RH" Header="RHmt(%)" Width="*">
+            <dxg:GridColumn FieldName="Tmt" Header="Tmt(°C)" HorizontalHeaderContentAlignment="Center" Width="*">
                 <dxg:GridColumn.EditSettings>
-                    <dxe:TextEditSettings DisplayFormat="f2" />
+                    <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Pressure" Header="Pressure (hPa)" Width="*">
+            <dxg:GridColumn FieldName="RH" Header="RHmt(%)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
-                    <dxe:TextEditSettings DisplayFormat="f2" />
+                    <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn Header="Operations" Width="150">
+            <dxg:GridColumn FieldName="Pressure" Header="Pressure (hPa)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn Header="Operations" Width="150" HorizontalHeaderContentAlignment="Center" >
                 <dxg:GridColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

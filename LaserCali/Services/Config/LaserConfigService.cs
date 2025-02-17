@@ -33,7 +33,7 @@ namespace LaserCali.Services.Config
         public const int CYCLE_DISPLAY_MAX = 14;
         public const int CYCLE_DISPLAY_MIN = 1;
 
-        public const string KeyLaser = "LaserConfig";
+        public const string KeyLaser = "LaserConfig1";
 
         private static void SaveData(string key, string value)
         {
@@ -108,7 +108,8 @@ namespace LaserCali.Services.Config
                 },
                 DisplayNameComport="COM1",
                 EnviromentNameComport="COM2",
-                TempNameComport="COM3"
+                TempNameComport="COM3",
+                MqttHost="192.168.144.108",
             };
             try
             {
