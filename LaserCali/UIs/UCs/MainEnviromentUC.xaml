@@ -59,7 +59,7 @@
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" Margin="5,0,5,0">
                             <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <dx:SimpleButton Content="Device" Height="30" Margin="0,0,0,0" Glyph="{dx:DXImage SvgImages/HybridDemoIcons/Editors/HybridDemo_Search Button.svg}"/>
+                                <dx:SimpleButton x:Name="btnDevice" Click="btnDevice_Click" Content="Device" Height="30" Margin="0,0,0,0" Glyph="{dx:DXImage SvgImages/HybridDemoIcons/Editors/HybridDemo_Search Button.svg}"/>
                                 
                             </StackPanel>
                         </Grid>

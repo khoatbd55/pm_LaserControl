@@ -17,5 +17,18 @@ namespace LaserCali.Models.Consts
         public const string HEADER_MQTT_LO_NHIET_Log = "temp/log";
 
         public const int TotalSlave = 16;
+
+        public const int MqttPort = 24127;
+
+        public const string MqttUserName = "mqtttron";
+
+        public const string MqttPassword = "mqtttron54321";
+
+        public static string HostApi = "http://192.168.144.108";
+
+        public const int HostPort = 24185;
+
+        public static string TokenApi = "";
+
     }
 }

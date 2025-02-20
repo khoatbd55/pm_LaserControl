@@ -1,4 +1,5 @@
 ﻿using LaserCali.Models.Config;
+using LaserCali.Models.Consts;
 using LaserCali.Services.Config;
 using System;
 using System.Collections;
@@ -43,6 +44,7 @@ namespace LaserCali.UIs.Windowns.Common
             cboDisplay.Text = cfg.DisplayNameComport;
             cboEnviroment.Text = cfg.EnviromentNameComport;
             cboTemperature.Text = cfg.TempNameComport;
+            txtMqttHost.EditValue = cfg.MqttHost;
             Comport_Init();
         }
 
@@ -167,9 +169,11 @@ namespace LaserCali.UIs.Windowns.Common
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            _laserConfig.MqttHost = txtMqttHost.EditValue.ToString();
             _laserConfig.DisplayNameComport = cboDisplay.Text;
             _laserConfig.EnviromentNameComport=cboEnviroment.Text;
             _laserConfig.TempNameComport = cboTemperature.Text;
+            
             LaserConfigService.SaveConfig(_laserConfig);
             this.Close();
             if (OnSaveSuccess != null)

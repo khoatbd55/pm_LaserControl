@@ -20,6 +20,8 @@ namespace LaserCali.UIs.UCs
     /// </summary>
     public partial class MainEnviromentUC : UserControl
     {
+        public event Action OnBtnDeviceClick;
+
         double _tempEnv = 0;
         double _humiEnv = 0;
         double _pressureEnv = 0;
@@ -65,6 +67,14 @@ namespace LaserCali.UIs.UCs
         public MainEnviromentUC()
         {
             InitializeComponent();
+        }
+
+        private void btnDevice_Click(object sender, RoutedEventArgs e)
+        {
+            if (OnBtnDeviceClick != null)
+            {
+                OnBtnDeviceClick();
+            }
         }
     }
 }

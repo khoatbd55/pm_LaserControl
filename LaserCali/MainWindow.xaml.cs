@@ -4,11 +4,14 @@ using DevExpress.Xpf.Editors.Helpers;
 using LaserCali.Extention;
 using LaserCali.Models.Camera;
 using LaserCali.Models.Config;
+using LaserCali.Models.Consts;
 using LaserCali.Services;
 using LaserCali.Services.Config;
 using LaserCali.Services.Environment;
 using LaserCali.Services.Laser;
+using LaserCali.Services.Realtime;
 using LaserCali.UIs.Windowns.Common;
+using LaserCali.UIs.Windowns.HistoryChart;
 using LaserCali.UIs.Windowns.LaserDataAdd;
 using LaserCali.UIs.Windowns.Setting;
 using Newtonsoft.Json;
@@ -47,6 +50,7 @@ namespace LaserCali
         KCameraService _camera = new KCameraService();
         KEnvironmentSerial _environmentSerial = new KEnvironmentSerial();
         KLaserService _laser = new KLaserService();
+        MultiTempRealtimeService _multiTempRealtime = new MultiTempRealtimeService();
         int _countDelayImage = 0;
         LaserConfig_Model _laserCfg = new LaserConfig_Model();
         CameraConfig_Model _camCfg = new CameraConfig_Model();
@@ -110,7 +114,7 @@ namespace LaserCali
                 _firstClose = false;
                 e.Cancel = true;
                 _backgroundCancellTokenSource?.Cancel();
-
+                await _multiTempRealtime.StopAsync();
                 await _camera.StopAsync();
                 await _environmentSerial.DisconnectAsync();
                 await _laser.StopAsync();
@@ -169,7 +173,12 @@ namespace LaserCali
         {
             WaitForm_Init();
             var cfg = LaserConfigService.ReadConfig();
+            AppConst.HostApi = "http://" + cfg.MqttHost;
             CamerConfig_Set(cfg.Camera);
+            _multiTempRealtime.OnRecieveStatusMessage += _multiTempRealtime_OnRecieveStatusMessage;
+            _multiTempRealtime.OnConnect += _multiTempRealtime_OnConnect;
+            _multiTempRealtime.Run();
+
             laserUc.OnResetClick += LaserUc_OnResetClick;
             laserUc.OnDataClick += LaserUc_OnDataClick;
             laserUc.OnExportClick += LaserUc_OnExportClick;
@@ -190,6 +199,25 @@ namespace LaserCali
             {
                 PortName = cfg.EnviromentNameComport,
             });
+        }
+
+        private void _multiTempRealtime_OnConnect(object sender, bool isConnected)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                if (isConnected)
+                    iconConnections.IsTemperatureConnected = true;
+                else
+                    iconConnections.IsTemperatureConnected = false;
+            }));
+        }
+
+        private void _multiTempRealtime_OnRecieveStatusMessage(object sender, Models.Temperatures.Sensor.MultiTempStatus_Model args)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+
+            }));
         }
 
         private void LaserUc_OnResetClick(RoutedEventArgs obj)
@@ -370,6 +398,11 @@ namespace LaserCali
             _camera.Run(CamerConfig_Get());
         }
 
-        
+        private void tempUc_OnBtnDeviceClick()
+        {
+            HistoryChartWindow historyChartWindow = new HistoryChartWindow();
+            historyChartWindow.Owner = this;
+            historyChartWindow.ShowDialog();
+        }
     }
 }

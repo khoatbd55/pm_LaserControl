@@ -32,6 +32,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Grid.Column="0">
                     <TextBlock Style="{StaticResource labelTitle}" Text="Display:"/>
@@ -50,6 +51,12 @@
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="1">
                     <dxe:ComboBoxEdit x:Name="cboTemperature" Height="30" Margin="0,0,0,10"/>
+                </Grid>
+                <Grid Grid.Row="3" Grid.Column="0">
+                    <TextBlock Style="{StaticResource labelTitle}" TextWrapping="Wrap" Text="Temperature Host:"/>
+                </Grid>
+                <Grid Grid.Row="3" Grid.Column="1">
+                    <dxe:TextEdit x:Name="txtMqttHost" FontSize="14" EditValue="192.168.144.108" FontFamily="Times New Roman"  />
                 </Grid>
             </Grid>
         </dxlc:GroupBox>

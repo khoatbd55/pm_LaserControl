@@ -1,4 +1,5 @@
 ﻿using LaserCali.Models.Config;
+using LaserCali.Models.Consts;
 using LaserCali.Properties;
 using Newtonsoft.Json;
 using System;
@@ -51,6 +52,7 @@ namespace LaserCali.Services.Config
         {
             Limit(model);
             SaveData(KeyLaser, JsonConvert.SerializeObject(model));
+            AppConst.HostApi = "http://" + model.MqttHost;
         }
 
         private static void Limit(LaserConfig_Model model)
