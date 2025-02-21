@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="LaserCali.UIs.Windowns.HistoryChart.ItemTempUc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LaserCali.UIs.Windowns.HistoryChart"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="250">
+    <Border x:Name="container" Opacity="0.6" BorderBrush="#00C7C7" BorderThickness="1,1,1,1" Margin="3,3,3,3">
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Border Padding="5,0,5,0" Background="#80C4E9" HorizontalAlignment="Left">
+                    <TextBlock x:Name="txtChannel" FontFamily="Times New Roman" 
+                               FontSize="13" FontWeight="Bold" VerticalAlignment="Center" >CH:01</TextBlock>    
+                </Border>
+                
+                <TextBlock x:Name="txtId" Margin="0,5,0,5" FontSize="18" FontFamily="Times New Roman" HorizontalAlignment="Center" FontWeight="Bold">ID:001</TextBlock>
+            </Grid>
+            <Grid Grid.Row="1">
+                <TextBlock x:Name="txtValue" FontSize="32" Foreground="Red" FontFamily="Times New Roman" VerticalAlignment="Center"
+                    HorizontalAlignment="Center" FontWeight="Bold">-.---</TextBlock>
+            </Grid>
+        </Grid>
+    </Border>
+    
+</UserControl>

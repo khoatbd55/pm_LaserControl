@@ -1,12 +1,98 @@
-﻿<Window x:Class="LaserCali.UIs.Windowns.HistoryChart.HistoryChartWindow"
+﻿<Window xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"  x:Class="LaserCali.UIs.Windowns.HistoryChart.HistoryChartWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LaserCali.UIs.Windowns.HistoryChart"
+        xmlns:local="clr-namespace:LaserCali.UIs.Windowns.HistoryChart" xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         mc:Ignorable="d"
-        Title="History" Height="450" Width="800" WindowState="Maximized">
+        Title="Grap realtime" Height="750" Width="1000" WindowState="Maximized">
     <Grid>
-        
+        <dxmvvm:Interaction.Behaviors>
+            <dx:SplashScreenManagerService 
+        x:Name="splashService" PredefinedSplashScreenType="WaitIndicator" InputBlock="WindowContent"/>
+        </dxmvvm:Interaction.Behaviors>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Background="#D0D0D0">
+            <dxc:ChartControl Margin="3,3,3,3" BoundDataChanged="chart_BoundDataChanged"
+                    x:Name="chart" FontFamily="Times New Roman"  CrosshairEnabled="true">
+                <dxc:ChartControl.Titles>
+                    <dxc:Title Margin="-8,-5,-8,-5" Content="Temperature Grap" Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                </dxc:ChartControl.Titles>
+                <dxc:ChartControl.Legends>
+                    <dxc:Legend HorizontalPosition="RightOutside" Orientation="Vertical" VerticalPosition="Top" IndentFromDiagram="5,5,5,5" MaxCrosshairContentHeight="15" DockTarget="{Binding ElementName=pane}" MarkerMode="CheckBox">
+                        <dxc:Legend.Title>
+                            <dxc:LegendTitle FontSize="16" Visible="false"/>
+                        </dxc:Legend.Title>
+                    </dxc:Legend>
+                </dxc:ChartControl.Legends>
+                <dxc:XYDiagram2D x:Name="diagram" Margin="-10,0,-5,-10"
+                    Zoom="diagram_Zoom" DependentAxesYRange="true" 
+                    EnableAxisXNavigation="true">
+                    <dxc:XYDiagram2D.AxisX>
+                        <dxc:AxisX2D GridLinesVisible="true" >
+                            <dxc:AxisX2D.Title>
+                                <dxc:AxisTitle Content="Time" Visible="true"/>
+                            </dxc:AxisX2D.Title>
+                            <dxc:AxisX2D.DateTimeScaleOptions>
+                                <dxc:AutomaticDateTimeScaleOptions/>
+                            </dxc:AxisX2D.DateTimeScaleOptions>
+                        </dxc:AxisX2D>
+                    </dxc:XYDiagram2D.AxisX>
+                    <dxc:XYDiagram2D.AxisY>
+                        <dxc:AxisY2D>
+                            <dxc:AxisY2D.Title>
+                                <dxc:AxisTitle Content="Temperature (°C)" Visible="true"/>
+                            </dxc:AxisY2D.Title>
+
+                        </dxc:AxisY2D>
+                    </dxc:XYDiagram2D.AxisY>
+                    <dxc:XYDiagram2D.DefaultPane>
+                        <dxc:Pane >
+                            <dxc:Pane.AxisXScrollBarOptions>
+                                <dxc:ScrollBarOptions Visible="false" />
+                            </dxc:Pane.AxisXScrollBarOptions>
+                        </dxc:Pane>
+                    </dxc:XYDiagram2D.DefaultPane>
+                    <dxc:XYDiagram2D.NavigationOptions>
+                        <dxc:NavigationOptions UseTouchDevice="true" UseScrollBars="true" UseKeyboard="true" UseMouse="true"/>
+                    </dxc:XYDiagram2D.NavigationOptions>
+                </dxc:XYDiagram2D>
+            </dxc:ChartControl>
+        </Grid>
+        <Grid Grid.Column="1" Background="#D0D0D0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <local:ItemTempUc x:Name="tempUc1" Grid.Row="0" Grid.Column="0"/>
+            <local:ItemTempUc x:Name="tempUc2" Grid.Row="0" Grid.Column="1"/>
+            <local:ItemTempUc x:Name="tempUc3" Grid.Row="1" Grid.Column="0"/>
+            <local:ItemTempUc x:Name="tempUc4" Grid.Row="1" Grid.Column="1"/>
+            <local:ItemTempUc x:Name="tempUc5" Grid.Row="2" Grid.Column="0"/>
+            <local:ItemTempUc x:Name="tempUc6" Grid.Row="2" Grid.Column="1"/>
+            <local:ItemTempUc x:Name="tempUc7" Grid.Row="3" Grid.Column="0"/>
+            <local:ItemTempUc x:Name="tempUc8" Grid.Row="3" Grid.Column="1"/>
+            <local:ItemTempUc x:Name="tempUc9" Grid.Row="4" Grid.Column="0"/>
+            <local:ItemTempUc x:Name="tempUc10" Grid.Row="4" Grid.Column="1"/>
+            <local:ItemTempUc x:Name="tempUc11" Grid.Row="5" Grid.Column="0"/>
+            <local:ItemTempUc x:Name="tempUc12" Grid.Row="5" Grid.Column="1"/>
+            <local:ItemTempUc x:Name="tempUc13" Grid.Row="6" Grid.Column="0"/>
+            <local:ItemTempUc x:Name="tempUc14" Grid.Row="6" Grid.Column="1"/>
+            <local:ItemTempUc x:Name="tempUc15" Grid.Row="7" Grid.Column="0"/>
+            <local:ItemTempUc x:Name="tempUc16" Grid.Row="7" Grid.Column="1"/>
+        </Grid>
     </Grid>
 </Window>
