@@ -95,6 +95,10 @@
     <Reference Include="MahApps.Metro.IconPacks.Material, Version=5.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.Material.5.0.0\lib\net47\MahApps.Metro.IconPacks.Material.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.122\lib\net462\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -250,6 +254,7 @@
     <Compile Include="Services\Api\ApiBase_Service.cs" />
     <Compile Include="Services\Api\HistoryMultiTempApiService.cs" />
     <Compile Include="Services\Config\LaserConfigService.cs" />
+    <Compile Include="Services\Excels\ExcelExportService.cs" />
     <Compile Include="Services\Laser\Events\KLaserConnections_EventArgs.cs" />
     <Compile Include="Services\Laser\LaserWrap\LaserApi.cs" />
     <Compile Include="Services\Camera\KCameraService.cs" />

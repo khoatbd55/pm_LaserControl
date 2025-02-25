@@ -76,6 +76,11 @@ namespace LaserCali.UIs.UCs
             
         }
 
+        public List<LaserValueModel> GetDataTable()
+        {
+            return ListData.ToList();
+        }
+
         public void AddValue(LaserValueModel item)
         {
             item.Id = ListData.Count + 1;

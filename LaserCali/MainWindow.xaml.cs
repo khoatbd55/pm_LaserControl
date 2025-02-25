@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using DevExpress.Xpf.Core;
 using DevExpress.Xpf.Core.Native;
 using DevExpress.Xpf.Editors.Helpers;
 using LaserCali.Extention;
@@ -8,6 +9,7 @@ using LaserCali.Models.Consts;
 using LaserCali.Services;
 using LaserCali.Services.Config;
 using LaserCali.Services.Environment;
+using LaserCali.Services.Excels;
 using LaserCali.Services.Laser;
 using LaserCali.Services.Realtime;
 using LaserCali.UIs.Windowns.Common;
@@ -37,6 +39,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace LaserCali
 {
@@ -228,9 +231,50 @@ namespace LaserCali
             }
         }
 
-        private void LaserUc_OnExportClick(RoutedEventArgs obj)
+        private async void LaserUc_OnExportClick(RoutedEventArgs obj)
         {
-            
+            SaveFileDialog _saveFileDialog = new SaveFileDialog();
+            var now=DateTime.Now;
+            _saveFileDialog.FileName += $"Laser_{now.Year}_{now.Month}_{now.Day}_{now.Hour}_{now.Minute}_{now.Second}";
+
+            _saveFileDialog.Filter = "Excel files (*.xlsx) | *.xlsx"; ;
+            _saveFileDialog.Title = "Select where to save the excel file";
+            _saveFileDialog.DefaultExt = "xlsx";
+            if (_saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                _waitForm.Show();
+                string duongDan = _saveFileDialog.FileName;
+                ExcelExportService service = new ExcelExportService();
+                service.OnExceptionOccur += Service_OnExceptionOccur;
+                service.OnExportComplete += Service_OnExportComplete;
+                await service.Export(dataTableUc.GetDataTable(), duongDan);
+                _waitForm.Close();
+            }
+        }
+
+        private void Service_OnExportComplete(object sender, string e)
+        {
+            Dispatcher.Invoke(new MethodInvoker(delegate ()
+            {
+                var dialog = DXMessageBox.Show("File saved successfully. Do you want to open the file?", "Notification", MessageBoxButton.YesNo,MessageBoxImage.Question);
+                if (dialog == MessageBoxResult.Yes)
+                {
+                    FileInfo fi = new FileInfo(@e);
+                    if (fi.Exists)
+                    {
+                        System.Diagnostics.Process.Start(@e);
+                    }
+                    else
+                    {
+                        DXMessageBox.Show("Excel file path does not exist", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }));
+        }
+
+        private void Service_OnExceptionOccur(object sender, Exception e)
+        {
+            _notification.Show("Error when export excel file", e.Message, Notification.Wpf.NotificationType.Error);
         }
 
         private void LaserUc_OnDataClick(RoutedEventArgs obj)
@@ -381,7 +425,7 @@ namespace LaserCali
             }
             catch (Exception ex)
             {
-                _notification.Show("Error restart serial", ex.Message, NotificationType.Error);
+                _notification.Show("Error restart serial", ex.Message, Notification.Wpf.NotificationType.Error);
                 _waitForm.Close();
             }
             

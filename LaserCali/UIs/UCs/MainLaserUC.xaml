@@ -10,7 +10,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
                 <RowDefinition Height="55"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
@@ -23,8 +23,8 @@
                 
             </Grid>
             <Grid Grid.Row="1" >
-                <ProgressBar  x:Name="prbBeam" Margin="1,1,1,1" Value="0" />
-                <TextBlock x:Name="txtPrbBeam" Margin="5,0,0,0" Text="{Binding ElementName=prbBeam, Path=Value, StringFormat={}Signal Strength {0:0.0}}" 
+                <ProgressBar  x:Name="prbBeam" Margin="1,1,1,1" Value="0"  />
+                <TextBlock x:Name="txtPrbBeam" FontSize="16" FontFamily="Times New Roman" Margin="5,0,0,0" Text="{Binding ElementName=prbBeam, Path=Value, StringFormat={}Signal Strength {0:0.0}}" 
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Center" />
             </Grid>
