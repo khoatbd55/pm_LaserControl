@@ -60,6 +60,8 @@ namespace LaserCali
         object _syncCamCfg=new object();
         object _syncLaser = new object();
 
+        int _temperatureType = 0;
+
         bool _isCenter = false;
         ISplashScreenManagerService _waitForm;
         Notification.Wpf.NotificationManager _notification = new Notification.Wpf.NotificationManager();
@@ -176,6 +178,9 @@ namespace LaserCali
         {
             WaitForm_Init();
             var cfg = LaserConfigService.ReadConfig();
+            var commonCfg = LaserConfigService.ReadCommonConfig();
+            tempUc.TemperatureType_Set(commonCfg.TemperatureType);
+            _temperatureType = commonCfg.TemperatureType;
             AppConst.HostApi = "http://" + cfg.MqttHost;
             CamerConfig_Set(cfg.Camera);
             _multiTempRealtime.OnRecieveStatusMessage += _multiTempRealtime_OnRecieveStatusMessage;
@@ -219,7 +224,39 @@ namespace LaserCali
         {
             Dispatcher.Invoke(new Action(() =>
             {
+                try
+                {
+                    // hiển thị theo cài đặt
+                    string result = "---";
+                    if (_temperatureType == AppConst.TemperatureTypeAvr)// hiển thị nhiệt độ trung bình
+                    {
+                        double sum = 0;
+                        int total = 0;
+                        foreach (var item in args.Temps)
+                        {
+                            if (item.IsEnable && item.IsSensorConnected)
+                            {
+                                total += 1;
+                                sum += item.AvgTemp;
+                            }
+                        }
+                        if (total > 0)
+                            result = (sum / total).ToString("F3");
+                    }
+                    else
+                    {
+                        if (args.Temps[_temperatureType].IsEnable && args.Temps[_temperatureType].IsSensorConnected)
+                        {
+                            result = args.Temps[_temperatureType].AvgTemp.ToString("F3");
+                        } 
+                            
+                    }
+                    tempUc.TemperatureMaterial_Set(result);
+                }
+                catch (Exception)
+                {
 
+                }
             }));
         }
 
@@ -442,11 +479,20 @@ namespace LaserCali
             _camera.Run(CamerConfig_Get());
         }
 
-        private void tempUc_OnBtnDeviceClick()
+        public void tempUc_OnBtnDeviceClick()
         {
             HistoryChartWindow historyChartWindow = new HistoryChartWindow();
             historyChartWindow.Owner = this;
             historyChartWindow.ShowDialog();
+        }
+
+        private void tempUc_OnTemperatureTypeChange(object sender, int type)
+        {
+            _temperatureType = type;
+            var commonCfg = LaserConfigService.ReadCommonConfig();
+            commonCfg.TemperatureType = type;
+            LaserConfigService.CommonConfigSave(commonCfg);
+
         }
     }
 }

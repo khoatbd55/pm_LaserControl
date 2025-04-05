@@ -29,6 +29,6 @@ namespace LaserCali.Models.Consts
         public const int HostPort = 24185;
 
         public static string TokenApi = "";
-
+        public const int TemperatureTypeAvr = 16;
     }
 }

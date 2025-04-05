@@ -246,6 +246,7 @@
     <Compile Include="Models\Behavior\StepScrollBehavior.cs" />
     <Compile Include="Models\Camera\CameraHandle_Model.cs" />
     <Compile Include="Models\Config\CameraConfig_Model.cs" />
+    <Compile Include="Models\Config\CommonConfig_Model.cs" />
     <Compile Include="Models\Config\LaserConfig_Model.cs" />
     <Compile Include="Models\Consts\AppConst.cs" />
     <Compile Include="Models\Temperatures\Sensor\MultiTempStatus_Model.cs" />

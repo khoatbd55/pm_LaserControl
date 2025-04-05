@@ -142,16 +142,16 @@ namespace LaserCali.UIs.Windowns.HistoryChart
                 {
                     DisplayName = "CH:" + (i + 1),
                     Visible = true,
-                    LastPoint = new SidePoint()
-                    {
-                        LabelDisplayMode = SidePointDisplayMode.SeriesPoint,
-                        Label = new DevExpress.Xpf.Charts.SeriesLabel()
-                        {
-                            TextPattern = "CH:" + (i + 1).ToString() + "-{V}" + "°C",
-                        },
-                    },
+                    //LastPoint = new SidePoint()
+                    //{
+                    //    LabelDisplayMode = SidePointDisplayMode.SeriesPoint,
+                    //    Label = new DevExpress.Xpf.Charts.SeriesLabel()
+                    //    {
+                    //        TextPattern = "CH:" + (i + 1).ToString() + "-{V}" + "°C",
+                    //    },
+                    //},
                     CrosshairEnabled = true,
-                    CrosshairLabelPattern = "CH:" + (i + 1).ToString() + "-{V}" + "°C"
+                    CrosshairLabelPattern = "CH" + (i + 1).ToString() + "-{V:f3}" + "°C"
                 });
 
             }
@@ -211,7 +211,7 @@ namespace LaserCali.UIs.Windowns.HistoryChart
                     listSerial[i].Add(new SeriesPoint()
                     {
                         Argument = item.CreatedAt.ToString(),
-                        Value = item.Temps[i].Temp,
+                        Value =  item.Temps[i].Temp,
                     });
                 }    
                 

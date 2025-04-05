@@ -1,6 +1,7 @@
 ﻿using LaserCali.Models.Config;
 using LaserCali.Models.Consts;
 using LaserCali.Properties;
+using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,8 @@ namespace LaserCali.Services.Config
 
         public const string KeyLaser = "LaserConfig1";
 
+        public const string KeyCommon = "CommonConfig";
+
         private static void SaveData(string key, string value)
         {
             Settings.Default[key] = value;
@@ -46,6 +49,22 @@ namespace LaserCali.Services.Config
         {
             string result = Settings.Default[key].ToString();
             return result;
+        }
+
+        public static CommonConfig_Model ReadCommonConfig()
+        {
+            var str = GetData(KeyCommon);
+            CommonConfig_Model model = new CommonConfig_Model();
+            if (str != null && str != "")
+            {
+                model = JsonConvert.DeserializeObject<CommonConfig_Model>(str);
+            }
+            return model;
+        }
+
+        public static void CommonConfigSave(CommonConfig_Model model)
+        {
+            SaveData(KeyCommon, JsonConvert.SerializeObject(model));
         }
 
         public static void SaveConfig(LaserConfig_Model model)
