@@ -168,7 +168,7 @@ namespace LaserCali.Services.Environment
                                 if (isConnect != 0)
                                 {
                                     Interlocked.Exchange(ref _isConnected, 0);
-                                    await _onConnectionEvent.InvokeAsync(new KNohmiConnection_EventArgs(this, true));
+                                    await _onConnectionEvent.InvokeAsync(new KNohmiConnection_EventArgs(this, false));
                                 }
                                 await _exceptionEvent.InvokeAsync(new KNohmiException_EventArg(this, ex.Ex)).ConfigureAwait(false);
                             }

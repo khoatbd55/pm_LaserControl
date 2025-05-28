@@ -62,41 +62,8 @@ namespace LaserCali
 
         int _temperatureType = 0;
 
-        bool _isCenter = false;
         ISplashScreenManagerService _waitForm;
         Notification.Wpf.NotificationManager _notification = new Notification.Wpf.NotificationManager();
-
-        System.Windows.Media.Color COLOR_CONNECTED = System.Windows.Media.Color.FromRgb(31, 189, 0);
-        System.Windows.Media.Color COLOR_DISCONNECTED = System.Windows.Media.Color.FromRgb(163, 163, 163);
-        bool IsCenter
-        {
-            get => _isCenter;
-            set
-            {
-                if (_isCenter != value)
-                {
-                    _isCenter = value;
-                    if (_isCenter)
-                    {
-                        var color = new SolidColorBrush(COLOR_CONNECTED);
-                        iconCenter.Foreground = color;
-                        borderCamera.Background= color;
-                        txtCenterDistance.Foreground= new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
-                        txtLabelCenter.Text = "Centering";
-                        txtLabelCenter.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255)); ;
-                    }    
-                    else
-                    {
-                        
-                        iconCenter.Foreground = new SolidColorBrush(COLOR_DISCONNECTED);
-                        borderCamera.Background=new SolidColorBrush(System.Windows.Media.Color.FromRgb(255,255,255));
-                        txtCenterDistance.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(30, 30, 30));
-                        txtLabelCenter.Text = "";
-                    }    
-                        
-                }
-            }
-        }
 
         public MainWindow()
         {
@@ -166,7 +133,7 @@ namespace LaserCali
             }
         }
 
-        private CameraConfig_Model CamerConfig_Get()
+        private CameraConfig_Model CameraConfig_Get()
         {
             lock (_syncCamCfg)
             {
@@ -192,7 +159,7 @@ namespace LaserCali
             laserUc.OnExportClick += LaserUc_OnExportClick;
             _camera.OnImage += _camera_OnImage;
             _camera.OnConnection += _camera_OnConnection;
-            _camera.Run(CamerConfig_Get());
+            _camera.Run(CameraConfig_Get());
 
             _laser.OnResult += _laser_OnResult;
             _laser.OnLog += _laser_OnLog;
@@ -397,25 +364,28 @@ namespace LaserCali
             
             Dispatcher.Invoke(new Action(() =>
             {
-                var cfg = CamerConfig_Get();
+                var cfg = CameraConfig_Get();
                 if (++_countDelayImage >= cfg.CycleDisplay)
                 {
                     _countDelayImage = 0;
 
-                    if (picCamera.Source != null)
-                        picCamera.Source = null;
-                    var result = ImageLaserService.ImageHandleResult(e.Image, CamerConfig_Get());
-                    picCamera.Source = result.Image;
+                    if (cameraUc1.picCamera.Source != null)
+                        cameraUc1.picCamera.Source = null;
+                    if(cameraUc2.picCamera.Source != null)
+                        cameraUc2.picCamera.Source = null;
+                    var result = ImageLaserService.ImageHandleResult(e.Image, CameraConfig_Get());
+                    cameraUc1.picCamera.Source = result.Image;
+                    cameraUc2.picCamera.Source = result.Image;
                     if (result.IsCalculatorSuccess)
                     {
-                        txtCenterDistance.Text = result.DistanceMm.ToString("F4");
-                        IsCenter = result.IsCenter;
+                        cameraUc1.TxtCenterDistance.Text = result.DistanceMm.ToString("F4");
+                        cameraUc1.IsCenter = result.IsCenter;
                         
                     }
                     else
                     {
-                        IsCenter = false;
-                        txtCenterDistance.Text = "---";
+                        cameraUc1.IsCenter = false;
+                        cameraUc1.TxtCenterDistance.Text = "---";
                     }
                 }
             }));
@@ -476,7 +446,7 @@ namespace LaserCali
 
         private void WindowLaserSetting_Closed(object sender, EventArgs e)
         {
-            _camera.Run(CamerConfig_Get());
+            _camera.Run(CameraConfig_Get());
         }
 
         public void tempUc_OnBtnDeviceClick()
