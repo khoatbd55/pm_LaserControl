@@ -22,10 +22,6 @@ namespace LaserCali.UIs.UCs
     public partial class MainLaserUC : UserControl
     {
 
-        public event Action<RoutedEventArgs> OnResetClick;
-        public event Action<RoutedEventArgs> OnDataClick;
-        public event Action<RoutedEventArgs> OnExportClick;
-
         public double _laserValue = 0;
         public double _beam = 0;
 
@@ -87,28 +83,5 @@ namespace LaserCali.UIs.UCs
             InitializeComponent();
         }
 
-        private void btnReset_Click(object sender, RoutedEventArgs e)
-        {
-            if (OnResetClick != null)
-            {
-                OnResetClick(e);
-            }
-        }
-
-        private void btnData_Click(object sender, RoutedEventArgs e)
-        {
-            if(OnDataClick!=null)
-            {
-                OnDataClick(e);
-            }    
-        }
-
-        private void txtExport_Click(object sender, RoutedEventArgs e)
-        {
-            if (OnExportClick != null)
-            {
-                OnExportClick(e);
-            }
-        }
     }
 }

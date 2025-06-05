@@ -10,8 +10,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="35"></RowDefinition>
-                <RowDefinition Height="55"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <StackPanel Margin="0,10,10,10" VerticalAlignment="Center">
@@ -28,28 +27,7 @@
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Center" />
             </Grid>
-            <Grid Grid.Row="2">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <dx:SimpleButton x:Name="btnReset" Click="btnReset_Click"  Content="Laser Reset" Margin="0,5,2,0" Glyph="{dx:DXImage SvgImages/Dashboards/GridResetColumnWidths.svg}"/>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition Height="4"/>
-                        </Grid.RowDefinitions>
-                        <dx:SimpleButton x:Name="btnData" Click="btnData_Click" Content="Data" Margin="3,5,2,0" Grid.RowSpan="2" Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Database.svg}"/>
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <dx:SimpleButton x:Name="txtExport" Click="txtExport_Click" Content="Export To Excel" Margin="3,5,2,0" Glyph="{dx:DXImage SvgImages/Export/ExportToCSV.svg}"/>
-                    </Grid>
-                </Grid>
-            </Grid>
+            
 
         </Grid>
     </GroupBox>

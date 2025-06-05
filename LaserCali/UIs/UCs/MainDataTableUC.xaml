@@ -15,7 +15,7 @@
                     SelectedItemChanged="dgvInfo_SelectedItemChanged" 
                     FontSize="14"
                     x:Name="dgvInfo"
-                    Margin="5,5,5,5" 
+                    Margin="5,0,5,5" 
                     FontFamily="Times New Roman" 
                     ItemsSource="{Binding ListData}" >
             <dxg:GridColumn FieldName="Id" Header="#" HorizontalHeaderContentAlignment="Center" Width="80" ReadOnly="True">

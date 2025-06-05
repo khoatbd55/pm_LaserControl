@@ -56,8 +56,10 @@ namespace LaserCali
         MultiTempRealtimeService _multiTempRealtime = new MultiTempRealtimeService();
         int _countDelayImage = 0;
         LaserConfig_Model _laserCfg = new LaserConfig_Model();
-        CameraConfig_Model _camCfg = new CameraConfig_Model();
-        object _syncCamCfg=new object();
+        CameraConfig_Model _camLongCfg = new CameraConfig_Model();
+        CameraConfig_Model _camShortCfg = new CameraConfig_Model();
+        object _syncCamShortCfg=new object();
+        object _syncCamLongCfg = new object();
         object _syncLaser = new object();
 
         int _temperatureType = 0;
@@ -110,10 +112,10 @@ namespace LaserCali
 
         private void LaserConfig_Set(LaserConfig_Model cfg)
         {
-            lock(_syncLaser)
+            lock (_syncLaser)
             {
                 _laserCfg = cfg.Clone();
-            }    
+            }
         }
 
         private LaserConfig_Model LaserConfig_Get()
@@ -121,23 +123,39 @@ namespace LaserCali
             lock (_syncLaser)
             {
                 return _laserCfg.Clone();
-            } 
-                
+            }
+
         }
 
-        private void CamerConfig_Set(CameraConfig_Model cfg)
+        private void CameraLongConfig_Set(CameraConfig_Model cfg)
         {
-            lock (_syncCamCfg)
+            lock (_syncCamLongCfg)
             {
-                _camCfg = cfg.Clone();// JsonConvert.DeserializeObject<CameraConfig_Model>(JsonConvert.SerializeObject(cfg));
+                _camLongCfg = cfg.Clone();
             }
         }
 
-        private CameraConfig_Model CameraConfig_Get()
+        private CameraConfig_Model CameraLongConfig_Get()
         {
-            lock (_syncCamCfg)
+            lock (_syncCamLongCfg)
             {
-                return _camCfg.Clone();
+                return _camLongCfg.Clone();
+            }
+        }
+
+        private void CamerShortConfig_Set(CameraConfig_Model cfg)
+        {
+            lock (_syncCamShortCfg)
+            {
+                _camShortCfg = cfg.Clone();// JsonConvert.DeserializeObject<CameraConfig_Model>(JsonConvert.SerializeObject(cfg));
+            }
+        }
+
+        private CameraConfig_Model CameraShortConfig_Get()
+        {
+            lock (_syncCamShortCfg)
+            {
+                return _camShortCfg.Clone();
             }
         }
 
@@ -149,18 +167,16 @@ namespace LaserCali
             tempUc.TemperatureType_Set(commonCfg.TemperatureType);
             _temperatureType = commonCfg.TemperatureType;
             AppConst.HostApi = "http://" + cfg.MqttHost;
-            CamerConfig_Set(cfg.CameraShort);
+            CamerShortConfig_Set(cfg.CameraShort);
+            CameraLongConfig_Set(cfg.CameraLong);
             _multiTempRealtime.OnRecieveStatusMessage += _multiTempRealtime_OnRecieveStatusMessage;
             _multiTempRealtime.OnConnect += _multiTempRealtime_OnConnect;
             _multiTempRealtime.Run();
 
             laserUc.ValueResolution = cfg.LaserValueResolution;
-            laserUc.OnResetClick += LaserUc_OnResetClick;
-            laserUc.OnDataClick += LaserUc_OnDataClick;
-            laserUc.OnExportClick += LaserUc_OnExportClick;
             _camera.OnImage += _camera_OnImage;
             _camera.OnConnection += _camera_OnConnection;
-            _camera.Run(CameraConfig_Get());
+            _camera.Run(CameraShortConfig_Get());
 
             _laser.OnResult += _laser_OnResult;
             _laser.OnLog += _laser_OnLog;
@@ -216,8 +232,8 @@ namespace LaserCali
                         if (args.Temps[_temperatureType].IsEnable && args.Temps[_temperatureType].IsSensorConnected)
                         {
                             result = args.Temps[_temperatureType].AvgTemp.ToString("F3");
-                        } 
-                            
+                        }
+
                     }
                     tempUc.TemperatureMaterial_Set(result);
                 }
@@ -228,40 +244,11 @@ namespace LaserCali
             }));
         }
 
-        private void LaserUc_OnResetClick(RoutedEventArgs obj)
-        {
-            if (_laser != null)
-            {
-                _laser.Reset();
-            }
-        }
-
-        private async void LaserUc_OnExportClick(RoutedEventArgs obj)
-        {
-            SaveFileDialog _saveFileDialog = new SaveFileDialog();
-            var now=DateTime.Now;
-            _saveFileDialog.FileName += $"Laser_{now.Year}_{now.Month}_{now.Day}_{now.Hour}_{now.Minute}_{now.Second}";
-
-            _saveFileDialog.Filter = "Excel files (*.xlsx) | *.xlsx"; ;
-            _saveFileDialog.Title = "Select where to save the excel file";
-            _saveFileDialog.DefaultExt = "xlsx";
-            if (_saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                _waitForm.Show();
-                string duongDan = _saveFileDialog.FileName;
-                ExcelExportService service = new ExcelExportService();
-                service.OnExceptionOccur += Service_OnExceptionOccur;
-                service.OnExportComplete += Service_OnExportComplete;
-                await service.Export(dataTableUc.GetDataTable(), duongDan);
-                _waitForm.Close();
-            }
-        }
-
         private void Service_OnExportComplete(object sender, string e)
         {
             Dispatcher.Invoke(new MethodInvoker(delegate ()
             {
-                var dialog = DXMessageBox.Show("File saved successfully. Do you want to open the file?", "Notification", MessageBoxButton.YesNo,MessageBoxImage.Question);
+                var dialog = DXMessageBox.Show("File saved successfully. Do you want to open the file?", "Notification", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (dialog == MessageBoxResult.Yes)
                 {
                     FileInfo fi = new FileInfo(@e);
@@ -282,24 +269,17 @@ namespace LaserCali
             _notification.Show("Error when export excel file", e.Message, Notification.Wpf.NotificationType.Error);
         }
 
-        private void LaserUc_OnDataClick(RoutedEventArgs obj)
-        {
-            WindowLaserDataAdd dataAddWindow = new WindowLaserDataAdd();
-            dataAddWindow.OnSaveClick += DataAddWindow_OnSaveClick;
-            dataAddWindow.ShowDialog();
-        }
-
         private void DataAddWindow_OnSaveClick(object sender, double eut)
         {
             // thêm vào bảng giá trị
             dataTableUc.AddValue(new Models.Views.LaserValueModel()
             {
                 EUT = eut,
-                Laser=laserUc.LaserValue,
-                Pressure= tempUc.PressureEnv,
-                Tmt=tempUc.TempEnv,
-                RH=tempUc.HumiEnv,
-                TMaterial=0,
+                Laser = laserUc.LaserValue,
+                Pressure = tempUc.PressureEnv,
+                Tmt = tempUc.TempEnv,
+                RH = tempUc.HumiEnv,
+                TMaterial = 0,
             });
         }
 
@@ -321,7 +301,7 @@ namespace LaserCali
             Dispatcher.Invoke(new Action(() =>
             {
                 laserUc.LaserValue = arg.Pos;
-                laserUc.Beam=arg.Beam;
+                laserUc.Beam = arg.Beam;
 
             }));
         }
@@ -359,63 +339,73 @@ namespace LaserCali
             }));
         }
 
-        
+
         private void _camera_OnImage(object sender, CameraImage_EventArgs e)
         {
-            
-            Dispatcher.Invoke(new Action(() =>
+            try
             {
-                var cfg = CameraConfig_Get();
+                var cfg = CameraShortConfig_Get();
                 if (++_countDelayImage >= cfg.CycleDisplay)
                 {
                     _countDelayImage = 0;
+                    var resultShort = ImageLaserService.ImageHandleResult(e.Image, CameraShortConfig_Get());
+                    resultShort.Image.Freeze();
+                    var resultLong = ImageLaserService.ImageHandleResult(e.Image, CameraLongConfig_Get());
+                    resultLong.Image.Freeze();
+                    Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        try
+                        {
+                            if (cameraUc1.picCamera.Source != null)
+                                cameraUc1.picCamera.Source = null;
+                            if (cameraUc2.picCamera.Source != null)
+                                cameraUc2.picCamera.Source = null;
+                            cameraUc1.picCamera.Source = resultShort.Image;
+                            cameraUc2.picCamera.Source = resultLong.Image;
+                            if (resultShort.IsCalculatorSuccess)
+                            {
+                                cameraUc1.TxtCenterDistance.Text = resultShort.DistanceMm.ToString("F4");
+                                cameraUc1.IsCenter = resultShort.IsCenter;
 
-                    if (cameraUc1.picCamera.Source != null)
-                        cameraUc1.picCamera.Source = null;
-                    if(cameraUc2.picCamera.Source != null)
-                        cameraUc2.picCamera.Source = null;
-                    var result = ImageLaserService.ImageHandleResult(e.Image, CameraConfig_Get());
-                    cameraUc1.picCamera.Source = result.Image;
-                    cameraUc2.picCamera.Source = result.Image;
-                    if (result.IsCalculatorSuccess)
-                    {
-                        cameraUc1.TxtCenterDistance.Text = result.DistanceMm.ToString("F4");
-                        cameraUc1.IsCenter = result.IsCenter;
-                        
-                    }
-                    else
-                    {
-                        cameraUc1.IsCenter = false;
-                        cameraUc1.TxtCenterDistance.Text = "---";
-                    }
+                            }
+                            else
+                            {
+                                cameraUc1.IsCenter = false;
+                                cameraUc1.TxtCenterDistance.Text = "---";
+                            }
+                            if (resultLong.IsCalculatorSuccess)
+                            {
+                                cameraUc2.TxtCenterDistance.Text = resultLong.DistanceMm.ToString("F4");
+                                cameraUc2.IsCenter = resultLong.IsCenter;
+                            }
+                            else
+                            {
+                                cameraUc2.IsCenter = false;
+                                cameraUc2.TxtCenterDistance.Text = "---";
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                    }));
+
                 }
-            }));
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         private void WriteLog(string str)
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                logUc.AddItem(str);
+                //logUc.AddItem(str);
             }));
         }
-
-        private async void btnSetting_Click(object sender, RoutedEventArgs e)
-        {
-            WindowLaserSetting windowLaserSetting = new WindowLaserSetting();
-            windowLaserSetting.Closed += WindowLaserSetting_Closed;
-            windowLaserSetting.OnSaveSuccess += WindowLaserSetting_OnSaveSuccess;
-            await _camera.StopAsync();
-            windowLaserSetting.ShowDialog();
-        }
-
-        private void btnCommonSeting_Click(object sender, RoutedEventArgs e)
-        {
-            WindowCommonSetting windowCommonSetting = new WindowCommonSetting();
-            windowCommonSetting.OnSaveSuccess += WindowCommonSetting_OnSaveSuccess;
-            windowCommonSetting.ShowDialog();
-        }
-
 
         private async void WindowCommonSetting_OnSaveSuccess()
         {
@@ -436,19 +426,20 @@ namespace LaserCali
                 _notification.Show("Error restart serial", ex.Message, Notification.Wpf.NotificationType.Error);
                 _waitForm.Close();
             }
-            
+
         }
 
         private void WindowLaserSetting_OnSaveSuccess()
         {
             var cfg = LaserConfigService.ReadConfig();
-            CamerConfig_Set(cfg.CameraShort);
+            CamerShortConfig_Set(cfg.CameraShort);
+            CameraLongConfig_Set(cfg.CameraLong);
             laserUc.ValueResolution = cfg.LaserValueResolution;
         }
 
         private void WindowLaserSetting_Closed(object sender, EventArgs e)
         {
-            _camera.Run(CameraConfig_Get());
+            _camera.Run(CameraShortConfig_Get());
         }
 
         public void tempUc_OnBtnDeviceClick()
@@ -464,6 +455,63 @@ namespace LaserCali
             var commonCfg = LaserConfigService.ReadCommonConfig();
             commonCfg.TemperatureType = type;
             LaserConfigService.CommonConfigSave(commonCfg);
+
+        }
+
+        private void btnLaserReset_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            if (_laser != null)
+            {
+                _laser.Reset();
+            }
+        }
+
+        private void btnData_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            WindowLaserDataAdd dataAddWindow = new WindowLaserDataAdd();
+            dataAddWindow.OnSaveClick += DataAddWindow_OnSaveClick;
+            dataAddWindow.ShowDialog();
+        }
+
+        private async void btnExcelExport_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            SaveFileDialog _saveFileDialog = new SaveFileDialog();
+            var now = DateTime.Now;
+            _saveFileDialog.FileName += $"Laser_{now.Year}_{now.Month}_{now.Day}_{now.Hour}_{now.Minute}_{now.Second}";
+
+            _saveFileDialog.Filter = "Excel files (*.xlsx) | *.xlsx"; ;
+            _saveFileDialog.Title = "Select where to save the excel file";
+            _saveFileDialog.DefaultExt = "xlsx";
+            if (_saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                _waitForm.Show();
+                string duongDan = _saveFileDialog.FileName;
+                ExcelExportService service = new ExcelExportService();
+                service.OnExceptionOccur += Service_OnExceptionOccur;
+                service.OnExportComplete += Service_OnExportComplete;
+                await service.Export(dataTableUc.GetDataTable(), duongDan);
+                _waitForm.Close();
+            }
+        }
+
+        private async void btnCameraSetting_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            WindowLaserSetting windowLaserSetting = new WindowLaserSetting();
+            windowLaserSetting.Closed += WindowLaserSetting_Closed;
+            windowLaserSetting.OnSaveSuccess += WindowLaserSetting_OnSaveSuccess;
+            await _camera.StopAsync();
+            windowLaserSetting.ShowDialog();
+        }
+
+        private void btnCommonSetting_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            WindowCommonSetting windowCommonSetting = new WindowCommonSetting();
+            windowCommonSetting.OnSaveSuccess += WindowCommonSetting_OnSaveSuccess;
+            windowCommonSetting.ShowDialog();
+        }
+
+        private void btnInfo_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
 
         }
     }
