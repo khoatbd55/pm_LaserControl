@@ -46,34 +46,39 @@
                         <ImageBrush ImageSource="/background.png" />
                     </Grid.Background>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="300" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <Border Style="{StaticResource BorderCard}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <StackPanel Orientation="Horizontal">
-                                        <dx:SimpleButton HorizontalAlignment="Left" 
-                                                    Margin="0,0,10,0"
-                                                    Content="Camera Setting" x:Name="btnSetting" Click="btnSetting_Click" />
-                                        <dx:SimpleButton HorizontalAlignment="Left" 
-                                                    Content="Common Setting" x:Name="btnCommonSeting" Click="btnCommonSeting_Click" />
-                                    </StackPanel>
-
+                        <Border Style="{StaticResource BorderCard}" CornerRadius="0,0,0,0" Padding="0,0,0,5">
+                            <StackPanel Orientation="Vertical" >
+                                <Grid Background="#FF0079FF" Margin="0,0,0,5">
+                                    <TextBlock FontWeight="Bold" Padding="5,5,5,5" FontFamily="Times New Roman" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White">Length Laboratory - VMI</TextBlock>
                                 </Grid>
-                                <Grid Grid.Column="1">
-                                    <Border Padding="3,5,3,5">
-                                        <UCs:DeviceConnectionUC x:Name="iconConnections" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
-                                    </Border>
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <dx:SimpleButton HorizontalAlignment="Left" 
+                                        Margin="5,0,10,0"
+                                        Content="Camera Setting" x:Name="btnSetting" Click="btnSetting_Click" />
+                                            <dx:SimpleButton HorizontalAlignment="Left" 
+                                        Content="Common Setting" x:Name="btnCommonSeting" Click="btnCommonSeting_Click" />
+                                        </StackPanel>
 
+                                    </Grid>
+                                    <Grid Grid.Column="1" >
+                                        <Border Padding="3,5,3,5">
+                                            <UCs:DeviceConnectionUC x:Name="iconConnections" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                                        </Border>
+
+                                    </Grid>
                                 </Grid>
-                            </Grid>
+                            </StackPanel>
                         </Border>
                     </Grid>
                     <Grid Grid.Row="1">

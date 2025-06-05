@@ -68,7 +68,6 @@ namespace LaserCali.UIs.Windowns.HistoryChart
                 if (_id != value)
                 {
                     _id = value;
-                    txtId.Text = _id;
                 }
             }
         }

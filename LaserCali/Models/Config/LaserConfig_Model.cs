@@ -10,12 +10,15 @@ namespace LaserCali.Models.Config
     {
         public LaserConfig_Model() 
         { 
-            Camera=new CameraConfig_Model();
+            CameraShort=new CameraConfig_Model();
+            CameraLong=new CameraConfig_Model();
         }
         public string EnviromentNameComport { get; set; }
         public string TempNameComport { get; set; }
         public string DisplayNameComport { get; set; }
         public string MqttHost { get; set; }
-        public CameraConfig_Model Camera { get; set; }
+        public int LaserValueResolution { get; set; } = 3;
+        public CameraConfig_Model CameraShort { get; set; }
+        public CameraConfig_Model CameraLong { get; set; }
     }
 }

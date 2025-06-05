@@ -194,16 +194,16 @@ namespace LaserCali.UIs.Windowns.Setting
         {
             var cfg = LaserConfigService.ReadConfig();
             _laserConfig = cfg;
-            scrollTop.Value = cfg.Camera.RoiTop;
-            scrollBottom.Value = cfg.Camera.RoiBottom;
-            trackThreshold.Value = cfg.Camera.Threshold;
-            nudRectNoise.Value=cfg.Camera.RectNoise;
-            nudDetationDistance.Value = cfg.Camera.DetectionDistance;
-            nudLenWidth.Value = (decimal)cfg.Camera.LenWidth;
-            nudFrame.Value = cfg.Camera.Frame;
-            nudCycleDisplay.Value = cfg.Camera.CycleDisplay;
+            scrollTop.Value = cfg.CameraShort.RoiTop;
+            scrollBottom.Value = cfg.CameraShort.RoiBottom;
+            trackThreshold.Value = cfg.CameraShort.Threshold;
+            nudRectNoise.Value=cfg.CameraShort.RectNoise;
+            nudDetationDistance.Value = cfg.CameraShort.DetectionDistance;
+            nudLenWidth.Value = (decimal)cfg.CameraShort.LenWidth;
+            nudFrame.Value = cfg.CameraShort.Frame;
+            nudCycleDisplay.Value = cfg.CameraShort.CycleDisplay;
             _camera.OnImage += _camera_OnImage;
-            _camera.Run(cfg.Camera);
+            _camera.Run(cfg.CameraShort);
         }
 
         private CameraConfig_Model GetCamConfig()
@@ -371,7 +371,7 @@ namespace LaserCali.UIs.Windowns.Setting
                 return;
             }
             // lưu cấu hình
-            _laserConfig.Camera = GetCamConfig();
+            _laserConfig.CameraShort = GetCamConfig();
             LaserConfigService.SaveConfig(_laserConfig);
             this.Close();
             if (OnSaveSuccess != null)

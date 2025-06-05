@@ -15,10 +15,10 @@
             <Grid Grid.Row="0">
                 <Border Padding="5,0,5,0" Background="#80C4E9" HorizontalAlignment="Left">
                     <TextBlock x:Name="txtChannel" FontFamily="Times New Roman" 
-                               FontSize="13" FontWeight="Bold" VerticalAlignment="Center" >CH:01</TextBlock>    
+                               FontSize="13" FontWeight="Bold" VerticalAlignment="Center" >ID:01</TextBlock>    
                 </Border>
-                
-                <TextBlock x:Name="txtId" Margin="0,5,0,5" FontSize="18" FontFamily="Times New Roman" HorizontalAlignment="Center" FontWeight="Bold">ID:001</TextBlock>
+
+                <TextBlock x:Name="txtId" Margin="0,5,0,5" FontSize="18" FontFamily="Times New Roman" HorizontalAlignment="Center" FontWeight="Bold"></TextBlock>
             </Grid>
             <Grid Grid.Row="1">
                 <TextBlock x:Name="txtValue" FontSize="32" Foreground="Red" FontFamily="Times New Roman" VerticalAlignment="Center"

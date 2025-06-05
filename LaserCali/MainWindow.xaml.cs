@@ -149,11 +149,12 @@ namespace LaserCali
             tempUc.TemperatureType_Set(commonCfg.TemperatureType);
             _temperatureType = commonCfg.TemperatureType;
             AppConst.HostApi = "http://" + cfg.MqttHost;
-            CamerConfig_Set(cfg.Camera);
+            CamerConfig_Set(cfg.CameraShort);
             _multiTempRealtime.OnRecieveStatusMessage += _multiTempRealtime_OnRecieveStatusMessage;
             _multiTempRealtime.OnConnect += _multiTempRealtime_OnConnect;
             _multiTempRealtime.Run();
 
+            laserUc.ValueResolution = cfg.LaserValueResolution;
             laserUc.OnResetClick += LaserUc_OnResetClick;
             laserUc.OnDataClick += LaserUc_OnDataClick;
             laserUc.OnExportClick += LaserUc_OnExportClick;
@@ -441,7 +442,8 @@ namespace LaserCali
         private void WindowLaserSetting_OnSaveSuccess()
         {
             var cfg = LaserConfigService.ReadConfig();
-            CamerConfig_Set(cfg.Camera);
+            CamerConfig_Set(cfg.CameraShort);
+            laserUc.ValueResolution = cfg.LaserValueResolution;
         }
 
         private void WindowLaserSetting_Closed(object sender, EventArgs e)

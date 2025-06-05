@@ -28,6 +28,20 @@ namespace LaserCali.UIs.UCs
 
         public double _laserValue = 0;
         public double _beam = 0;
+
+        public int _valueResolution = 3;
+        public int ValueResolution
+        {
+            get => _valueResolution;
+            set
+            {
+                if (value != _valueResolution)
+                {
+                    _valueResolution = value;
+                }
+            }
+        }
+
         public double LaserValue
         {
             get => _laserValue;
@@ -36,7 +50,7 @@ namespace LaserCali.UIs.UCs
                 if(value != _laserValue) 
                 {
                     _laserValue = value;
-                    txtLaserValue.Text= _laserValue.ToString("F6");
+                    txtLaserValue.Text= _laserValue.ToString($"F{_valueResolution}");
                     
                 }
             }

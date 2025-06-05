@@ -45,6 +45,7 @@ namespace LaserCali.UIs.Windowns.Common
             cboEnviroment.Text = cfg.EnviromentNameComport;
             cboTemperature.Text = cfg.TempNameComport;
             txtMqttHost.EditValue = cfg.MqttHost;
+            nudLaserValueResolution.Value = cfg.LaserValueResolution;
             Comport_Init();
         }
 
@@ -173,7 +174,7 @@ namespace LaserCali.UIs.Windowns.Common
             _laserConfig.DisplayNameComport = cboDisplay.Text;
             _laserConfig.EnviromentNameComport=cboEnviroment.Text;
             _laserConfig.TempNameComport = cboTemperature.Text;
-            
+            _laserConfig.LaserValueResolution = (int)nudLaserValueResolution.Value;
             LaserConfigService.SaveConfig(_laserConfig);
             this.Close();
             if (OnSaveSuccess != null)

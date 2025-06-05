@@ -214,8 +214,6 @@ namespace LaserCali.UIs.Windowns.HistoryChart
                         Value =  item.Temps[i].Temp,
                     });
                 }    
-                
-                
             }
             for(int i=0;i<listSerial.Count;i++)
             {

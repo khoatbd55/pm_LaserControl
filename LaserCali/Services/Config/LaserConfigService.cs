@@ -35,7 +35,7 @@ namespace LaserCali.Services.Config
         public const int CYCLE_DISPLAY_MAX = 14;
         public const int CYCLE_DISPLAY_MIN = 1;
 
-        public const string KeyLaser = "LaserConfig1";
+        public const string KeyLaser = "LaserConfig2";
 
         public const string KeyCommon = "CommonConfig";
 
@@ -76,38 +76,38 @@ namespace LaserCali.Services.Config
 
         private static void Limit(LaserConfig_Model model)
         {
-            if (model.Camera.RoiBottom > CAMERA_ROI_MAX)
-                model.Camera.RoiBottom = CAMERA_ROI_MAX;
-            if (model.Camera.RoiBottom < CAMERA_ROI_MIN)
-                model.Camera.RoiBottom = CAMERA_ROI_MIN;
-            if (model.Camera.RoiTop > CAMERA_ROI_MAX)
-                model.Camera.RoiTop = CAMERA_ROI_MAX;
-            if (model.Camera.RoiTop < CAMERA_ROI_MIN)
-                model.Camera.RoiTop = CAMERA_ROI_MIN;
-            if (model.Camera.Rotation > CAMERA_ROTATION_MAX)
-                model.Camera.Rotation = CAMERA_ROTATION_MAX;
-            if (model.Camera.Rotation < CAMERA_ROTATION_MIN)
-                model.Camera.Rotation = CAMERA_ROI_MIN;
-            if (model.Camera.Threshold > CAMERA_THRESHOLD_MAX)
-                model.Camera.Threshold = CAMERA_THRESHOLD_MAX;
-            if (model.Camera.Threshold < CAMERA_THRESHOLD_MIN)
-                model.Camera.Threshold = CAMERA_THRESHOLD_MIN;
-            if (model.Camera.RectNoise > CAMERA_RECT_NOISE_MAX)
-                model.Camera.RectNoise = CAMERA_RECT_NOISE_MAX;
-            if (model.Camera.Threshold < CAMERA_RECT_NOISE_MIN)
-                model.Camera.Threshold = CAMERA_RECT_NOISE_MIN;
-            if(model.Camera.LenWidth>LEN_WIDTH_MAX)
-                model.Camera.LenWidth = LEN_WIDTH_MAX;
-            if(model.Camera.LenWidth<LEN_WIDTH_MIN)
-                model.Camera.LenWidth=LEN_WIDTH_MIN;
-            if (model.Camera.Frame > FRAME_MAX)
-                model.Camera.Frame = FRAME_MAX;
-            if (model.Camera.Frame < FRAME_MIN)
-                model.Camera.Frame = FRAME_MIN;
-            if(model.Camera.CycleDisplay>CYCLE_DISPLAY_MAX)
-                model.Camera.CycleDisplay =CYCLE_DISPLAY_MAX;
-            if(model.Camera.CycleDisplay<CYCLE_DISPLAY_MIN)
-                model.Camera.CycleDisplay=CYCLE_DISPLAY_MIN;
+            if (model.CameraShort.RoiBottom > CAMERA_ROI_MAX)
+                model.CameraShort.RoiBottom = CAMERA_ROI_MAX;
+            if (model.CameraShort.RoiBottom < CAMERA_ROI_MIN)
+                model.CameraShort.RoiBottom = CAMERA_ROI_MIN;
+            if (model.CameraShort.RoiTop > CAMERA_ROI_MAX)
+                model.CameraShort.RoiTop = CAMERA_ROI_MAX;
+            if (model.CameraShort.RoiTop < CAMERA_ROI_MIN)
+                model.CameraShort.RoiTop = CAMERA_ROI_MIN;
+            if (model.CameraShort.Rotation > CAMERA_ROTATION_MAX)
+                model.CameraShort.Rotation = CAMERA_ROTATION_MAX;
+            if (model.CameraShort.Rotation < CAMERA_ROTATION_MIN)
+                model.CameraShort.Rotation = CAMERA_ROI_MIN;
+            if (model.CameraShort.Threshold > CAMERA_THRESHOLD_MAX)
+                model.CameraShort.Threshold = CAMERA_THRESHOLD_MAX;
+            if (model.CameraShort.Threshold < CAMERA_THRESHOLD_MIN)
+                model.CameraShort.Threshold = CAMERA_THRESHOLD_MIN;
+            if (model.CameraShort.RectNoise > CAMERA_RECT_NOISE_MAX)
+                model.CameraShort.RectNoise = CAMERA_RECT_NOISE_MAX;
+            if (model.CameraShort.Threshold < CAMERA_RECT_NOISE_MIN)
+                model.CameraShort.Threshold = CAMERA_RECT_NOISE_MIN;
+            if(model.CameraShort.LenWidth>LEN_WIDTH_MAX)
+                model.CameraShort.LenWidth = LEN_WIDTH_MAX;
+            if(model.CameraShort.LenWidth<LEN_WIDTH_MIN)
+                model.CameraShort.LenWidth=LEN_WIDTH_MIN;
+            if (model.CameraShort.Frame > FRAME_MAX)
+                model.CameraShort.Frame = FRAME_MAX;
+            if (model.CameraShort.Frame < FRAME_MIN)
+                model.CameraShort.Frame = FRAME_MIN;
+            if(model.CameraShort.CycleDisplay>CYCLE_DISPLAY_MAX)
+                model.CameraShort.CycleDisplay =CYCLE_DISPLAY_MAX;
+            if(model.CameraShort.CycleDisplay<CYCLE_DISPLAY_MIN)
+                model.CameraShort.CycleDisplay=CYCLE_DISPLAY_MIN;
         }
 
         public static LaserConfig_Model ReadConfig()
@@ -115,7 +115,7 @@ namespace LaserCali.Services.Config
             var str = GetData(KeyLaser);
             LaserConfig_Model model = new LaserConfig_Model()
             {
-                Camera=new CameraConfig_Model()
+                CameraShort=new CameraConfig_Model()
                 {
                     RoiBottom = CAMERA_ROI_MAX,
                     Threshold = 80,
@@ -127,10 +127,23 @@ namespace LaserCali.Services.Config
                     DetectionDistance=5,
                     LenWidth=5.7
                 },
-                DisplayNameComport="COM1",
+                CameraLong = new CameraConfig_Model()
+                {
+                    RoiBottom = CAMERA_ROI_MAX,
+                    Threshold = 80,
+                    RoiTop = CAMERA_ROI_MIN,
+                    Rotation = CAMERA_ROTATION_MIN,
+                    RectNoise=20,
+                    CycleDisplay=2,
+                    Frame=10,
+                    DetectionDistance=5,
+                    LenWidth=5.7
+                },
+                DisplayNameComport ="COM1",
                 EnviromentNameComport="COM2",
                 TempNameComport="COM3",
                 MqttHost="192.168.144.108",
+                LaserValueResolution=3
             };
             try
             {
