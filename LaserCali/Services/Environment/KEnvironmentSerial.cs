@@ -143,6 +143,12 @@ namespace LaserCali.Services.Environment
                         {
                             if (_recievedMessage.HasHandlers)
                             {
+                                var isConnect = Interlocked.Read(ref _isConnected);
+                                if (isConnect == 0)
+                                {
+                                    Interlocked.Exchange(ref _isConnected, 1);
+                                    await _onConnectionEvent.InvokeAsync(new KNohmiConnection_EventArgs(this, true));
+                                }
                                 await _recievedMessage.InvokeAsync(
                                     new KNohmiEnvironment_EventArg(this, point)).ConfigureAwait(false);
                             }

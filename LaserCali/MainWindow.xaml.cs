@@ -103,8 +103,6 @@ namespace LaserCali
             }
         }
 
-
-
         private void Window_Closed(object sender, EventArgs e)
         {
 
@@ -403,7 +401,7 @@ namespace LaserCali
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                //logUc.AddItem(str);
+                logUc.AddItem(str);
             }));
         }
 
@@ -419,6 +417,7 @@ namespace LaserCali
                 {
                     PortName = cfg.EnviromentNameComport,
                 });
+                laserUc.ValueResolution = cfg.LaserValueResolution;
                 _waitForm.Close();
             }
             catch (Exception ex)
@@ -434,7 +433,6 @@ namespace LaserCali
             var cfg = LaserConfigService.ReadConfig();
             CamerShortConfig_Set(cfg.CameraShort);
             CameraLongConfig_Set(cfg.CameraLong);
-            laserUc.ValueResolution = cfg.LaserValueResolution;
         }
 
         private void WindowLaserSetting_Closed(object sender, EventArgs e)
@@ -511,6 +509,11 @@ namespace LaserCali
         }
 
         private void btnInfo_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnDutInfomation_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {
 
         }

@@ -417,6 +417,8 @@
     <Content Include="aLsrCalApi.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\rule.png" />
+    <Resource Include="Images\logo.png" />
     <Resource Include="Images\logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

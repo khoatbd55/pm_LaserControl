@@ -21,8 +21,6 @@ namespace LaserCali.UIs.UCs
     public partial class MainEnviromentUC : UserControl
     {
         public event Action OnBtnDeviceClick;
-        public delegate void TemperatureTypeChangeEventHandle(object sender, int type);
-        public event TemperatureTypeChangeEventHandle OnTemperatureTypeChange;
 
         double _tempEnv = 0;
         double _humiEnv = 0;
@@ -36,7 +34,7 @@ namespace LaserCali.UIs.UCs
                 if (_tempEnv != value)
                 {
                     _tempEnv = value;
-                    txtTempEnv.Text = _tempEnv.ToString("F3");
+                    txtTempEnv.Text = _tempEnv.ToString("F1");
                 }
             }
         }
@@ -78,20 +76,20 @@ namespace LaserCali.UIs.UCs
         public MainEnviromentUC()
         {
             InitializeComponent();
-            cboTemperatureType.Items.Clear();
-            for (int i = 0; i < 16; i++)
-            {
-                cboTemperatureType.Items.Add($"CH{i + 1}");
-            }
-            cboTemperatureType.Items.Add("Average");
+            //cboTemperatureType.Items.Clear();
+            //for (int i = 0; i < 16; i++)
+            //{
+            //    cboTemperatureType.Items.Add($"CH{i + 1}");
+            //}
+            //cboTemperatureType.Items.Add("Average");
         }
 
         public void TemperatureType_Set(int type)
         {
-            if (type < cboTemperatureType.Items.Count)
-            {
-                cboTemperatureType.SelectedIndex = type;
-            }
+            //if (type < cboTemperatureType.Items.Count)
+            //{
+            //    cboTemperatureType.SelectedIndex = type;
+            //}
         }
 
         private void btnDevice_Click(object sender, RoutedEventArgs e)
@@ -102,12 +100,5 @@ namespace LaserCali.UIs.UCs
             }
         }
 
-        private void cboTemperatureType_EditValueChanged(object sender, DevExpress.Xpf.Editors.EditValueChangedEventArgs e)
-        {
-            if (OnTemperatureTypeChange != null)
-            {
-                OnTemperatureTypeChange(this, cboTemperatureType.SelectedIndex);
-            }
-        }
     }
 }

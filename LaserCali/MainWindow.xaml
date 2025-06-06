@@ -1,5 +1,4 @@
-﻿<dx:ThemedWindow x:Class="LaserCali.MainWindow" mc:Ignorable="d" 
-    Title="Laser Calibration" Height="620" Width="1100" WindowStartupLocation="CenterScreen" Background="#FFCDCCCC" WindowState="Maximized"
+﻿<dx:ThemedWindow
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:UCs="clr-namespace:LaserCali.UIs.UCs"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -14,6 +13,8 @@
     xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" 
     xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" x:Class="LaserCali.MainWindow" mc:Ignorable="d" 
+    Title="Laser Calibration" Height="620" Width="1100" WindowStartupLocation="CenterScreen" Background="#FFCDCCCC" WindowState="Maximized" 
     Icon="/Images/logo.ico">
     <dx:ThemedWindow.Resources>
         <!--A Style that affects all TextBlocks-->
@@ -24,12 +25,13 @@
             <Setter Property="Padding" Value="5,5,5,5" />
             <Setter Property="BorderBrush" Value="#FFB7B7B7" />
         </Style>
-        <Style TargetType="TextBlock" x:Key="labelTitle">
-            <Setter Property="FontFamily" Value="Times New Roman"></Setter>
-            <Setter Property="FontSize" Value="14"></Setter>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            <Setter Property="MinWidth" Value="70"></Setter>
+        <Style TargetType="{x:Type TextBlock}" x:Key="labelTitle">
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="MinWidth" Value="70"/>
         </Style>
+
     </dx:ThemedWindow.Resources>
     <Grid >
         <Grid.RowDefinitions>
@@ -38,11 +40,27 @@
         </Grid.RowDefinitions>
         <dxr:RibbonControl Grid.Row="0" RibbonStyle="Office2019"  >
             <dxr:RibbonControl.ToolbarItems>
-                <dxb:BarButtonItem Content="BarButtonItem"/>
+
+                <dxb:BarStaticItem   AutoSizeMode="None" GlyphSize="Large">
+                    <dxb:BarStaticItem.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Images/logo.png" Width="30" Height="30" Margin="0,0,10,0"/>
+                                <TextBlock VerticalAlignment="Center" FontFamily="Times New Roman" FontSize="20" Text="Length Laboratory - Vietnam Metrology Instiute (VMI)" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </dxb:BarStaticItem.ContentTemplate>
+                </dxb:BarStaticItem>
             </dxr:RibbonControl.ToolbarItems>
             <dxr:RibbonControl.PageHeaderItems>
-                <dxb:BarStaticItem Content="---" x:Name="txtHwVersion"/>
-                <dxb:BarStaticItem Content="---" x:Name="txtFwVersion"/>
+                <dxb:BarStaticItem Content="11:54:00" x:Name="txtTime">
+                    <dxb:BarStaticItem.ContentTemplate>
+                        <DataTemplate>
+                            <TextBlock VerticalAlignment="Center" FontFamily="Times New Roman" FontSize="16" Text="11:55:00 06-06-2025" />
+                        </DataTemplate>
+                    </dxb:BarStaticItem.ContentTemplate>
+                </dxb:BarStaticItem>
+
             </dxr:RibbonControl.PageHeaderItems>
 
             <dxr:RibbonPage Caption="Tool">
@@ -53,9 +71,11 @@
 
                 </dxr:RibbonPageGroup>
                 <dxr:RibbonPageGroup x:Name="groupUpdate" IsVisible="True" Caption="Setting">
-                    <dxb:BarButtonItem  x:Name="btnCameraSetting" ItemClick="btnCameraSetting_ItemClick"  Content="Camera Setting" RibbonStyle="Large" Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Settings.svg}"/>
+                    <dxb:BarButtonItem  x:Name="btnCameraSetting" ItemClick="btnCameraSetting_ItemClick"  Content="Camera Setting" RibbonStyle="Large" Glyph="{dx:FontIconSource ColorName=Blue, Glyph=59170}"/>
                     <dxb:BarButtonItem  x:Name="btnCommonSetting" ItemClick="btnCommonSetting_ItemClick"  Content="Common Setting" 
                             RibbonStyle="Large" Glyph="{dx:DXImage SvgImages/Scheduling/ViewSettings.svg}" />
+                    <dxb:BarButtonItem  x:Name="btnDutInfomation" ItemClick="btnDutInfomation_ItemClick"  Content="DUT Infomation" 
+                            RibbonStyle="Large" Glyph="/Images/rule.png" />
                 </dxr:RibbonPageGroup>
                 <dxr:RibbonPageGroup x:Name="groupSmartCharger" IsVisible="True" Caption="">
                     <dxb:BarButtonItem  x:Name="btnInfo" ItemClick="btnInfo_ItemClick"  Content="Info" RibbonStyle="Large" Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Info.svg}"/>
@@ -65,72 +85,93 @@
             </dxr:RibbonPage>
 
         </dxr:RibbonControl>
+
         <Grid Grid.Row="1">
+
+
             <dxmvvm:Interaction.Behaviors>
                 <dx:SplashScreenManagerService x:Name="splashService" PredefinedSplashScreenType="WaitIndicator" InputBlock="WindowContent" />
             </dxmvvm:Interaction.Behaviors>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="290"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="23"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="450" />
-                        <ColumnDefinition Width="320" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Border Margin="5,5,5,5" Style="{StaticResource BorderCard}">
-                            <UCs:MainLaserUC x:Name="laserUc"
-                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
-                        </Border>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Border Margin="0,5,5,5" Style="{StaticResource BorderCard}">
-                            <UCs:MainEnviromentUC OnTemperatureTypeChange="tempUc_OnTemperatureTypeChange"
-                                OnBtnDeviceClick="tempUc_OnBtnDeviceClick" x:Name="tempUc"
-                                VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
-                        </Border>
-                    </Grid>
-                    <Grid Grid.Column="2" >
-                        <Border Margin="0,5,5,5" Style="{StaticResource BorderCard}" Padding="0,0,0,0" x:Name="borderCamera">
-                            <dx:DXTabControl Grid.Row="0" Padding="3,3,3,3">
-                                <dx:DXTabItem Header="Camera 1" >
-                                    <UCs:CameraUC x:Name="cameraUc1"/>
-                                </dx:DXTabItem>
-                                <dx:DXTabItem Header="Camera 2">
-                                    <Grid Background="#00000000" >
-                                        <UCs:CameraUC x:Name="cameraUc2"/>
-                                    </Grid>
-                                </dx:DXTabItem>
-                            </dx:DXTabControl>
-                        </Border>
-                    </Grid>
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="1">
-                <Border Margin="5,0,5,0" Style="{StaticResource BorderCard}" Padding="0,0,0,0" Background="#EFF2F7">
-                    <UCs:MainDataTableUC x:Name="dataTableUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
-                </Border>
-            </Grid>
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1" >
-                    <Border >
-                        <UCs:DeviceConnectionUC x:Name="iconConnections" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
-                    </Border>
-                </Grid>
-                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,2,5,2">
-                    <TextBlock x:Name="txtVersion" FontFamily="Times New Roman" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0">V1.0.37</TextBlock>
-                    <TextBlock x:Name="txtUpdateStatus" FontFamily="Times New Roman" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0">...</TextBlock>
-                </StackPanel>
-            </Grid>
+            <dxdo:DockLayoutManager DockingStyle="VS2010">
+                <dxdo:DockLayoutManager.AutoHideGroups>
+                    <dxdo:AutoHideGroup DockType="Right" ShowCloseButton="False" FontFamily="Times New Roman">
+                        <dxdo:LayoutPanel Caption="Log" MinWidth="350">
+                            <UCs:MainLogUC x:Name="logUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                        </dxdo:LayoutPanel>
+                    </dxdo:AutoHideGroup>
+                </dxdo:DockLayoutManager.AutoHideGroups>
+                <dxdo:LayoutGroup Caption="LayoutRoot">
+                    <dxdo:LayoutPanel Caption="Panel1" ShowHideButton="False" ShowCaption="False" ShowBorder="False" Background="#FFCDCCCC" ShowCloseButton="False" ShowCollapseButton="False">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="290"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="23"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="450" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="320" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Border Margin="5,5,5,5" Style="{StaticResource BorderCard}">
+                                            <UCs:MainLaserUC x:Name="laserUc"
+                                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                        </Border>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Border Margin="0,5,5,5" Style="{StaticResource BorderCard}">
+                                            <UCs:MainEnviromentUC 
+                                            OnBtnDeviceClick="tempUc_OnBtnDeviceClick" x:Name="tempUc"
+                                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                        </Border>
+                                    </Grid>
+                                    <Grid Grid.Column="1" >
+                                        <Border Margin="0,5,5,5" Style="{StaticResource BorderCard}" Padding="0,0,0,0" x:Name="borderCamera">
+                                            <dx:DXTabControl Grid.Row="0" Padding="3,3,3,3">
+                                                <dx:DXTabItem Header="Camera Frame 1#" >
+                                                    <UCs:CameraUC x:Name="cameraUc1"/>
+                                                </dx:DXTabItem>
+                                                <dx:DXTabItem Header="Camera Frame 2#">
+                                                    <Grid Background="#00000000" >
+                                                        <UCs:CameraUC x:Name="cameraUc2"/>
+                                                    </Grid>
+                                                </dx:DXTabItem>
+                                            </dx:DXTabControl>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Border Margin="5,0,5,0" Style="{StaticResource BorderCard}" Padding="0,0,0,0" Background="#EFF2F7">
+                                    <UCs:MainDataTableUC x:Name="dataTableUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+
+                                </Border>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="1" >
+                                    <Border >
+                                        <UCs:DeviceConnectionUC x:Name="iconConnections" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                                    </Border>
+                                </Grid>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,2,5,2">
+                                    <TextBlock x:Name="txtVersion" FontFamily="Times New Roman" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"><Run Text="V1.0.2"/></TextBlock>
+                                    <TextBlock x:Name="txtUpdateStatus" FontFamily="Times New Roman" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"><Run Text="..."/></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </dxdo:LayoutPanel>
+                </dxdo:LayoutGroup>
+            </dxdo:DockLayoutManager>
+
+
         </Grid>
     </Grid>
 
