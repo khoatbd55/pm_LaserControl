@@ -26,13 +26,13 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <dxlc:GroupBox Header="EUT" Margin="5,5,5,5">
+            <dxlc:GroupBox Header="DUT" Margin="5,5,5,5">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock FontFamily="Times New Roman" FontSize="17" Text="EUT (mm)"></TextBlock>
+                    <TextBlock FontFamily="Times New Roman" FontSize="17" Text="DUT (mm)"></TextBlock>
                     <dxe:SpinEdit MinValue="0" MaxValue="100000" 
                             EditValueChanged="nudEut_EditValueChanged" 
-                            x:Name="nudEut" EditValue="0.0000" Style="{StaticResource nudEdit}" 
-                            Mask="f4" Increment="0.0001" >
+                            x:Name="nudEut" EditValue="0.000" Style="{StaticResource nudEdit}" 
+                            Mask="f3" Increment="0.001" PreviewKeyDown="nudEut_PreviewKeyDown" >
                     </dxe:SpinEdit>
                 </StackPanel>
             </dxlc:GroupBox>

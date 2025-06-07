@@ -17,11 +17,16 @@ namespace LaserCali.UIs.Windowns.Info
     /// <summary>
     /// Interaction logic for InfomationWindow.xaml
     /// </summary>
-    public partial class InfomationWindow : Window
+    public partial class InfomationWindow : DevExpress.Xpf.Core.ThemedWindow
     {
         public InfomationWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

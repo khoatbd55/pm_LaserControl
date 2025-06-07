@@ -45,6 +45,18 @@ namespace LaserCali.UIs.Windowns.LaserDataAdd
         {
 
         }
+
+        private void nudEut_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (OnSaveClick != null)
+                {
+                    OnSaveClick(this, (double)nudEut.Value);
+                }
+                this.Close();
+            }
+        }
     }
 }
 ;

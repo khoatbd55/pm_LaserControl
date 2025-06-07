@@ -1,4 +1,6 @@
-﻿using DevExpress.Mvvm;
+﻿using DevExpress.Internal.WinApi.Windows.UI.Notifications;
+using DevExpress.Mvvm;
+using DevExpress.Xpf.Charts;
 using DevExpress.Xpf.Core;
 using DevExpress.Xpf.Core.Native;
 using DevExpress.Xpf.Editors.Helpers;
@@ -6,6 +8,7 @@ using LaserCali.Extention;
 using LaserCali.Models.Camera;
 using LaserCali.Models.Config;
 using LaserCali.Models.Consts;
+using LaserCali.Models.Enums;
 using LaserCali.Services;
 using LaserCali.Services.Config;
 using LaserCali.Services.Environment;
@@ -13,7 +16,9 @@ using LaserCali.Services.Excels;
 using LaserCali.Services.Laser;
 using LaserCali.Services.Realtime;
 using LaserCali.UIs.Windowns.Common;
+using LaserCali.UIs.Windowns.DutInfo;
 using LaserCali.UIs.Windowns.HistoryChart;
+using LaserCali.UIs.Windowns.Info;
 using LaserCali.UIs.Windowns.LaserDataAdd;
 using LaserCali.UIs.Windowns.Setting;
 using Newtonsoft.Json;
@@ -46,7 +51,7 @@ namespace LaserCali
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : DevExpress.Xpf.Core.ThemedWindow
+    public partial class MainWindow : DevExpress.Xpf.Core.ThemedWindow,INotifyPropertyChanged
     {
         bool _firstClose = true;
         CancellationTokenSource _backgroundCancellTokenSource = new CancellationTokenSource();
@@ -61,8 +66,8 @@ namespace LaserCali
         object _syncCamShortCfg=new object();
         object _syncCamLongCfg = new object();
         object _syncLaser = new object();
-
-        int _temperatureType = 0;
+        Task _taskTimer;
+        ETemperatureType _temperatureType = ETemperatureType.TwoPoint;
 
         ISplashScreenManagerService _waitForm;
         Notification.Wpf.NotificationManager _notification = new Notification.Wpf.NotificationManager();
@@ -70,6 +75,8 @@ namespace LaserCali
         public MainWindow()
         {
             this.Loaded += Window_Loaded;
+            this.Closing += Window_Closing;
+            DataContext = this;
             InitializeComponent();
         }
 
@@ -92,8 +99,18 @@ namespace LaserCali
                 await _camera.StopAsync();
                 await _environmentSerial.DisconnectAsync();
                 await _laser.StopAsync();
+                try
+                {
+                    if(_taskTimer!=null && _taskTimer.Status == TaskStatus.Running)
+                    {
+                        await _taskTimer;
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
                 await Task.Delay(100);
-                
                 e.Cancel = true;
                 this.Close();
             }
@@ -162,8 +179,7 @@ namespace LaserCali
             WaitForm_Init();
             var cfg = LaserConfigService.ReadConfig();
             var commonCfg = LaserConfigService.ReadCommonConfig();
-            tempUc.TemperatureType_Set(commonCfg.TemperatureType);
-            _temperatureType = commonCfg.TemperatureType;
+            _temperatureType =(ETemperatureType) commonCfg.TemperatureType;
             AppConst.HostApi = "http://" + cfg.MqttHost;
             CamerShortConfig_Set(cfg.CameraShort);
             CameraLongConfig_Set(cfg.CameraLong);
@@ -189,6 +205,55 @@ namespace LaserCali
             {
                 PortName = cfg.EnviromentNameComport,
             });
+            _taskTimer=Task.Run(()=>ProcessTaskTimer(_backgroundCancellTokenSource.Token),_backgroundCancellTokenSource.Token);
+        }
+        private string _realtimeText = "11:55:00 06-06-2025";
+        public string RealtimeText
+        {
+            get => _realtimeText;
+            set
+            {
+                if (_realtimeText != value)
+                {
+                    _realtimeText = value;
+                    OnPropertyChanged(nameof(RealtimeText));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private async Task ProcessTaskTimer(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    _ = Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        try
+                        {
+                            var now = DateTime.Now;
+                            RealtimeText = now.ToString("HH:mm:ss dd/MM/yyyy");
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }));
+                    await Task.Delay(1000, token);
+                    
+                }
+                catch (TaskCanceledException)
+                {
+                    // Task was cancelled, exit the loop
+                    break;
+                }
+            }
         }
 
         private void _multiTempRealtime_OnConnect(object sender, bool isConnected)
@@ -209,31 +274,40 @@ namespace LaserCali
                 try
                 {
                     // hiển thị theo cài đặt
-                    string result = "---";
-                    if (_temperatureType == AppConst.TemperatureTypeAvr)// hiển thị nhiệt độ trung bình
+                    double result = 0;
+                    double laserValue = laserUc.LaserValue;// lấy giá trị hiện tại laser
+                    if (_temperatureType == ETemperatureType.TwoPoint)// hiển thị nhiệt độ trung bình
                     {
-                        double sum = 0;
-                        int total = 0;
-                        foreach (var item in args.Temps)
+                        laserValue = Math.Abs(laserValue);
+                        var posTempDouble = laserValue / 2;
+                        int posTempInt = (int)posTempDouble;
+                        int posTempNext= posTempInt + 1;
+                        if(posTempInt>= args.Temps.Count-1)
                         {
-                            if (item.IsEnable && item.IsSensorConnected)
-                            {
-                                total += 1;
-                                sum += item.AvgTemp;
-                            }
+                            posTempInt = args.Temps.Count - 1;
                         }
-                        if (total > 0)
-                            result = (sum / total).ToString("F3");
+                        if (posTempNext >= args.Temps.Count-1)
+                        {
+                            posTempNext = args.Temps.Count - 1;
+                        }
+                        result = ((args.Temps[posTempInt].AvgTemp + args.Temps[posTempNext].AvgTemp)/2);
                     }
-                    else
+                    else// lấy nhiệt độ điểm gần nhất
                     {
-                        if (args.Temps[_temperatureType].IsEnable && args.Temps[_temperatureType].IsSensorConnected)
+                        laserValue=Math.Abs(laserValue);
+                        var posTempDouble = laserValue / 2;
+                        int posTempInt= (int)posTempDouble;
+                        var phanDu=posTempDouble- posTempInt;
+                        if (phanDu > 0.5)// làm tròn lên
                         {
-                            result = args.Temps[_temperatureType].AvgTemp.ToString("F3");
+                            posTempInt += 1;
                         }
+                        if(posTempInt>=args.Temps.Count-1)
+                            posTempInt= args.Temps.Count - 1;
+                        result = (double)args.Temps[posTempInt].AvgTemp;
 
                     }
-                    tempUc.TemperatureMaterial_Set(result);
+                    tempUc.TempMaterial= result;
                 }
                 catch (Exception)
                 {
@@ -277,7 +351,7 @@ namespace LaserCali
                 Pressure = tempUc.PressureEnv,
                 Tmt = tempUc.TempEnv,
                 RH = tempUc.HumiEnv,
-                TMaterial = 0,
+                TMaterial = tempUc.TempMaterial,
             });
         }
 
@@ -454,15 +528,6 @@ namespace LaserCali
             historyChartWindow.ShowDialog();
         }
 
-        private void tempUc_OnTemperatureTypeChange(object sender, int type)
-        {
-            _temperatureType = type;
-            var commonCfg = LaserConfigService.ReadCommonConfig();
-            commonCfg.TemperatureType = type;
-            LaserConfigService.CommonConfigSave(commonCfg);
-
-        }
-
         private void btnLaserReset_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {
             if (_laser != null)
@@ -515,15 +580,21 @@ namespace LaserCali
             windowCommonSetting.ShowDialog();
         }
 
-        private void btnInfo_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
-        {
-
-        }
-
         private void btnDutInfomation_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {
-
+            DutInfomationWindow dutInformationWindow = new DutInfomationWindow();
+            dutInformationWindow.Owner = this;
+            dutInformationWindow.ShowDialog();
         }
+
+        private void btnInfo_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            InfomationWindow informationWindow = new InfomationWindow();
+            informationWindow.Owner = this;
+            informationWindow.ShowDialog();
+        }
+
+        
 
         
     }

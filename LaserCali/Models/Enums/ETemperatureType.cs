@@ -9,6 +9,6 @@ namespace LaserCali.Models.Enums
     public enum ETemperatureType
     {
         TwoPoint,
-        Average,
+        Nearst,
     }
 }

@@ -250,6 +250,7 @@
     <Compile Include="Models\Config\LaserConfig_Model.cs" />
     <Compile Include="Models\Consts\AppConst.cs" />
     <Compile Include="Models\Enums\ETemperatureType.cs" />
+    <Compile Include="Models\Export\DutInformation_Model.cs" />
     <Compile Include="Models\Temperatures\Sensor\MultiTempStatus_Model.cs" />
     <Compile Include="Models\Temperatures\Sensor\TemperatureValue_Model.cs" />
     <Compile Include="Models\Views\LaserValueModel.cs" />

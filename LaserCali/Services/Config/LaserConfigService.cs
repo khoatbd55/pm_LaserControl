@@ -1,6 +1,7 @@
 ﻿using LaserCali.Models.Config;
 using LaserCali.Models.Consts;
 using LaserCali.Models.Enums;
+using LaserCali.Models.Export;
 using LaserCali.Properties;
 using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
@@ -37,8 +38,8 @@ namespace LaserCali.Services.Config
         public const int CYCLE_DISPLAY_MIN = 1;
 
         public const string KeyLaser = "LaserConfig2";
-
         public const string KeyCommon = "CommonConfig";
+        public const string KeyDut = "Dut";
 
         private static void SaveData(string key, string value)
         {
@@ -50,6 +51,35 @@ namespace LaserCali.Services.Config
         {
             string result = Settings.Default[key].ToString();
             return result;
+        }
+
+        public static DutInformation_Model ReadDutConfig()
+        {
+            var str = GetData(KeyDut);
+            DutInformation_Model model = new DutInformation_Model();
+            if (str != null && str != "")
+            {
+                model = JsonConvert.DeserializeObject<DutInformation_Model>(str);
+            }
+            else
+            {
+                model=new DutInformation_Model()
+                {
+                    Name = "DUT",
+                    Model = "Model",
+                    Serial = "Serial",
+                    Range = "Range",
+                    Resolution = "Resolution",
+                    Grade = "Grade",
+                    Manufacturer = "Manufacturer"
+                };
+            }    
+            return model;
+        }
+
+        public static void SaveDutConfig(DutInformation_Model model)
+        {
+            SaveData(KeyDut, JsonConvert.SerializeObject(model));
         }
 
         public static CommonConfig_Model ReadCommonConfig()

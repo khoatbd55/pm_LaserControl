@@ -54,5 +54,19 @@ namespace LaserCali.UIs.Windowns.LaserDataEdit
         {
             _eut = (double)nudEut.Value;
         }
+
+        private void nudEut_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                _eut = (double)nudEut.Value;
+                e.Handled = true; // Ngăn không cho sự kiện tiếp tục lan truyền nếu cần
+                if (OnSaveClick != null)
+                {
+                    OnSaveClick(this, this._id, _eut);
+                }
+                this.Close();
+            }
+        }
     }
 }

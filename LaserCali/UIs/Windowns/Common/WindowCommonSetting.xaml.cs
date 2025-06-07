@@ -41,7 +41,7 @@ namespace LaserCali.UIs.Windowns.Common
         {
             cboTemperatureType.Items.Clear();
             cboTemperatureType.Items.Add("2 Points");
-            cboTemperatureType.Items.Add("Average");
+            cboTemperatureType.Items.Add("Nearst");
             var cfg = LaserConfigService.ReadConfig();
             _laserConfig = cfg;
             cboDisplay.Text = cfg.DisplayNameComport;

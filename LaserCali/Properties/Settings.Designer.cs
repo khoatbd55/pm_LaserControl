@@ -46,5 +46,17 @@ namespace LaserCali.Properties {
                 this["CommonConfig"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Dut {
+            get {
+                return ((string)(this["Dut"]));
+            }
+            set {
+                this["Dut"] = value;
+            }
+        }
     }
 }

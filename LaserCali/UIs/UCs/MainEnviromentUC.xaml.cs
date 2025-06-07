@@ -25,6 +25,20 @@ namespace LaserCali.UIs.UCs
         double _tempEnv = 0;
         double _humiEnv = 0;
         double _pressureEnv = 0;
+        double _tMaterial = 0;
+
+        public double TempMaterial
+        {
+            get => _tMaterial;
+            set
+            {
+                if (_tMaterial != value)
+                {
+                    _tMaterial = value;
+                    txtTemMaterial.Text = _tMaterial.ToString("F3");
+                }
+            }
+        }
 
         public double TempEnv
         {
@@ -65,14 +79,6 @@ namespace LaserCali.UIs.UCs
             }
         }
 
-        public void TemperatureMaterial_Set(string value)
-        {
-            if (txtTemMaterial.Text != value)
-            {
-                txtTemMaterial.Text = value;
-            }
-        }
-
         public MainEnviromentUC()
         {
             InitializeComponent();
@@ -82,14 +88,6 @@ namespace LaserCali.UIs.UCs
             //    cboTemperatureType.Items.Add($"CH{i + 1}");
             //}
             //cboTemperatureType.Items.Add("Average");
-        }
-
-        public void TemperatureType_Set(int type)
-        {
-            //if (type < cboTemperatureType.Items.Count)
-            //{
-            //    cboTemperatureType.SelectedIndex = type;
-            //}
         }
 
         private void txtTemMaterial_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -32,7 +32,7 @@
                     <TextBlock FontFamily="Times New Roman" FontSize="17" Text="EUT (mm)"></TextBlock>
                     <dxe:SpinEdit MinValue="0" MaxValue="100000" 
                         EditValueChanged="nudEut_EditValueChanged" 
-                        x:Name="nudEut" EditValue="0.0000" Style="{StaticResource nudEdit}" 
+                        x:Name="nudEut" EditValue="0.0000" PreviewKeyDown="nudEut_PreviewKeyDown" Style="{StaticResource nudEdit}" 
                         Mask="f4" Increment="0.0001" >
                     </dxe:SpinEdit>
                 </StackPanel>

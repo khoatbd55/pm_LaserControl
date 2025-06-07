@@ -41,7 +41,7 @@
         <dxr:RibbonControl Grid.Row="0" RibbonStyle="Office2019" ShowApplicationButton="False"  >
             <dxr:RibbonControl.ToolbarItems>
 
-                <dxb:BarStaticItem   AutoSizeMode="None" GlyphSize="Large">
+                <dxb:BarStaticItem  AutoSizeMode="None" GlyphSize="Large">
                     <dxb:BarStaticItem.ContentTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -53,10 +53,10 @@
                 </dxb:BarStaticItem>
             </dxr:RibbonControl.ToolbarItems>
             <dxr:RibbonControl.PageHeaderItems>
-                <dxb:BarStaticItem Content="11:54:00" x:Name="txtTime">
+                <dxb:BarStaticItem Content="{Binding RealtimeText,Mode=OneWay}" x:Name="txtTime">
                     <dxb:BarStaticItem.ContentTemplate>
                         <DataTemplate>
-                            <TextBlock VerticalAlignment="Center" FontFamily="Times New Roman" FontSize="16" Text="11:55:00 06-06-2025" />
+                            <TextBlock   VerticalAlignment="Center" FontFamily="Times New Roman" FontSize="16" Text="{Binding}" />
                         </DataTemplate>
                     </dxb:BarStaticItem.ContentTemplate>
                 </dxb:BarStaticItem>
@@ -111,6 +111,7 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="290"/>
+                                <RowDefinition Height="1"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="23"/>
                             </Grid.RowDefinitions>
@@ -150,13 +151,14 @@
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid Grid.Row="1">
+                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch"/>
+                            <Grid Grid.Row="2">
                                 <Border Margin="5,0,5,0" Style="{StaticResource BorderCard}" Padding="0,0,0,0" Background="#EFF2F7">
                                     <UCs:MainDataTableUC x:Name="dataTableUc" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
                                 </Border>
                             </Grid>
-                            <Grid Grid.Row="2">
+                            <Grid Grid.Row="3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
