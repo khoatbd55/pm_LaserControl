@@ -14,7 +14,7 @@
     xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" x:Class="LaserCali.MainWindow" mc:Ignorable="d" 
-    Title="Laser Calibration" Height="620" Width="1100" WindowStartupLocation="CenterScreen" Background="#FFCDCCCC" WindowState="Maximized" 
+    Title="" Height="620" Width="1100" WindowStartupLocation="CenterScreen" Background="#FFCDCCCC" WindowState="Maximized" 
     Icon="/Images/logo.ico">
     <dx:ThemedWindow.Resources>
         <!--A Style that affects all TextBlocks-->
@@ -38,7 +38,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <dxr:RibbonControl Grid.Row="0" RibbonStyle="Office2019"  >
+        <dxr:RibbonControl Grid.Row="0" RibbonStyle="Office2019" ShowApplicationButton="False"  >
             <dxr:RibbonControl.ToolbarItems>
 
                 <dxb:BarStaticItem   AutoSizeMode="None" GlyphSize="Large">
@@ -63,9 +63,14 @@
 
             </dxr:RibbonControl.PageHeaderItems>
 
-            <dxr:RibbonPage Caption="Tool">
+            <dxr:RibbonPage Caption="Tool" AllowRemoveFromParentDuringCustomization="True" >
+                <!--<dxr:RibbonPage.CaptionTemplate>
+                    <DataTemplate>
+                    </DataTemplate>
+                </dxr:RibbonPage.CaptionTemplate>-->
                 <dxr:RibbonPageGroup Caption="Laser" >
                     <dxb:BarButtonItem x:Name="btnLaserReset" ItemClick="btnLaserReset_ItemClick" IsEnabled="True" Content="Laser Reset"  Glyph="{dx:DXImage SvgImages/Dashboards/GridResetColumnWidths.svg}" RibbonStyle="Large"/>
+                    <dxb:BarButtonItem x:Name="btnTempChart" ItemClick="btnTempChart_ItemClick" IsEnabled="True" Content="Temperature Chart"  Glyph="{dx:DXImage SvgImages/Chart/ChartType_SplineArea.svg}" RibbonStyle="Large"/>
                     <dxb:BarButtonItem x:Name="btnData" ItemClick="btnData_ItemClick" IsEnabled="True" Content="Data"  Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Database.svg}" RibbonStyle="Large"/>
                     <dxb:BarButtonItem x:Name="btnExcelExport" ItemClick="btnExcelExport_ItemClick" IsEnabled="True" Content="Excel Export" Glyph="{dx:DXImage SvgImages/Export/ExportToCSV.svg}" RibbonStyle="Large"/>
 

@@ -1,5 +1,6 @@
 ﻿using LaserCali.Models.Config;
 using LaserCali.Models.Consts;
+using LaserCali.Models.Enums;
 using LaserCali.Properties;
 using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
@@ -143,7 +144,8 @@ namespace LaserCali.Services.Config
                 EnviromentNameComport="COM2",
                 TempNameComport="COM3",
                 MqttHost="192.168.144.108",
-                LaserValueResolution=3
+                LaserValueResolution=3,
+                TemperatureType = ETemperatureType.TwoPoint
             };
             try
             {

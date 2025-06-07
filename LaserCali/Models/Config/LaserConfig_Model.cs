@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LaserCali.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace LaserCali.Models.Config
         public string DisplayNameComport { get; set; }
         public string MqttHost { get; set; }
         public int LaserValueResolution { get; set; } = 3;
+        public ETemperatureType TemperatureType { get; set; } = ETemperatureType.TwoPoint;
         public CameraConfig_Model CameraShort { get; set; }
         public CameraConfig_Model CameraLong { get; set; }
     }

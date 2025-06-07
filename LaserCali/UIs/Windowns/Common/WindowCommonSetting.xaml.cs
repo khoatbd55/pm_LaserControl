@@ -39,6 +39,9 @@ namespace LaserCali.UIs.Windowns.Common
 
         private void WindowCommonSetting_Loaded(object sender, RoutedEventArgs e)
         {
+            cboTemperatureType.Items.Clear();
+            cboTemperatureType.Items.Add("2 Points");
+            cboTemperatureType.Items.Add("Average");
             var cfg = LaserConfigService.ReadConfig();
             _laserConfig = cfg;
             cboDisplay.Text = cfg.DisplayNameComport;
@@ -46,6 +49,7 @@ namespace LaserCali.UIs.Windowns.Common
             cboTemperature.Text = cfg.TempNameComport;
             txtMqttHost.EditValue = cfg.MqttHost;
             nudLaserValueResolution.Value = cfg.LaserValueResolution;
+            cboTemperatureType.SelectedIndex = (int)cfg.TemperatureType;
             Comport_Init();
         }
 

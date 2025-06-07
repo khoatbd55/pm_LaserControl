@@ -447,6 +447,13 @@ namespace LaserCali
             historyChartWindow.ShowDialog();
         }
 
+        private void btnTempChart_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            HistoryChartWindow historyChartWindow = new HistoryChartWindow();
+            historyChartWindow.Owner = this;
+            historyChartWindow.ShowDialog();
+        }
+
         private void tempUc_OnTemperatureTypeChange(object sender, int type)
         {
             _temperatureType = type;
@@ -517,5 +524,7 @@ namespace LaserCali
         {
 
         }
+
+        
     }
 }

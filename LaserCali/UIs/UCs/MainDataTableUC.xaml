@@ -18,7 +18,7 @@
                     Margin="5,0,5,5" 
                     FontFamily="Times New Roman" 
                     ItemsSource="{Binding ListData}" >
-            <dxg:GridColumn FieldName="Id" Header="#" HorizontalHeaderContentAlignment="Center" Width="80" ReadOnly="True">
+            <dxg:GridColumn FieldName="Id" Header="No." HorizontalHeaderContentAlignment="Center" Width="80" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
                     <dxe:TextEditSettings HorizontalContentAlignment="Center" />
                 </dxg:GridColumn.EditSettings>
@@ -29,7 +29,7 @@
                     <dxe:TextEditSettings DisplayFormat="f6" HorizontalContentAlignment="Center" />
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="EUT" Header="EUT (mm)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
+            <dxg:GridColumn FieldName="EUT" Header="DUT (mm)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
                     <dxe:TextEditSettings DisplayFormat="f4" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
@@ -39,17 +39,17 @@
                     <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Tmt" Header="Tmt(°C)" HorizontalHeaderContentAlignment="Center" Width="*">
+            <dxg:GridColumn FieldName="Tmt" Header="Te (°C)" HorizontalHeaderContentAlignment="Center" Width="*">
                 <dxg:GridColumn.EditSettings>
                     <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="RH" Header="RHmt(%)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
+            <dxg:GridColumn FieldName="RH" Header="RHe (%)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
                     <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Pressure" Header="Pressure (hPa)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
+            <dxg:GridColumn FieldName="Pressure" Header="Pe (hPa)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
                     <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>

@@ -249,6 +249,7 @@
     <Compile Include="Models\Config\CommonConfig_Model.cs" />
     <Compile Include="Models\Config\LaserConfig_Model.cs" />
     <Compile Include="Models\Consts\AppConst.cs" />
+    <Compile Include="Models\Enums\ETemperatureType.cs" />
     <Compile Include="Models\Temperatures\Sensor\MultiTempStatus_Model.cs" />
     <Compile Include="Models\Temperatures\Sensor\TemperatureValue_Model.cs" />
     <Compile Include="Models\Views\LaserValueModel.cs" />
@@ -302,11 +303,17 @@
     <Compile Include="UIs\Windowns\Common\WindowCommonSetting.xaml.cs">
       <DependentUpon>WindowCommonSetting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIs\Windowns\DutInfo\DutInfomationWindow.xaml.cs">
+      <DependentUpon>DutInfomationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIs\Windowns\HistoryChart\HistoryChartWindow.xaml.cs">
       <DependentUpon>HistoryChartWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIs\Windowns\HistoryChart\ItemTempUc.xaml.cs">
       <DependentUpon>ItemTempUc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIs\Windowns\Info\InfomationWindow.xaml.cs">
+      <DependentUpon>InfomationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIs\Windowns\LaserDataAdd\WindowLaserDataAdd.xaml.cs">
       <DependentUpon>WindowLaserDataAdd.xaml</DependentUpon>
@@ -361,11 +368,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UIs\Windowns\DutInfo\DutInfomationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UIs\Windowns\HistoryChart\HistoryChartWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIs\Windowns\HistoryChart\ItemTempUc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIs\Windowns\Info\InfomationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

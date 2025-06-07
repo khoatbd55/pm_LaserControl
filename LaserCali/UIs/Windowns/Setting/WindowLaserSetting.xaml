@@ -56,8 +56,14 @@
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                            <StackPanel Margin="0,0,0,10" Orientation="Horizontal" Grid.Row="0">
+                                <TextBlock Style="{StaticResource labelTitle}" Width="120" Margin="5,0,0,0" Text="Frame type:"></TextBlock>
+                                <dxe:ComboBoxEdit HorizontalAlignment="Left" Width="150" 
+                                    Margin="10,0,0,0"  x:Name="cboCameraFrameType" IsTextEditable="False" Height="25"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1">
                                 <TextBlock Style="{StaticResource labelTitle}" Width="120" Margin="5,0,0,0" Text="Rect Noise:"></TextBlock>
                                 <dxe:SpinEdit MinValue="10" MaxValue="500" 
                                         EditValueChanged="nudRectNoise_EditValueChanged" 
@@ -66,7 +72,7 @@
                                         Style="{StaticResource nudEdit}">
                                 </dxe:SpinEdit>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,10,0,0">
                                 <TextBlock Style="{StaticResource labelTitle}"  Width="120" Margin="5,0,0,0" 
                                     Text="Detection Distance:"></TextBlock>
                                 <dxe:SpinEdit MinValue="1" MaxValue="500" 
@@ -78,7 +84,7 @@
                                 <TextBlock Style="{StaticResource labelTitle}" Margin="5,0,0,0" 
                                         Text="pixcel"></TextBlock>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,10,0,0">
                                 <TextBlock Style="{StaticResource labelTitle}"  Width="120" Margin="5,0,0,0" 
                                     Text="Viewport Width:"></TextBlock>
                                 <dxe:SpinEdit MinValue="0" MaxValue="500" 
@@ -90,7 +96,7 @@
                                 <TextBlock Style="{StaticResource labelTitle}" Margin="5,0,0,0" 
                                             Text="mm"></TextBlock>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="0,10,0,0">
                                 <TextBlock Style="{StaticResource labelTitle}" Width="120" Margin="5,0,0,0" Text="Frame:"></TextBlock>
                                 <dxe:SpinEdit MinValue="1" MaxValue="14" 
                                             EditValueChanged="nudFrame_EditValueChanged" 
@@ -99,7 +105,7 @@
                                             Style="{StaticResource nudEdit}">
                                 </dxe:SpinEdit>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" Grid.Row="5" Margin="0,10,0,0">
                                 <TextBlock Style="{StaticResource labelTitle}" Width="120" Margin="5,0,0,0" Text="Cycle Display:"></TextBlock>
                                 <dxe:SpinEdit MinValue="1" MaxValue="14" 
                                                 EditValueChanged="nudCycleDisplay_EditValueChanged" 

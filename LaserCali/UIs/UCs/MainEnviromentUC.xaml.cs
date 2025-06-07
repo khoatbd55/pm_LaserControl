@@ -92,13 +92,12 @@ namespace LaserCali.UIs.UCs
             //}
         }
 
-        private void btnDevice_Click(object sender, RoutedEventArgs e)
+        private void txtTemMaterial_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (OnBtnDeviceClick != null)
             {
                 OnBtnDeviceClick();
             }
         }
-
     }
 }
