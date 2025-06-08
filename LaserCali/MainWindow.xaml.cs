@@ -95,7 +95,7 @@ namespace LaserCali
                 _firstClose = false;
                 e.Cancel = true;
                 _backgroundCancellTokenSource?.Cancel();
-                await _multiTempRealtime.StopAsync();
+               
                 await _camera.StopAsync();
                 await _environmentSerial.DisconnectAsync();
                 await _laser.StopAsync();
@@ -110,6 +110,7 @@ namespace LaserCali
                 {
 
                 }
+                await _multiTempRealtime.StopAsync();
                 await Task.Delay(100);
                 e.Cancel = true;
                 this.Close();
