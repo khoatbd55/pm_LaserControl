@@ -31,8 +31,8 @@
                     <TextBlock FontFamily="Times New Roman" FontSize="17" Text="DUT (mm)"></TextBlock>
                     <dxe:SpinEdit MinValue="0" MaxValue="100000" 
                             EditValueChanged="nudEut_EditValueChanged" 
-                            x:Name="nudEut" EditValue="0.000" Style="{StaticResource nudEdit}" 
-                            Mask="f3" Increment="0.001" PreviewKeyDown="nudEut_PreviewKeyDown" >
+                            x:Name="nudEut" EditValue="0.0" Style="{StaticResource nudEdit}" 
+                            Mask="f1" Increment="0.1" PreviewKeyDown="nudEut_PreviewKeyDown" >
                     </dxe:SpinEdit>
                 </StackPanel>
             </dxlc:GroupBox>

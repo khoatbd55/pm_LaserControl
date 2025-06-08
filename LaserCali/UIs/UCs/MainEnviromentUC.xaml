@@ -44,7 +44,7 @@
                             <ColumnDefinition Width="60"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Border Style="{StaticResource BorderEnv}">
-                            <TextBlock   x:Name="txtTemMaterial" Text="0.000" Style="{StaticResource ValueLabel}"></TextBlock>
+                            <TextBlock   x:Name="txtTemMaterial" Text="0.0" Style="{StaticResource ValueLabel}"></TextBlock>
                         </Border>
                         <Grid Grid.Row="0" Grid.Column="1">
                             <TextBlock Text="°C" 
@@ -92,7 +92,7 @@
                             Style="{StaticResource UnitLabel}"></TextBlock>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1">
-                        <TextBlock Text="hPa" 
+                        <TextBlock Text="mmHg" 
                             Style="{StaticResource UnitLabel}"></TextBlock>
                     </Grid>
                 </Grid>

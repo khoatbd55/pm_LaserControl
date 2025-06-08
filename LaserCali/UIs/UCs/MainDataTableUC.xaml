@@ -24,14 +24,13 @@
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
             <dxg:GridColumn FieldName="Laser" Header="Laser (mm)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
-                
                 <dxg:GridColumn.EditSettings>
-                    <dxe:TextEditSettings DisplayFormat="f6" HorizontalContentAlignment="Center" />
+                    <dxe:TextEditSettings DisplayFormat="f4" HorizontalContentAlignment="Center" />
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="EUT" Header="DUT (mm)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
+            <dxg:GridColumn FieldName="DUT" Header="DUT (mm)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
-                    <dxe:TextEditSettings DisplayFormat="f4" HorizontalContentAlignment="Center"/>
+                    <dxe:TextEditSettings DisplayFormat="f1" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
             <dxg:GridColumn FieldName="TMaterial" Header="T Material (°C)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
@@ -49,7 +48,7 @@
                     <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Pressure" Header="Pe (hPa)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
+            <dxg:GridColumn FieldName="Pressure" Header="Pe (mmHg)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
                     <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>

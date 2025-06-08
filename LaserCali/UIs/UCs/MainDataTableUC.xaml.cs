@@ -46,7 +46,7 @@ namespace LaserCali.UIs.UCs
 
         private void Edit(LaserValueModel item)
         {
-            WindowLaserDataEdit dataEditWindow = new WindowLaserDataEdit(item.Id, item.EUT);
+            WindowLaserDataEdit dataEditWindow = new WindowLaserDataEdit(item.Id, item.DUT);            
             dataEditWindow.OnSaveClick += DataEditWindow_OnSaveClick;
             dataEditWindow.ShowDialog();
         }
@@ -56,7 +56,7 @@ namespace LaserCali.UIs.UCs
             var find = ListData.FindIndex(x => x.Id == id);
             if (find >= 0)
             {
-                ListData[find].EUT = eut;
+                ListData[find].DUT = eut;
             }
         }
 

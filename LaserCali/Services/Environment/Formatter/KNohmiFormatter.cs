@@ -27,6 +27,7 @@ namespace LaserCali.Services.Environment.Formatter
                         msg.Temp = double.Parse(matches[1].Value);
                         msg.TempRaw = (int)(msg.Temp * 10);
                         msg.Humi = double.Parse(matches[2].Value);
+                        msg.Humi *= 0.75;// quy đổi sang mmHg
                         msg.HumiRaw = (int)(msg.Humi * 10);
                         return msg;
                     }

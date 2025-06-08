@@ -11,7 +11,7 @@ namespace LaserCali.Models.Views
     {
         private int id;
         private double laser;
-        private double eut;
+        private double dut;
         private double tMater;
         private double tmt;
         private double rh;
@@ -41,15 +41,15 @@ namespace LaserCali.Models.Views
                 }
             }
         }
-        public double EUT
+        public double DUT
         {
-            get => eut;
+            get => dut;
             set
             {
-                if (eut != value)
+                if (dut != value)
                 {
-                    eut = value;
-                    OnPropertyChanged(nameof(EUT));
+                    dut = value;
+                    OnPropertyChanged(nameof(DUT));
                 }
             }
         }

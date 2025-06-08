@@ -8,6 +8,8 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
 using LaserCali.Models.Views;
+using LaserCali.Models.Export;
+using LaserCali.Services.Config;
 
 namespace LaserCali.Services.Excels
 {
@@ -19,117 +21,104 @@ namespace LaserCali.Services.Excels
         public event ExceptionOccurEventHandle OnExceptionOccur;
         public event ExportCompleteEventHandel OnExportComplete;
 
-        public async Task Export(List<LaserValueModel> listData,string duongDan)
+        public async Task Export(List<LaserValueModel> listData,DutInformation_Model dut, string destinationFilePath)
         {
             await Task.Run(() =>
             {
                 try
                 {
-                    app obj = new app();
-                    obj.Application.Workbooks.Add(Type.Missing);
-                    obj.Columns.ColumnWidth = 20;
-                    //int row = 10;
-                    string fontName = "Times New Roman";
-                    int fontSizeTenTruong = 13;
-                    Excel.Application xlApp = new Excel.Application();
-                    object misValue = System.Reflection.Missing.Value;
-                    Workbook wb = obj.Workbooks.Add(misValue);
+                    string sourceFilePath = AppDomain.CurrentDomain.BaseDirectory+ @"\Template.xlsx"; // Đường dẫn đến tệp tin nguồn
+                    // Khởi tạo ứng dụng Excel
+                    Excel.Application excelApp = new Excel.Application();
+                    excelApp.Visible = false; // Tắt hiển thị ứng dụng Excel
 
-                    Worksheet ws = (Worksheet)wb.Worksheets[1];
+                    // Mở tệp tin nguồn
+                    Excel.Workbook sourceWorkbook = excelApp.Workbooks.Open(sourceFilePath);
 
-                    //Tạo Ô Số Thiết bị số 
-                    Range col_range = ws.get_Range("A1", "A1");//Cột A dòng 2 và dòng 3
-                    col_range.Interior.Color = System.Drawing.Color.FromArgb(0, 176, 240);
-                    col_range.Merge();
-                    col_range.Font.Size = fontSizeTenTruong;
-                    col_range.Font.Name = fontName;
-                    col_range.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-                    col_range.Value2 = "STT";
-                    col_range.ColumnWidth = 10;
+                    // Tạo bản sao của tệp tin nguồn
+                    sourceWorkbook.SaveCopyAs(destinationFilePath);
+                    sourceWorkbook.Close();
 
-                    //Tạo Ô ID thẻ
-                    col_range = ws.get_Range("B1", "B1");//Cột B dòng 2 và dòng 3
-                    col_range.Merge();
-                    col_range.Font.Size = fontSizeTenTruong;
-                    col_range.Font.Name = fontName;
-                    col_range.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-                    col_range.Value2 = "Laser(mm)";
-                    col_range.ColumnWidth = 15;
-                    col_range.Interior.Color = System.Drawing.Color.FromArgb(0, 176, 240);
+                    // Mở tệp tin bản sao
+                    Excel.Workbook destinationWorkbook = excelApp.Workbooks.Open(destinationFilePath);
+                    Excel.Worksheet worksheet1 = destinationWorkbook.Worksheets[1] as Excel.Worksheet;
 
-                    //Tạo Ô Loại Thr
-                    col_range = ws.get_Range("C1", "C1");//Cột B dòng 2 và dòng 3
-                    col_range.Merge();
-                    col_range.Font.Size = fontSizeTenTruong;
-                    col_range.Font.Name = fontName;
-                    col_range.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-                    col_range.Value2 = "EUT(mm)";
-                    col_range.ColumnWidth = 20;
-                    col_range.Interior.Color = System.Drawing.Color.FromArgb(0, 176, 240);
-
-                    //Tạo Ô Tháng
-                    col_range = ws.get_Range("D1", "D1");//Cột B dòng 2 và dòng 3
-                    col_range.Merge();
-                    col_range.Font.Size = fontSizeTenTruong;
-                    col_range.Font.Name = fontName;
-                    col_range.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-                    col_range.Value2 = "T Material (°C)";
-                    col_range.ColumnWidth = 20;
-                    col_range.Interior.Color = System.Drawing.Color.FromArgb(0, 176, 240);
-
-                    //Tạo Ô Chỉ số đầu tháng 
-                    col_range = ws.get_Range("E1", "E1");//Cột C dòng 2 và dòng 3
-                    col_range.Merge();
-                    col_range.Font.Size = fontSizeTenTruong;
-                    col_range.Font.Name = fontName;
-                    col_range.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-                    col_range.ColumnWidth = 20;
-                    col_range.Value2 = "Tmt(°C)";
-                    col_range.Interior.Color = System.Drawing.Color.FromArgb(0, 176, 240);
-
-                    //Tạo Ô Thời gian của chỉ số đầu tháng 
-                    col_range = ws.get_Range("F1", "F1");//Cột D->E của  dòng 2 
-                    col_range.Merge();
-                    col_range.Font.Size = fontSizeTenTruong;
-                    col_range.Font.Name = fontName;
-                    col_range.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-                    col_range.ColumnWidth = 20;
-                    col_range.Value2 = "RHmt(%)";
-                    col_range.Interior.Color = System.Drawing.Color.FromArgb(0, 176, 240);
-
-                    //Tạo Ô chỉ số chỉ số của chỉ số đầu tháng
-                    col_range = ws.get_Range("G1", "G1");//Ô D3
-                    col_range.Font.Size = fontSizeTenTruong;
-                    col_range.Font.Name = fontName;
-                    col_range.Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-                    col_range.Value2 = "Pressure (hPa)";
-                    col_range.ColumnWidth = 20;
-                    col_range.Interior.Color = System.Drawing.Color.FromArgb(0, 176, 240);
-
-                    BorderAround(ws.get_Range("A1", "G" + (listData.Count + 1).ToString()));
-
-
-                    for (int i = 0; i < (listData.Count); i++)
                     {
-                        obj.Cells[i + 2, 1] = i + 1;
-                        obj.Cells[i + 2, 2] = listData[i].Laser.ToString("F6");
-                        obj.Cells[i + 2, 3] = listData[i].EUT.ToString("F4");
-                        obj.Cells[i + 2, 4] = listData[i].TMaterial.ToString("F2");
-                        obj.Cells[i + 2, 5] = listData[i].Tmt.ToString("F2");
-                        obj.Cells[i + 2, 6] = listData[i].RH.ToString("F2");
-                        obj.Cells[i + 2, 7] = listData[i].Pressure.ToString("F2");//;
+                        // thông tin DUT
+                        var cell = worksheet1.Range["I5"];
+                        cell.Value = dut.Name;
+                        cell = worksheet1.Range["E6"];
+                        cell.Value = dut.Model;
+                        cell = worksheet1.Range["R6"];
+                        cell.Value = dut.Serial;
+                        cell = worksheet1.Range["I7"];
+                        cell.Value = dut.Manufacturer;
+                        cell = worksheet1.Range["R8"];
+                        cell.Value = dut.Range;
+                        cell = worksheet1.Range["R9"];
+                        cell.Value = dut.Resolution;
+                        cell = worksheet1.Range["M10"];
+                        cell.Value = dut.Grade;
+                    }
+                    
+
+                    if(listData.Count>1)
+                    {
+                        for(int i=0;i<listData.Count-1;i++)
+                        {
+                            Excel.Range sourceRange = worksheet1.Range["AC5:BD5"];
+                            Excel.Range targetRange = worksheet1.Range[$"AC{6+i}:BD{6+i}"];
+                            sourceRange.Copy(targetRange);
+                        }    
                     }
 
-                    string startRange = "A1";
-                    string endRange = "A" + (listData.Count + 1).ToString();
-                    Excel.Range currentRange = (Excel.Range)ws.get_Range(startRange, endRange);
-                    currentRange.Style.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                    var cfg = LaserConfigService.ReadConfig();
 
-                    obj.ActiveWorkbook.SaveCopyAs(duongDan);
-                    obj.ActiveWorkbook.Saved = true;
+                    for (int i=0;i<listData.Count;i++)
+                    {
+                        int rowIndex = 5+i;
+                        // Chèn hình ảnh vào tệp tin bản sao
+                        var cell = worksheet1.Range[$"AC{rowIndex}"]; // bơm gió 0-9 bar
+                        cell.Value = i+1;
+                        cell = worksheet1.Range[$"AE{rowIndex}"]; // áp suất 0-9 bar
+                        cell.Value = listData[i].Laser.ToString($"F{cfg.LaserValueResolution}");
+
+                        cell = worksheet1.Range[$"AJ{rowIndex}"];
+                        cell.Value = listData[i].DUT.ToString($"F1");
+
+                        cell = worksheet1.Range[$"AO{rowIndex}"];
+                        cell.Value = listData[i].TMaterial.ToString($"F3");
+
+                        cell = worksheet1.Range[$"AS{rowIndex}"];
+                        cell.Value = listData[i].Tmt.ToString($"F1");
+
+                        cell = worksheet1.Range[$"AW{rowIndex}"];
+                        cell.Value = listData[i].RH.ToString($"F1");
+
+                        cell = worksheet1.Range[$"BA{rowIndex}"];
+                        cell.Value = listData[i].Pressure.ToString($"F1");
+                    }
+
+                    Excel.Worksheet worksheet3 = destinationWorkbook.Worksheets[3] as Excel.Worksheet;
+                    if (listData.Count > 1)
+                    {
+                        for (int i = 0; i < listData.Count - 1; i++)
+                        {
+                            Excel.Range sourceRange = worksheet3.Range["A4:AE4"];
+                            Excel.Range targetRange = worksheet3.Range[$"A{5 + i}:AE{5 + i}"];
+                            sourceRange.Copy(targetRange);
+                        }
+                    }
+
+                    // Lưu và đóng tệp tin bản sao
+                    destinationWorkbook.Save();
+                    destinationWorkbook.Close();
+
+                    // Đóng ứng dụng Excel
+                    excelApp.Quit();
                     if (this.OnExportComplete != null)
                     {
-                        this.OnExportComplete(this, duongDan);
+                        this.OnExportComplete(this, destinationFilePath);
                     }
                 }
                 catch (Exception ex)

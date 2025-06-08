@@ -346,7 +346,7 @@ namespace LaserCali
             // thêm vào bảng giá trị
             dataTableUc.AddValue(new Models.Views.LaserValueModel()
             {
-                EUT = eut,
+                DUT = eut,
                 Laser = laserUc.LaserValue,
                 Pressure = tempUc.PressureEnv,
                 Tmt = tempUc.TempEnv,
@@ -539,6 +539,7 @@ namespace LaserCali
         private void btnData_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {
             WindowLaserDataAdd dataAddWindow = new WindowLaserDataAdd();
+            dataAddWindow.Owner = this;
             dataAddWindow.OnSaveClick += DataAddWindow_OnSaveClick;
             dataAddWindow.ShowDialog();
         }
@@ -555,11 +556,12 @@ namespace LaserCali
             if (_saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 _waitForm.Show();
-                string duongDan = _saveFileDialog.FileName;
+                string path = _saveFileDialog.FileName;
                 ExcelExportService service = new ExcelExportService();
                 service.OnExceptionOccur += Service_OnExceptionOccur;
                 service.OnExportComplete += Service_OnExportComplete;
-                await service.Export(dataTableUc.GetDataTable(), duongDan);
+                var dut= LaserConfigService.ReadDutConfig();
+                await service.Export(dataTableUc.GetDataTable(), dut, path);
                 _waitForm.Close();
             }
         }
@@ -576,6 +578,7 @@ namespace LaserCali
         private void btnCommonSetting_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {
             WindowCommonSetting windowCommonSetting = new WindowCommonSetting();
+            windowCommonSetting.Owner = this;
             windowCommonSetting.OnSaveSuccess += WindowCommonSetting_OnSaveSuccess;
             windowCommonSetting.ShowDialog();
         }
