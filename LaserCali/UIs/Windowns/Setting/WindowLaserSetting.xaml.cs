@@ -277,7 +277,7 @@ namespace LaserCali.UIs.Windowns.Setting
                     picCamera.Source = ImageHandleDebug(e.Image,GetCamConfig());
                     if (picCameraResult.Source != null)
                         picCameraResult.Source = null;
-                    var result = ImageLaserService.ImageHandleResult(e.Image, GetCamConfig());
+                    var result = ImageLaserService.ImageHandleResult(e.Image, GetCamConfig(),true);
                     picCameraResult.Source = result.Image;
                     if (result.IsCalculatorSuccess)
                     {

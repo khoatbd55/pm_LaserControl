@@ -63,7 +63,7 @@
 
             </dxr:RibbonControl.PageHeaderItems>
 
-            <dxr:RibbonPage Caption="Tool" AllowRemoveFromParentDuringCustomization="True" >
+            <dxr:RibbonPage Caption="" AllowRemoveFromParentDuringCustomization="True" >
                 <!--<dxr:RibbonPage.CaptionTemplate>
                     <DataTemplate>
                     </DataTemplate>
@@ -154,7 +154,7 @@
                                             VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                                         </Border>
                                     </Grid>
-                                    
+
                                 </Grid>
                             </Grid>
                             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch"/>
@@ -175,7 +175,7 @@
                                     </Border>
                                 </Grid>
                                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,2,5,2">
-                                    <TextBlock x:Name="txtVersion" FontFamily="Times New Roman" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"><Run Text="V1.0.3"/></TextBlock>
+                                    <TextBlock x:Name="txtVersion" FontFamily="Times New Roman" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"><Run Text="V1.0.4"/></TextBlock>
                                     <!--<TextBlock x:Name="txtUpdateStatus" FontFamily="Times New Roman" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"><Run Text="..."/></TextBlock>-->
                                 </StackPanel>
                             </Grid>
@@ -183,8 +183,6 @@
                     </dxdo:LayoutPanel>
                 </dxdo:LayoutGroup>
             </dxdo:DockLayoutManager>
-
-
         </Grid>
     </Grid>
 

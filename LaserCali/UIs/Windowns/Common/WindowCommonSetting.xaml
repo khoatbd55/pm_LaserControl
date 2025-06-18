@@ -67,7 +67,7 @@
             <dx:DXTabItem Header="Parameters">
                 <Grid Background="#00000000" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="180" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -84,10 +84,16 @@
                         <dxe:SpinEdit Width="100" Margin="0,5,0,0" HorizontalAlignment="Left" x:Name="nudLaserValueResolution" Value="3" MinValue="1" MaxValue="6" Increment="1" Mask="D0"/>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="0">
-                        <TextBlock Style="{StaticResource labelTitle}" TextWrapping="Wrap" Text="T material Type:"/>
+                        <TextBlock Style="{StaticResource labelTitle}" TextWrapping="Wrap" Text="Temperature material type:"/>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="1">
                         <dxe:ComboBoxEdit HorizontalAlignment="Left" Width="150" Margin="0,5,0,0"  x:Name="cboTemperatureType" IsTextEditable="False" Height="30"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <TextBlock Style="{StaticResource labelTitle}" TextWrapping="Wrap" Text="Laser correction:"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <dxe:CheckEdit x:Name="chbxUseLaserFormula"/>
                     </Grid>
                 </Grid>
             </dx:DXTabItem>

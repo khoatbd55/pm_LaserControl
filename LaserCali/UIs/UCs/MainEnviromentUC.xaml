@@ -44,7 +44,7 @@
                             <ColumnDefinition Width="60"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Border Style="{StaticResource BorderEnv}">
-                            <TextBlock   x:Name="txtTemMaterial" Text="0.0" Style="{StaticResource ValueLabel}"></TextBlock>
+                            <TextBlock   x:Name="txtTemMaterial" Text="0.000" Style="{StaticResource ValueLabel}"></TextBlock>
                         </Border>
                         <Grid Grid.Row="0" Grid.Column="1">
                             <TextBlock Text="°C" 
@@ -57,7 +57,7 @@
             </GroupBox>
         </Grid>
         <Grid Grid.Row="1">
-            <GroupBox Header="Enviromential Conditons" Padding="0,0,0,0">
+            <GroupBox Header="Environmental Conditons" Padding="0,0,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>

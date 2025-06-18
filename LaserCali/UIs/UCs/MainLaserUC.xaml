@@ -23,7 +23,7 @@
             </Grid>
             <Grid Grid.Row="1" >
                 <ProgressBar  x:Name="prbBeam" Margin="1,1,1,1" Value="0"  />
-                <TextBlock x:Name="txtPrbBeam" FontSize="16" FontFamily="Times New Roman" Margin="5,0,0,0" Text="{Binding ElementName=prbBeam, Path=Value, StringFormat={}Signal Strength {0:0.0}}" 
+                <TextBlock x:Name="txtPrbBeam" FontSize="17" FontFamily="Times New Roman" Margin="5,0,0,0" Text="{Binding ElementName=prbBeam, Path=Value, StringFormat={}Signal {0:0.0}}" 
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Center" />
             </Grid>

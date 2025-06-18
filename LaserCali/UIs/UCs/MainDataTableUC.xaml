@@ -33,7 +33,7 @@
                     <dxe:TextEditSettings DisplayFormat="f1" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="TMaterial" Header="T Material (°C)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
+            <dxg:GridColumn FieldName="TMaterial" Header="Temperature material (°C)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
                     <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>

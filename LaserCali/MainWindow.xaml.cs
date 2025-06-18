@@ -179,6 +179,7 @@ namespace LaserCali
         {
             WaitForm_Init();
             var cfg = LaserConfigService.ReadConfig();
+            LaserConfig_Set(cfg);
             var commonCfg = LaserConfigService.ReadCommonConfig();
             _temperatureType =(ETemperatureType) commonCfg.TemperatureType;
             AppConst.HostApi = "http://" + cfg.MqttHost;
@@ -373,7 +374,19 @@ namespace LaserCali
         {
             Dispatcher.Invoke(new Action(() =>
             {
-                laserUc.LaserValue = arg.Pos;
+                var cfg = LaserConfig_Get();
+                if(cfg.UseLaserFumula)
+                {
+                    double T = tempUc.TempEnv;
+                    double RH=tempUc.HumiEnv;
+                    double P = tempUc.PressureEnv;
+                    laserUc.LaserValue = LaserExtention.LaserFormular(T,RH,P, arg.Pos);
+                }
+                else
+                {
+                    laserUc.LaserValue = arg.Pos;
+
+                }
                 laserUc.Beam = arg.Beam;
 
             }));
@@ -421,9 +434,9 @@ namespace LaserCali
                 if (++_countDelayImage >= cfg.CycleDisplay)
                 {
                     _countDelayImage = 0;
-                    var resultShort = ImageLaserService.ImageHandleResult(e.Image, CameraShortConfig_Get());
+                    var resultShort = ImageLaserService.ImageHandleResult(e.Image, CameraShortConfig_Get(),false);
                     resultShort.Image.Freeze();
-                    var resultLong = ImageLaserService.ImageHandleResult(e.Image, CameraLongConfig_Get());
+                    var resultLong = ImageLaserService.ImageHandleResult(e.Image, CameraLongConfig_Get(),false);
                     resultLong.Image.Freeze();
                     Dispatcher.BeginInvoke(new Action(() =>
                     {
@@ -487,7 +500,8 @@ namespace LaserCali
             {
                 _waitForm.Show();
                 await _environmentSerial.DisconnectAsync();
-                var cfg = LaserConfig_Get();
+                var cfg = LaserConfigService.ReadConfig();// LaserConfig_Get();
+                LaserConfig_Set(cfg);
                 _environmentSerial.Run(new Services.Environment.Models.ConfigOption.KNohmiSerialOptions()
                 {
                     PortName = cfg.EnviromentNameComport,

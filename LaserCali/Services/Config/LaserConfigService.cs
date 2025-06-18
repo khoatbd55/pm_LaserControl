@@ -175,7 +175,8 @@ namespace LaserCali.Services.Config
                 TempNameComport="COM3",
                 MqttHost="192.168.144.108",
                 LaserValueResolution=3,
-                TemperatureType = ETemperatureType.TwoPoint
+                TemperatureType = ETemperatureType.TwoPoint,
+                UseLaserFumula=false
             };
             try
             {

@@ -241,6 +241,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Extention\ImageExtentions.cs" />
+    <Compile Include="Extention\LaserExtention.cs" />
     <Compile Include="Extention\ObjectExtentions.cs" />
     <Compile Include="Models\Api\MyErrorResponse.cs" />
     <Compile Include="Models\Behavior\StepScrollBehavior.cs" />

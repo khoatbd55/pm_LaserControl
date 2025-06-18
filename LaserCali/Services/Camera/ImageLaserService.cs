@@ -18,7 +18,7 @@ namespace LaserCali.Services
 {
     public class ImageLaserService
     {
-        public static CameraHandle_Model ImageHandleResult(Bitmap bitmap, CameraConfig_Model cfg)
+        public static CameraHandle_Model ImageHandleResult(Bitmap bitmap, CameraConfig_Model cfg,bool isHorizontal)
         {
             CameraHandle_Model result = new CameraHandle_Model();
             var imageRaw = BitmapConverter.ToMat(bitmap);
@@ -102,6 +102,13 @@ namespace LaserCali.Services
             OpenCvSharp.Cv2.Line(image, new OpenCvSharp.Point(centerPoint.X, centerPoint.Y - image.Height / 2),
                                         new OpenCvSharp.Point(centerPoint.X, centerPoint.Y + image.Height / 2),
                                         OpenCvSharp.Scalar.Orange, 10, OpenCvSharp.LineTypes.AntiAlias);
+            if(isHorizontal)
+                OpenCvSharp.Cv2.Line(
+                            image,
+                            new OpenCvSharp.Point(centerPoint.X - image.Width / 2, centerPoint.Y),
+                            new OpenCvSharp.Point(centerPoint.X + image.Width / 2, centerPoint.Y),
+                            OpenCvSharp.Scalar.Orange, 10, OpenCvSharp.LineTypes.AntiAlias);
+
 
             if (minDistance >= 0)
             {
