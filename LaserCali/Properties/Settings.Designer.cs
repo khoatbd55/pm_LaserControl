@@ -26,12 +26,12 @@ namespace LaserCali.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LaserConfig2 {
+        public string LaserConfig3 {
             get {
-                return ((string)(this["LaserConfig2"]));
+                return ((string)(this["LaserConfig3"]));
             }
             set {
-                this["LaserConfig2"] = value;
+                this["LaserConfig3"] = value;
             }
         }
         

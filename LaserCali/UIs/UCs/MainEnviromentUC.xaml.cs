@@ -48,7 +48,7 @@ namespace LaserCali.UIs.UCs
                 if (_tempEnv != value)
                 {
                     _tempEnv = value;
-                    txtTempEnv.Text = _tempEnv.ToString("F1");
+                    txtTempEnv.Text = _tempEnv.ToString("F2");
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace LaserCali.UIs.UCs
                 if (_humiEnv != value)
                 {
                     _humiEnv = value;
-                    txtHumiEnv.Text = _humiEnv.ToString("F1");
+                    txtHumiEnv.Text = _humiEnv.ToString("F2");
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace LaserCali.UIs.UCs
                 if (_pressureEnv != value)
                 {
                     _pressureEnv = value;
-                    txtPressureEnv.Text = _pressureEnv.ToString("F1");
+                    txtPressureEnv.Text = _pressureEnv.ToString("F2");
                 }
             }
         }

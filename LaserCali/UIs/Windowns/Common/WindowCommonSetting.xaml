@@ -36,17 +36,17 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Grid.Column="0">
-                        <TextBlock Style="{StaticResource labelTitle}" Text="Display:"/>
+                    <Grid Grid.Row="0" Grid.Column="0" >
+                        <TextBlock Style="{StaticResource labelTitle}"  Text="Enviroment Host:" TextWrapping="Wrap"/>
                     </Grid>
                     <Grid Grid.Row="0" Grid.Column="1">
-                        <dxe:ComboBoxEdit x:Name="cboDisplay" Height="30" Margin="0,0,0,10"/>
+                        <dxe:TextEdit x:Name="txtEnvHost" Height="30" Margin="0,0,0,10" FontSize="14" EditValue="192.168.144.201" FontFamily="Times New Roman"  />
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="0">
-                        <TextBlock Style="{StaticResource labelTitle}" Text="Enviroment:"/>
+                        <TextBlock Style="{StaticResource labelTitle}" Text="Port:"/>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="1">
-                        <dxe:ComboBoxEdit x:Name="cboEnviroment" Height="30" Margin="0,0,0,10"/>
+                        <dxe:SpinEdit Increment="1" Value="502" Mask="D0" x:Name="nudEnvPort" Width="100" MinValue="0" MaxHeight="65535" Margin="0,0,0,10" HorizontalAlignment="Left"/>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0">
                         <TextBlock Style="{StaticResource labelTitle}" Text="Temperature:"/>

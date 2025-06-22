@@ -83,11 +83,11 @@
     <Reference Include="FontAwesome5.Net, Version=2.1.11.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
       <HintPath>..\packages\FontAwesome5.2.1.11\lib\net472\FontAwesome5.Net.dll</HintPath>
     </Reference>
-    <Reference Include="KModbus, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KModbus.1.0.5\lib\net471\KModbus.dll</HintPath>
+    <Reference Include="KModbus, Version=1.0.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\KModbus.1.0.14\lib\net472\KModbus.dll</HintPath>
     </Reference>
     <Reference Include="KUtilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KModbus.1.0.5\lib\net471\KUtilities.dll</HintPath>
+      <HintPath>..\packages\KUtilities.1.0.0\lib\net472\KUtilities.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro.IconPacks.Core, Version=5.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.Core.5.0.0\lib\net47\MahApps.Metro.IconPacks.Core.dll</HintPath>
@@ -280,6 +280,7 @@
     <Compile Include="Services\Laser\Events\KLaserResult_EventArgs.cs" />
     <Compile Include="Services\Laser\KLaserService.cs" />
     <Compile Include="Services\Laser\Options\KLaserOptions.cs" />
+    <Compile Include="Services\Realtime\KEnviromentTcpService.cs" />
     <Compile Include="Services\Realtime\MultiTempRealtimeService.cs" />
     <Compile Include="TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>

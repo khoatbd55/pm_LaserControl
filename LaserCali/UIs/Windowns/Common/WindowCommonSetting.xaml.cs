@@ -44,8 +44,8 @@ namespace LaserCali.UIs.Windowns.Common
             cboTemperatureType.Items.Add("Nearst");
             var cfg = LaserConfigService.ReadConfig();
             _laserConfig = cfg;
-            cboDisplay.Text = cfg.DisplayNameComport;
-            cboEnviroment.Text = cfg.EnviromentNameComport;
+            txtEnvHost.Text = cfg.EnvHost;
+            nudEnvPort.Value = cfg.EnvPort;
             cboTemperature.Text = cfg.TempNameComport;
             txtMqttHost.EditValue = cfg.MqttHost;
             nudLaserValueResolution.Value = cfg.LaserValueResolution;
@@ -94,9 +94,9 @@ namespace LaserCali.UIs.Windowns.Common
 
         private bool CheckComportExistCboComport(string item)
         {
-            for (int i = 0; i < cboDisplay.Items.Count; i++)
+            for (int i = 0; i < cboTemperature.Items.Count; i++)
             {
-                string nameItemCbo = cboDisplay.Items[i].ToString();
+                string nameItemCbo = cboTemperature.Items[i].ToString();
                 if (item == nameItemCbo)
                     return true;
             }
@@ -133,20 +133,16 @@ namespace LaserCali.UIs.Windowns.Common
                                 {
                                     this.Dispatcher.Invoke(() =>
                                     {
-                                        cboDisplay.Items.Add(arr_name_port[i]);
-                                        cboEnviroment.Items.Add(arr_name_port[i]);
                                         cboTemperature.Items.Add(arr_name_port[i]);
                                     });
                                 }
                             }
-                            for (int i = 0; i < cboDisplay.Items.Count; i++)
+                            for (int i = 0; i < cboTemperature.Items.Count; i++)
                             {
-                                if (!CheckItemsExistArrComport(arr_name_port, cboDisplay.Items[i].ToString()))
+                                if (!CheckItemsExistArrComport(arr_name_port, cboTemperature.Items[i].ToString()))
                                 {
                                     this.Dispatcher.Invoke(() =>
                                     {
-                                        cboDisplay.Items.RemoveAt(i);
-                                        cboEnviroment.Items.RemoveAt(i);
                                         cboTemperature.Items.RemoveAt(i);
                                     });
                                 }
@@ -154,8 +150,6 @@ namespace LaserCali.UIs.Windowns.Common
                         }
                         else
                         {
-                            cboDisplay.Items.Clear();
-                            cboEnviroment.Items.Clear();
                             cboTemperature.Items.Clear();
                         }
                     }));
@@ -176,8 +170,8 @@ namespace LaserCali.UIs.Windowns.Common
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             _laserConfig.MqttHost = txtMqttHost.EditValue.ToString();
-            _laserConfig.DisplayNameComport = cboDisplay.Text;
-            _laserConfig.EnviromentNameComport=cboEnviroment.Text;
+            _laserConfig.EnvHost = txtEnvHost.Text;
+            _laserConfig.EnvPort= (int)nudEnvPort.Value;
             _laserConfig.TempNameComport = cboTemperature.Text;
             _laserConfig.LaserValueResolution = (int)nudLaserValueResolution.Value;
             _laserConfig.UseLaserFumula = (bool)chbxUseLaserFormula.IsChecked;

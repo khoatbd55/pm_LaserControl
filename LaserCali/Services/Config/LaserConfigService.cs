@@ -37,7 +37,7 @@ namespace LaserCali.Services.Config
         public const int CYCLE_DISPLAY_MAX = 14;
         public const int CYCLE_DISPLAY_MIN = 1;
 
-        public const string KeyLaser = "LaserConfig2";
+        public const string KeyLaser = "LaserConfig3";
         public const string KeyCommon = "CommonConfig";
         public const string KeyDut = "Dut";
 
@@ -170,8 +170,8 @@ namespace LaserCali.Services.Config
                     DetectionDistance=5,
                     LenWidth=5.7
                 },
-                DisplayNameComport ="COM1",
-                EnviromentNameComport="COM2",
+                EnvHost ="192.168.144.201",
+                EnvPort=502,
                 TempNameComport="COM3",
                 MqttHost="192.168.144.108",
                 LaserValueResolution=3,

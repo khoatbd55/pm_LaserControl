@@ -35,7 +35,7 @@
             </dxg:GridColumn>
             <dxg:GridColumn FieldName="TMaterial" Header="Temperature material (°C)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
-                    <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
+                    <dxe:TextEditSettings DisplayFormat="f3" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
             <dxg:GridColumn FieldName="Tmt" Header="Te (°C)" HorizontalHeaderContentAlignment="Center" Width="*">

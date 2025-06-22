@@ -56,7 +56,7 @@ namespace LaserCali
         bool _firstClose = true;
         CancellationTokenSource _backgroundCancellTokenSource = new CancellationTokenSource();
         KCameraService _camera = new KCameraService();
-        KEnvironmentSerial _environmentSerial = new KEnvironmentSerial();
+        KEnviromentTcpService _environmentSerial = new KEnviromentTcpService();
         KLaserService _laser = new KLaserService();
         MultiTempRealtimeService _multiTempRealtime = new MultiTempRealtimeService();
         int _countDelayImage = 0;
@@ -199,14 +199,11 @@ namespace LaserCali
             _laser.OnConnections += _laser_OnConnections;
             _laser.Run(new Services.Laser.Options.KLaserOptions() { MsDelayGetResult = 1000 });
 
-            _environmentSerial = new KEnvironmentSerial();
+            _environmentSerial = new KEnviromentTcpService();
             _environmentSerial.OnExceptionAsync += _environmentSerial_OnExceptionAsync; ;
             _environmentSerial.OnConnectionAsync += _environmentSerial_OnConnectionAsync; ;
             _environmentSerial.OnRecievedMessageAsync += _environmentSerial_OnRecievedMessageAsync; ;
-            _environmentSerial.Run(new Services.Environment.Models.ConfigOption.KNohmiSerialOptions()
-            {
-                PortName = cfg.EnviromentNameComport,
-            });
+            _environmentSerial.Run(_laserCfg.EnvHost,_laserCfg.EnvPort);
             _taskTimer=Task.Run(()=>ProcessTaskTimer(_backgroundCancellTokenSource.Token),_backgroundCancellTokenSource.Token);
         }
         private string _realtimeText = "11:55:00 06-06-2025";
@@ -502,10 +499,7 @@ namespace LaserCali
                 await _environmentSerial.DisconnectAsync();
                 var cfg = LaserConfigService.ReadConfig();// LaserConfig_Get();
                 LaserConfig_Set(cfg);
-                _environmentSerial.Run(new Services.Environment.Models.ConfigOption.KNohmiSerialOptions()
-                {
-                    PortName = cfg.EnviromentNameComport,
-                });
+                _environmentSerial.Run(cfg.EnvHost,cfg.EnvPort);
                 laserUc.ValueResolution = cfg.LaserValueResolution;
                 _waitForm.Close();
             }
