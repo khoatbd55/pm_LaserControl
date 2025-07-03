@@ -74,7 +74,7 @@ namespace LaserCali.UIs.UCs
                 if (_pressureEnv != value)
                 {
                     _pressureEnv = value;
-                    txtPressureEnv.Text = _pressureEnv.ToString("F2");
+                    txtPressureEnv.Text = _pressureEnv.ToString("F3");
                 }
             }
         }

@@ -122,10 +122,12 @@ namespace LaserCali.Services.Realtime
                             EnqueueMessage(msg);
                         }
                     }
+                    await Task.Delay(200);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    WriteLog("exception send message nohmi", ex);
+                    //WriteLog("exception send message nohmi", ex);
+                    await Task.Delay(500);
                 }
             }
         }
