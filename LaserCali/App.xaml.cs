@@ -35,20 +35,41 @@ namespace LaserCali
         public App()
         {
             this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
 
-        void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+             // Process unhandled exception
+            string errorMessage = string.Format("TaskScheduler_UnobservedException: {0}-{1}", e.Exception.Message, e.Exception.InnerException.Message);
+            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            // Prevent default unhandled exception processing
+            e.SetObserved();
+        }
+
+        private void Current_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             // Process unhandled exception
-            string errorMessage = string.Format("An unhandled exception occurred: {0}-{1}", e.Exception.Message, e.Exception.InnerException.Message);
+            string errorMessage = string.Format("Current_DispatcherUnhandledException: {0}-{1}", e.Exception.Message, e.Exception.InnerException.Message);
             MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             // Prevent default unhandled exception processing
             e.Handled = true;
         }
 
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            // Xử lý ngoại lệ toàn cục ở đây
+            Exception ex = e.ExceptionObject as Exception;
+            MessageBox.Show("CurrentDomain_UnhandledException: " + ex?.Message);
+            // Không có e.Handled, app có thể vẫn bị crash nếu là fatal exception
+            
+        }
+
         static void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            string errorMessage = string.Format("An unhandled exception occurred: {0}-{1}", e.Exception.Message, e.Exception.InnerException.Message);
+            string errorMessage = string.Format("DispatcherUnhandled: {0}-{1}", e.Exception.Message, e.Exception.InnerException.Message);
             MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             // OR whatever you want like logging etc. MessageBox it's just example
             // for quick debugging etc.

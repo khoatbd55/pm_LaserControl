@@ -20,7 +20,7 @@ namespace LaserCali.Models.Config
         public string MqttHost { get; set; }
         public int LaserValueResolution { get; set; } = 3;
         public bool UseLaserFumula { get; set; } = false;
-        public ETemperatureType TemperatureType { get; set; } = ETemperatureType.TwoPoint;
+        public ETemperatureType TemperatureType { get; set; } = ETemperatureType.Avg;
         public CameraConfig_Model CameraShort { get; set; }
         public CameraConfig_Model CameraLong { get; set; }
     }

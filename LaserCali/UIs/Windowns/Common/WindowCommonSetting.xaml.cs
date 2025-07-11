@@ -1,9 +1,12 @@
 ﻿using LaserCali.Models.Config;
 using LaserCali.Models.Consts;
+using LaserCali.Models.Sensor;
+using LaserCali.Models.Views;
 using LaserCali.Services.Config;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -30,6 +33,7 @@ namespace LaserCali.UIs.Windowns.Common
         bool _firstClose = true;
         Task _task;
         LaserConfig_Model _laserConfig = new LaserConfig_Model();
+        ObservableCollection<SensorPos_ViewModel> _sensorPosTable = new ObservableCollection<SensorPos_ViewModel>();
         public WindowCommonSetting()
         {
             this.Loaded += WindowCommonSetting_Loaded;
@@ -39,9 +43,20 @@ namespace LaserCali.UIs.Windowns.Common
 
         private void WindowCommonSetting_Loaded(object sender, RoutedEventArgs e)
         {
+            var sensorPosCfg = LaserConfigService.ReadSensorPositionConfig();
+            _sensorPosTable.Clear();
+            foreach(var item  in sensorPosCfg)
+            {
+                _sensorPosTable.Add(new SensorPos_ViewModel()
+                {
+                    Index = item.Index,
+                    Position=item.Position,
+                });
+            } 
+            dgvSensorPos.ItemsSource = _sensorPosTable;
             cboTemperatureType.Items.Clear();
+            cboTemperatureType.Items.Add("Average");
             cboTemperatureType.Items.Add("2 Points");
-            cboTemperatureType.Items.Add("Nearst");
             var cfg = LaserConfigService.ReadConfig();
             _laserConfig = cfg;
             txtEnvHost.Text = cfg.EnvHost;
@@ -176,6 +191,12 @@ namespace LaserCali.UIs.Windowns.Common
             _laserConfig.LaserValueResolution = (int)nudLaserValueResolution.Value;
             _laserConfig.UseLaserFumula = (bool)chbxUseLaserFormula.IsChecked;
             LaserConfigService.SaveConfig(_laserConfig);
+            List<SensorPos_Model> sensorPosList = new List<SensorPos_Model>();
+            foreach(var item in _sensorPosTable)
+            {
+                sensorPosList.Add(new SensorPos_Model(item.Index, item.Position));
+            }
+            LaserConfigService.SaveSensorPositionConfig(sensorPosList);
             this.Close();
             if (OnSaveSuccess != null)
             {

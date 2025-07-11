@@ -9,6 +9,7 @@ using LaserCali.Models.Camera;
 using LaserCali.Models.Config;
 using LaserCali.Models.Consts;
 using LaserCali.Models.Enums;
+using LaserCali.Models.Sensor;
 using LaserCali.Services;
 using LaserCali.Services.Config;
 using LaserCali.Services.Environment;
@@ -67,7 +68,9 @@ namespace LaserCali
         object _syncCamLongCfg = new object();
         object _syncLaser = new object();
         Task _taskTimer;
-        ETemperatureType _temperatureType = ETemperatureType.TwoPoint;
+        ETemperatureType _temperatureType = ETemperatureType.Avg;
+        object _syncSensorPos = new object();
+        List<SensorPos_Model> _sensorPos = new List<SensorPos_Model>();
 
         ISplashScreenManagerService _waitForm;
         Notification.Wpf.NotificationManager _notification = new Notification.Wpf.NotificationManager();
@@ -126,6 +129,24 @@ namespace LaserCali
 
         }
 
+        
+
+        private void SensorPosition_Set(List<SensorPos_Model> list)
+        {
+            lock(_syncSensorPos)
+            {
+                _sensorPos = list.Clone();
+            }    
+        }
+
+        private List<SensorPos_Model> SensorPosition_Get()
+        {
+            lock (_syncSensorPos)
+            {
+                return _sensorPos.Clone();
+            }    
+        }
+
         private void LaserConfig_Set(LaserConfig_Model cfg)
         {
             lock (_syncLaser)
@@ -140,7 +161,6 @@ namespace LaserCali
             {
                 return _laserCfg.Clone();
             }
-
         }
 
         private void CameraLongConfig_Set(CameraConfig_Model cfg)
@@ -178,6 +198,8 @@ namespace LaserCali
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             WaitForm_Init();
+            var sensorPosCfg = LaserConfigService.ReadSensorPositionConfig();
+            SensorPosition_Set(sensorPosCfg);
             var cfg = LaserConfigService.ReadConfig();
             LaserConfig_Set(cfg);
             var commonCfg = LaserConfigService.ReadCommonConfig();
@@ -275,35 +297,54 @@ namespace LaserCali
                     // hiển thị theo cài đặt
                     double result = 0;
                     double laserValue = laserUc.LaserValue;// lấy giá trị hiện tại laser
-                    if (_temperatureType == ETemperatureType.TwoPoint)// hiển thị nhiệt độ trung bình
+                    var sensorPos = SensorPosition_Get();
+                    if (sensorPos.Count != args.Temps.Count)// phải đủ 16 kênh
+                        return;
+                    if (_temperatureType == ETemperatureType.Avg)// hiển thị nhiệt độ trung bình
                     {
                         laserValue = Math.Abs(laserValue);
-                        var posTempDouble = laserValue / 2;
-                        int posTempInt = (int)posTempDouble;
-                        int posTempNext= posTempInt + 1;
-                        if(posTempInt>= args.Temps.Count-1)
+                        int pos = 0;
+                        foreach(var item in sensorPos)
                         {
-                            posTempInt = args.Temps.Count - 1;
+                            if(laserValue>=item.Position)
+                            {
+                                pos = item.Index - 1;// do bắt đầu từ 1
+                            }    
                         }
-                        if (posTempNext >= args.Temps.Count-1)
+                        // tính toán tổng nhiệt độ
+                        double sumTemp = 0;
+                        for(int i = 0; i <= pos; i++)
                         {
-                            posTempNext = args.Temps.Count - 1;
+                            sumTemp += args.Temps[i].AvgTemp;
                         }
-                        result = ((args.Temps[posTempInt].AvgTemp + args.Temps[posTempNext].AvgTemp)/2);
+                        result = sumTemp/(pos+1);
                     }
-                    else// lấy nhiệt độ điểm gần nhất
+                    else// lấy 2 điểm nhiệt độ điểm gần nhất
                     {
-                        laserValue=Math.Abs(laserValue);
-                        var posTempDouble = laserValue / 2;
-                        int posTempInt= (int)posTempDouble;
-                        var phanDu=posTempDouble- posTempInt;
-                        if (phanDu > 0.5)// làm tròn lên
+                        bool isFinded = false;
+                        for(int i=0;i<sensorPos.Count-1;i++)
                         {
-                            posTempInt += 1;
+                            var currentPos= sensorPos[i];
+                            var nextPos= sensorPos[i+1];
+                            if (laserValue >= currentPos.Position && laserValue<nextPos.Position)
+                            {
+                                isFinded = true;
+                                // tìm thấy
+                                result = (args.Temps[i].AvgTemp + args.Temps[i + 1].AvgTemp)/2;
+                                break;
+                            }
                         }
-                        if(posTempInt>=args.Temps.Count-1)
-                            posTempInt= args.Temps.Count - 1;
-                        result = (double)args.Temps[posTempInt].AvgTemp;
+                        if (isFinded == false)
+                        {
+                            if (laserValue < sensorPos[0].Position)
+                            {
+                                result = args.Temps[0].AvgTemp;
+                            }
+                            else
+                            {
+                                result = args.Temps[args.Temps.Count - 1].AvgTemp;
+                            }
+                        }
 
                     }
                     tempUc.TempMaterial= result;
@@ -498,7 +539,9 @@ namespace LaserCali
                 _waitForm.Show();
                 await _environmentSerial.DisconnectAsync();
                 var cfg = LaserConfigService.ReadConfig();// LaserConfig_Get();
+                var sensorPosCfg = LaserConfigService.ReadSensorPositionConfig();
                 LaserConfig_Set(cfg);
+                SensorPosition_Set(sensorPosCfg);
                 _environmentSerial.Run(cfg.EnvHost,cfg.EnvPort);
                 laserUc.ValueResolution = cfg.LaserValueResolution;
                 _waitForm.Close();

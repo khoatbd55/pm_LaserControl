@@ -58,5 +58,17 @@ namespace LaserCali.Properties {
                 this["Dut"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SensorPos {
+            get {
+                return ((string)(this["SensorPos"]));
+            }
+            set {
+                this["SensorPos"] = value;
+            }
+        }
     }
 }

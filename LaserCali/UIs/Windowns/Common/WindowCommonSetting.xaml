@@ -1,5 +1,5 @@
 ﻿<dx:ThemedWindow x:Class="LaserCali.UIs.Windowns.Common.WindowCommonSetting" 
-    mc:Ignorable="d" Title="Common Setting" Height="373" Width="400"
+    mc:Ignorable="d" Title="Common Setting" Height="450" Width="400"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,7 +8,7 @@
     WindowStartupLocation="CenterScreen"
     xmlns:local="clr-namespace:LaserCali.UIs.Windowns.Common" 
     xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
-    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" Icon="/Images/logo.ico">
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" Icon="/Images/logo.ico">
     <dx:ThemedWindow.Resources>
         <Style TargetType="TextBlock" x:Key="labelTitle">
             <Setter Property="FontFamily" Value="Times New Roman"></Setter>
@@ -25,77 +25,119 @@
         <dx:DXTabControl Grid.Row="0" Padding="3,3,3,3" Margin="5,5,5,5">
             <dx:DXTabItem Header="Device" >
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Grid.Column="0" >
-                        <TextBlock Style="{StaticResource labelTitle}"  Text="Enviroment Host:" TextWrapping="Wrap"/>
+                   
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Grid.Column="0" >
+                            <TextBlock Style="{StaticResource labelTitle}"  Text="Enviroment Host:" TextWrapping="Wrap"/>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <dxe:TextEdit x:Name="txtEnvHost" Height="30" Margin="0,0,0,10" FontSize="14" EditValue="192.168.144.201" FontFamily="Times New Roman"  />
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="0">
+                            <TextBlock Style="{StaticResource labelTitle}" Text="Port:"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <dxe:SpinEdit Increment="1" Value="502" Mask="D0" x:Name="nudEnvPort" Width="100" MinValue="0" MaxHeight="65535" Margin="0,0,0,10" HorizontalAlignment="Left"/>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="0">
+                            <TextBlock Style="{StaticResource labelTitle}" Text="Temperature:"/>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="1">
+                            <dxe:ComboBoxEdit x:Name="cboTemperature" Height="30" Margin="0,0,0,10"/>
+                        </Grid>
+                        <Grid Grid.Row="3" Grid.Column="0">
+                            <TextBlock Style="{StaticResource labelTitle}" TextWrapping="Wrap" Text="Temperature Host:"/>
+                        </Grid>
+                        <Grid Grid.Row="3" Grid.Column="1">
+                            <dxe:TextEdit x:Name="txtMqttHost" FontSize="14" EditValue="192.168.144.108" FontFamily="Times New Roman"  />
+                        </Grid>
+
+
                     </Grid>
-                    <Grid Grid.Row="0" Grid.Column="1">
-                        <dxe:TextEdit x:Name="txtEnvHost" Height="30" Margin="0,0,0,10" FontSize="14" EditValue="192.168.144.201" FontFamily="Times New Roman"  />
-                    </Grid>
-                    <Grid Grid.Row="1" Grid.Column="0">
-                        <TextBlock Style="{StaticResource labelTitle}" Text="Port:"/>
-                    </Grid>
-                    <Grid Grid.Row="1" Grid.Column="1">
-                        <dxe:SpinEdit Increment="1" Value="502" Mask="D0" x:Name="nudEnvPort" Width="100" MinValue="0" MaxHeight="65535" Margin="0,0,0,10" HorizontalAlignment="Left"/>
-                    </Grid>
-                    <Grid Grid.Row="2" Grid.Column="0">
-                        <TextBlock Style="{StaticResource labelTitle}" Text="Temperature:"/>
-                    </Grid>
-                    <Grid Grid.Row="2" Grid.Column="1">
-                        <dxe:ComboBoxEdit x:Name="cboTemperature" Height="30" Margin="0,0,0,10"/>
-                    </Grid>
-                    <Grid Grid.Row="3" Grid.Column="0">
-                        <TextBlock Style="{StaticResource labelTitle}" TextWrapping="Wrap" Text="Temperature Host:"/>
-                    </Grid>
-                    <Grid Grid.Row="3" Grid.Column="1">
-                        <dxe:TextEdit x:Name="txtMqttHost" FontSize="14" EditValue="192.168.144.108" FontFamily="Times New Roman"  />
-                    </Grid>
-                    
-                    
                 </Grid>
+                
             </dx:DXTabItem>
             <dx:DXTabItem Header="Parameters">
-                <Grid Background="#00000000" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="35" />
-                        <RowDefinition Height="35" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                <Grid>
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Grid.Column="0">
-                        <TextBlock Style="{StaticResource labelTitle}" TextWrapping="Wrap" Text="Laser resolution:"/>
+                    <Grid Background="#00000000" Grid.Row="0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35" />
+                            <RowDefinition Height="35" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Grid.Column="0">
+                            <TextBlock Style="{StaticResource labelTitle}" TextWrapping="Wrap" Text="Laser resolution:"/>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <dxe:SpinEdit Width="100" Margin="0,5,0,0" HorizontalAlignment="Left" x:Name="nudLaserValueResolution" Value="3" MinValue="1" MaxValue="6" Increment="1" Mask="D0"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="0">
+                            <TextBlock Style="{StaticResource labelTitle}" TextWrapping="Wrap" Text="Temperature material type:"/>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <dxe:ComboBoxEdit HorizontalAlignment="Left" Width="150" Margin="0,5,0,0"  x:Name="cboTemperatureType" IsTextEditable="False" Height="30"/>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="0">
+                            <TextBlock Style="{StaticResource labelTitle}" TextWrapping="Wrap" Text="Laser correction:"/>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="1">
+                            <dxe:CheckEdit x:Name="chbxUseLaserFormula"/>
+                        </Grid>
                     </Grid>
-                    <Grid Grid.Row="0" Grid.Column="1">
-                        <dxe:SpinEdit Width="100" Margin="0,5,0,0" HorizontalAlignment="Left" x:Name="nudLaserValueResolution" Value="3" MinValue="1" MaxValue="6" Increment="1" Mask="D0"/>
-                    </Grid>
-                    <Grid Grid.Row="1" Grid.Column="0">
-                        <TextBlock Style="{StaticResource labelTitle}" TextWrapping="Wrap" Text="Temperature material type:"/>
-                    </Grid>
-                    <Grid Grid.Row="1" Grid.Column="1">
-                        <dxe:ComboBoxEdit HorizontalAlignment="Left" Width="150" Margin="0,5,0,0"  x:Name="cboTemperatureType" IsTextEditable="False" Height="30"/>
-                    </Grid>
-                    <Grid Grid.Row="2" Grid.Column="0">
-                        <TextBlock Style="{StaticResource labelTitle}" TextWrapping="Wrap" Text="Laser correction:"/>
-                    </Grid>
-                    <Grid Grid.Row="2" Grid.Column="1">
-                        <dxe:CheckEdit x:Name="chbxUseLaserFormula"/>
-                    </Grid>
+                    <dxg:GridControl Grid.Row="1"
+                        MaxWidth="500"
+                        FontSize="14"
+                        x:Name="dgvSensorPos"
+                        Margin="0,5,5,5" 
+                        FontFamily="Times New Roman" >  
+                        <dxg:GridColumn FieldName="Index" ReadOnly="True" Header="Sensor" Width="100"/>
+                        <dxg:GridColumn FieldName="Position" Width="*" Header="Position (mm)" />
+                        <dxg:GridControl.View>
+                            <dxg:TableView  x:Name="tableViewCell"
+                                ShowGroupPanel="False"
+                                AllowEditing="True" 
+                                AllowBestFit="True"
+                                AllowPerPixelScrolling="True"
+                                BestFitMode="VisibleRows"
+                                ShowAutoFilterRow="False"
+                                ShowFixedTotalSummary="False"
+                                ShowCheckBoxSelectorColumn="False"
+                                ShowCheckBoxSelectorInGroupRow="False"
+                                ShowSelectionRectangle="True"
+                                EnableImmediatePosting="True" 
+                                ShowCriteriaInAutoFilterRow="False" >       
+                                <dxg:TableView.RowStyle>
+                                    <Style TargetType="dxg:RowControl">
+                                        <Setter Property="Height" Value="35"></Setter>
+                                    </Style>
+                                </dxg:TableView.RowStyle>
+                            </dxg:TableView>
+
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
                 </Grid>
+                
+                
             </dx:DXTabItem>
         </dx:DXTabControl>
 

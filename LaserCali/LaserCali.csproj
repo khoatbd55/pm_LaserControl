@@ -252,9 +252,11 @@
     <Compile Include="Models\Consts\AppConst.cs" />
     <Compile Include="Models\Enums\ETemperatureType.cs" />
     <Compile Include="Models\Export\DutInformation_Model.cs" />
+    <Compile Include="Models\Sensor\SensorPos_Model.cs" />
     <Compile Include="Models\Temperatures\Sensor\MultiTempStatus_Model.cs" />
     <Compile Include="Models\Temperatures\Sensor\TemperatureValue_Model.cs" />
     <Compile Include="Models\Views\LaserValueModel.cs" />
+    <Compile Include="Models\Views\SensorPos_ViewModel.cs" />
     <Compile Include="Services\Api\ApiBase_Service.cs" />
     <Compile Include="Services\Api\HistoryMultiTempApiService.cs" />
     <Compile Include="Services\Config\LaserConfigService.cs" />
