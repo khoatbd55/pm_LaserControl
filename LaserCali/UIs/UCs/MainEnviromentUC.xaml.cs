@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.DirectX.Common.Direct2D;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,19 @@ namespace LaserCali.UIs.UCs
         double _humiEnv = 0;
         double _pressureEnv = 0;
         double _tMaterial = 0;
+        double _deltaT = 0;
+
+        public double DeltaT
+        {
+            get => _deltaT;
+            set
+            {
+                if (_deltaT != value)
+                {
+                    _deltaT = value;
+                }
+            }
+        }
 
         public double TempMaterial
         {

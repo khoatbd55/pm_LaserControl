@@ -6,13 +6,18 @@
              xmlns:local="clr-namespace:LaserCali.UIs.UCs"
              mc:Ignorable="d" 
              d:DesignHeight="280" d:DesignWidth="400" Background="White">
-    <GroupBox Header="Laser" Padding="0,0,0,0">
+    <GroupBox x:Name="groupLaser" Opacity="0.4"  Header="Laser" FontFamily="Times New Roman" FontSize="16" Padding="0,0,0,0">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="40"></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" x:Name="gridLostConnection">
+                <TextBlock Margin="20,0,0,0" HorizontalAlignment="Center"
+                    FontFamily="Times New Roman" FontSize="20" Foreground="Red">Lost Connection</TextBlock>
+            </Grid>
+            <Grid Grid.Row="1">
                 <StackPanel Margin="0,10,10,10" VerticalAlignment="Center">
                     <!--<TextBlock FontSize="20" Margin="5,5,5,15">Laser (mm)</TextBlock>-->
                     <TextBlock x:Name="txtLaserValue" TextAlignment="Center" FontSize="60" FontWeight="Bold"
@@ -21,7 +26,7 @@
                 </StackPanel>
                 
             </Grid>
-            <Grid Grid.Row="1" >
+            <Grid Grid.Row="2" >
                 <ProgressBar  x:Name="prbBeam" Margin="1,1,1,1" Value="0"  />
                 <TextBlock x:Name="txtPrbBeam" FontSize="17" FontFamily="Times New Roman" Margin="5,0,0,0" Text="{Binding ElementName=prbBeam, Path=Value, StringFormat={}Signal {0:0.0}}" 
                        HorizontalAlignment="Left" 

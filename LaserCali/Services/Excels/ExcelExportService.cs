@@ -90,13 +90,16 @@ namespace LaserCali.Services.Excels
                         cell.Value = listData[i].TMaterial.ToString($"F3");
 
                         cell = worksheet1.Range[$"AS{rowIndex}"];
-                        cell.Value = listData[i].Tmt.ToString($"F1");
+                        cell.Value = listData[i].Tmt.ToString($"F2");
 
                         cell = worksheet1.Range[$"AW{rowIndex}"];
-                        cell.Value = listData[i].RH.ToString($"F1");
+                        cell.Value = listData[i].RH.ToString($"F2");
 
                         cell = worksheet1.Range[$"BA{rowIndex}"];
-                        cell.Value = listData[i].Pressure.ToString($"F1");
+                        cell.Value = listData[i].Pressure.ToString($"F3");
+
+                        cell = worksheet1.Range[$"BE{rowIndex}"];
+                        cell.Value = listData[i].DeltaT.ToString($"F3");
                     }
 
                     Excel.Worksheet worksheet3 = destinationWorkbook.Worksheets[3] as Excel.Worksheet;

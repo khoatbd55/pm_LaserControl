@@ -175,7 +175,7 @@
                                     </Border>
                                 </Grid>
                                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,2,5,2">
-                                    <TextBlock x:Name="txtVersion" FontFamily="Times New Roman" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"><Run Text="V1.0.10"/></TextBlock>
+                                    <TextBlock x:Name="txtVersion" FontFamily="Times New Roman" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"><Run Text="V1.0.11"/></TextBlock>
                                     <!--<TextBlock x:Name="txtUpdateStatus" FontFamily="Times New Roman" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"><Run Text="..."/></TextBlock>-->
                                 </StackPanel>
                             </Grid>

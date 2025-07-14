@@ -297,6 +297,7 @@ namespace LaserCali
                     // hiển thị theo cài đặt
                     double result = 0;
                     double laserValue = laserUc.LaserValue;// lấy giá trị hiện tại laser
+                    double deltaT = 0;
                     var sensorPos = SensorPosition_Get();
                     if (sensorPos.Count != args.Temps.Count)// phải đủ 16 kênh
                         return;
@@ -313,10 +314,13 @@ namespace LaserCali
                         }
                         // tính toán tổng nhiệt độ
                         double sumTemp = 0;
+                        List<double> listTemp = new List<double>();
                         for(int i = 0; i <= pos; i++)
                         {
                             sumTemp += args.Temps[i].AvgTemp;
+                            listTemp.Add(args.Temps[i].AvgTemp);
                         }
+                        deltaT = listTemp.Max() - listTemp.Min();
                         result = sumTemp/(pos+1);
                     }
                     else// lấy 2 điểm nhiệt độ điểm gần nhất
@@ -331,11 +335,13 @@ namespace LaserCali
                                 isFinded = true;
                                 // tìm thấy
                                 result = (args.Temps[i].AvgTemp + args.Temps[i + 1].AvgTemp)/2;
+                                deltaT = Math.Abs(args.Temps[i].AvgTemp - args.Temps[i + 1].AvgTemp);
                                 break;
                             }
                         }
                         if (isFinded == false)
                         {
+                            deltaT = 0;
                             if (laserValue < sensorPos[0].Position)
                             {
                                 result = args.Temps[0].AvgTemp;
@@ -347,6 +353,7 @@ namespace LaserCali
                         }
 
                     }
+                    tempUc.DeltaT= deltaT;
                     tempUc.TempMaterial= result;
                 }
                 catch (Exception)
@@ -392,6 +399,7 @@ namespace LaserCali
                 Tmt = tempUc.TempEnv,
                 RH = tempUc.HumiEnv,
                 TMaterial = tempUc.TempMaterial,
+                DeltaT=tempUc.DeltaT,
             });
         }
 
@@ -400,6 +408,7 @@ namespace LaserCali
             Dispatcher.Invoke(new Action(() =>
             {
                 iconConnections.IsLaserConnected = arg.IsConnected;
+                laserUc.IsConnected=arg.IsConnected;
             }));
         }
 

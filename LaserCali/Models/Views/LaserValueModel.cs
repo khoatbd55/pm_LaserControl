@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.Drawing.Printing.Internal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,6 +17,20 @@ namespace LaserCali.Models.Views
         private double tmt;
         private double rh;
         private double pressure;
+        private double deltaT;
+
+        public double DeltaT
+        {
+            get => deltaT;
+            set
+            {
+                if (deltaT != value)
+                {
+                    deltaT = value;
+                    OnPropertyChanged(nameof(DeltaT));
+                }
+            }
+        }
         public int Id
         {
             get => id;

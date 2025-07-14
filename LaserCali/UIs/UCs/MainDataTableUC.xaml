@@ -38,6 +38,11 @@
                     <dxe:TextEditSettings DisplayFormat="f3" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
+            <dxg:GridColumn FieldName="DeltaT" Header="∆T (°C)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings DisplayFormat="f3" HorizontalContentAlignment="Center"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
             <dxg:GridColumn FieldName="Tmt" Header="Te (°C)" HorizontalHeaderContentAlignment="Center" Width="*">
                 <dxg:GridColumn.EditSettings>
                     <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
@@ -53,6 +58,7 @@
                     <dxe:TextEditSettings DisplayFormat="f3" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
+            
             <dxg:GridColumn Header="Operations" Width="150" HorizontalHeaderContentAlignment="Center" >
                 <dxg:GridColumn.CellTemplate>
                     <DataTemplate>
