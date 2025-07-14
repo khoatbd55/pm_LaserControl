@@ -2,6 +2,7 @@
 using LaserCali.Models.Consts;
 using LaserCali.Models.Enums;
 using LaserCali.Models.Export;
+using LaserCali.Models.Sensor;
 using LaserCali.Properties;
 using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
@@ -40,6 +41,7 @@ namespace LaserCali.Services.Config
         public const string KeyLaser = "LaserConfig3";
         public const string KeyCommon = "CommonConfig";
         public const string KeyDut = "Dut";
+        public const string KeySensorPos = "SensorPos";
 
         private static void SaveData(string key, string value)
         {
@@ -51,6 +53,42 @@ namespace LaserCali.Services.Config
         {
             string result = Settings.Default[key].ToString();
             return result;
+        }
+
+        public static List<SensorPos_Model> ReadSensorPositionConfig()
+        {
+            var str = GetData(KeySensorPos);
+            if (str != null && str != "")
+            {
+                return JsonConvert.DeserializeObject<List<SensorPos_Model>>(str);
+            }
+            else
+            {
+                return new List<SensorPos_Model>()
+                {
+                    new SensorPos_Model(1,200),
+                    new SensorPos_Model(2,2200),
+                    new SensorPos_Model(3,4250),
+                    new SensorPos_Model(4,6300),
+                    new SensorPos_Model(5,8350),
+                    new SensorPos_Model(6,10300),
+                    new SensorPos_Model(7,12300),
+                    new SensorPos_Model(8,14350),
+                    new SensorPos_Model(9,16400),
+                    new SensorPos_Model(10,18450),
+                    new SensorPos_Model(11,20450),
+                    new SensorPos_Model(12,22500),
+                    new SensorPos_Model(13,24550),
+                    new SensorPos_Model(14,26600),
+                    new SensorPos_Model(15,28650),
+                    new SensorPos_Model(16,30000)
+                };
+            }
+        }
+
+        public static void SaveSensorPositionConfig(List<SensorPos_Model> list)
+        {
+            SaveData(KeySensorPos, JsonConvert.SerializeObject(list));
         }
 
         public static DutInformation_Model ReadDutConfig()
@@ -175,7 +213,7 @@ namespace LaserCali.Services.Config
                 TempNameComport="COM3",
                 MqttHost="192.168.144.108",
                 LaserValueResolution=3,
-                TemperatureType = ETemperatureType.TwoPoint,
+                TemperatureType = ETemperatureType.Avg,
                 UseLaserFumula=false
             };
             try

@@ -26,6 +26,31 @@ namespace LaserCali.UIs.UCs
         public double _beam = 0;
 
         public int _valueResolution = 3;
+        public bool _isConnected = false;
+
+        public bool IsConnected
+        {
+            get => _isConnected;
+            set
+            {
+                if (_isConnected != value)
+                {
+                    _isConnected = value;
+                    if(_isConnected)
+                    {
+                        groupLaser.Opacity = 1;
+                        gridLostConnection.Visibility= Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        groupLaser.Opacity = 0.4;
+                        gridLostConnection.Visibility = Visibility.Visible;
+                        Beam = 0;
+                    }
+                }
+            }
+        }
+
         public int ValueResolution
         {
             get => _valueResolution;
