@@ -118,7 +118,7 @@ namespace LaserCali.Services.Realtime
                         var pressure = ConvertVariable.BytesToFloat(b_reg, ref idx);
                         if (msg != null)
                         {
-                            msg.Pressure= pressure * 0.75; // quy đổi sang mmHg
+                            msg.Pressure= pressure; // quy đổi sang mmHg
                             EnqueueMessage(msg);
                         }
                     }

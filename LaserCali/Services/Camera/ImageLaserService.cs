@@ -59,8 +59,6 @@ namespace LaserCali.Services
             // Tính toán tâm của ảnh
             OpenCvSharp.Point centerPoint = new OpenCvSharp.Point(image.Width / 2, image.Height / 2);
 
-            
-
             //return;
             // Find contours
             OpenCvSharp.Point[][] contours;
