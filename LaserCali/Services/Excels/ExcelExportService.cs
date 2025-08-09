@@ -66,8 +66,8 @@ namespace LaserCali.Services.Excels
                     {
                         for(int i=0;i<listData.Count-1;i++)
                         {
-                            Excel.Range sourceRange = worksheet1.Range["AC5:BD5"];
-                            Excel.Range targetRange = worksheet1.Range[$"AC{6+i}:BD{6+i}"];
+                            Excel.Range sourceRange = worksheet1.Range["AC5:BF5"];
+                            Excel.Range targetRange = worksheet1.Range[$"AC{6+i}:BF{6+i}"];
                             sourceRange.Copy(targetRange);
                         }    
                     }
@@ -89,17 +89,19 @@ namespace LaserCali.Services.Excels
                         cell = worksheet1.Range[$"AO{rowIndex}"];
                         cell.Value = listData[i].TMaterial.ToString($"F3");
 
-                        cell = worksheet1.Range[$"AS{rowIndex}"];
+                        cell = worksheet1.Range[$"AR{rowIndex}"];
+                        cell.Value = listData[i].DeltaT.ToString($"F3");
+
+                        cell = worksheet1.Range[$"AU{rowIndex}"];
                         cell.Value = listData[i].Tmt.ToString($"F2");
 
-                        cell = worksheet1.Range[$"AW{rowIndex}"];
+                        cell = worksheet1.Range[$"AY{rowIndex}"];
                         cell.Value = listData[i].RH.ToString($"F2");
 
-                        cell = worksheet1.Range[$"BA{rowIndex}"];
+                        cell = worksheet1.Range[$"BC{rowIndex}"];
                         cell.Value = listData[i].Pressure.ToString($"F3");
 
-                        cell = worksheet1.Range[$"BE{rowIndex}"];
-                        cell.Value = listData[i].DeltaT.ToString($"F3");
+                       
                     }
 
                     Excel.Worksheet worksheet3 = destinationWorkbook.Worksheets[3] as Excel.Worksheet;

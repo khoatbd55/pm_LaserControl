@@ -92,7 +92,7 @@
                             Style="{StaticResource UnitLabel}"></TextBlock>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1">
-                        <TextBlock Text="mmHg" 
+                        <TextBlock Text="hPa" 
                             Style="{StaticResource UnitLabel}"></TextBlock>
                     </Grid>
                 </Grid>

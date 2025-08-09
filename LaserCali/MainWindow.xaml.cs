@@ -426,7 +426,7 @@ namespace LaserCali
                 {
                     double T = tempUc.TempEnv;
                     double RH=tempUc.HumiEnv;
-                    double P = tempUc.PressureEnv;
+                    double P = tempUc.PressureEnv*0.75;
                     laserUc.LaserValue = LaserExtention.LaserFormular(T,RH,P, arg.Pos);
                 }
                 else

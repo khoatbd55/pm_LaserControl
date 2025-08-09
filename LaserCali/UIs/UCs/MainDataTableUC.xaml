@@ -53,7 +53,7 @@
                     <dxe:TextEditSettings DisplayFormat="f2" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Pressure" Header="Pe (mmHg)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
+            <dxg:GridColumn FieldName="Pressure" Header="Pe (hPa)" HorizontalHeaderContentAlignment="Center" Width="*" ReadOnly="True">
                 <dxg:GridColumn.EditSettings>
                     <dxe:TextEditSettings DisplayFormat="f3" HorizontalContentAlignment="Center"/>
                 </dxg:GridColumn.EditSettings>
